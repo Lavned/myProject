@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical">
+        <include layout="@layout/top_layout" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f6f6f6"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:textColor="@color/black33"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="~1212￥"
+            android:textColor="@color/black_1"
+            android:textSize="12sp"
+            android:layout_marginTop="7dp"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            ></LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最近交易记录"
+            android:textSize="13sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black_1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/line"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailLv"></ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/add_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#77B3F9"
+            android:layout_height="49dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="充值"
+                android:drawablePadding="5dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:drawableLeft="@mipmap/qb_icon6_2x"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/get_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/main"
+            android:layout_height="49dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:layout_height="49dp"
+                android:text="提现"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:drawableLeft="@mipmap/qb_icon7_2x"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

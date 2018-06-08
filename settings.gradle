@@ -1,0 +1,2 @@
+include ':biliApp', ':slidelibrary'
+project(':biliApp').projectDir = new File('biliApp')

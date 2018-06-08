@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/top_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textColor="@color/black_6"
+            android:textSize="13sp"
+            android:layout_marginHorizontal="10dp"
+            android:hint="请详细描述您的问题或建议，我们将及时跟进处理（如有其他问题请添加相关截图）"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:id="@+id/feed_edit"/>
+
+        <TextView
+            android:id="@+id/select_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/yj_icon_2x"
+            android:text="上传照片"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:textColor="@color/black_1"
+            android:textSize="11sp"
+            android:layout_margin="20dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f6f6f6"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:textColor="@color/black_6"
+        android:textSize="13sp"
+        android:hint="手机号/邮箱/QQ号 选填一项，方便我们联系您"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/feed_num"/>
+
+
+    <Button
+        android:id="@+id/feed_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@mipmap/forgetpwd"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@drawable/textclick"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="提示：凡参与“意见反馈”的用户，一经采纳将会获得1w-20wbncn奖励"
+        android:textSize="12sp"/>
+
+</LinearLayout>

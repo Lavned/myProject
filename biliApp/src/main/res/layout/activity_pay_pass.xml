@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_layout" />
+
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="11sp"
+        android:textColor="@color/black_1"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="请输入原支付密码"/>
+
+    <io.ionic.ylnewapp.custom.PwdEditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:inputType="number"
+        android:id="@+id/pay_edit"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:enabled="true"
+        android:focusable="true"
+        android:maxLength="6" />
+
+    <io.ionic.ylnewapp.custom.PwdEditText
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:inputType="number"
+        android:id="@+id/pay_edit2"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:enabled="true"
+        android:focusable="true"
+        android:maxLength="6" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        android:textColor="@drawable/textclick"
+        android:background="@mipmap/forgetpwd"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"/>
+
+</LinearLayout>

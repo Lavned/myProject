@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_layout" />
+
+
+    <TextView
+        android:id="@+id/edit_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingVertical="10dp"
+        android:text="修改登录密码"
+        android:textColor="@color/black_6"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/edit_pay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingVertical="10dp"
+        android:text="修改支付密码"
+        android:textColor="@color/black_6"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/forget_pay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingVertical="10dp"
+        android:text="忘记支付密码"
+        android:textColor="@color/black_6"
+        android:textSize="13sp" />
+
+
+</LinearLayout>

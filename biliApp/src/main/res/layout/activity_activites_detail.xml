@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/top_layout" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/hd_bg"
+                android:orientation="vertical">
+
+                <io.ionic.ylnewapp.custom.MyListView
+                    android:id="@+id/lvs"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="238dp"
+                    android:scrollbars="none"
+                    android:divider="@null">
+                </io.ionic.ylnewapp.custom.MyListView>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="33dp"
+                    android:background="@drawable/hd3"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="10dp"
+                    android:text="▪ 活动详情 ▪"
+                    android:textColor="#b06135"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/hd1"
+                    android:lineSpacingExtra="5dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="30dp"
+                    android:text="凡是马六甲比特币的注册用户都可以领取，投资
+金额满1000就可以使用的588+988体验红包。用
+户可以在“我的账户”-我的优惠券中查看并使用。"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/hd3"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="10dp"
+                    android:text="▪ 使用步骤 ▪"
+                    android:textColor="#b06135"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/jt"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="1.我的活动"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#b06135"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="2.理财页面"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#b06135"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="3.支付方式"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#b06135"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="点击领取优惠券"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="20dp"
+                        android:textColor="@color/white"
+                        android:padding="10dp"
+                        android:background="@drawable/hd2"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="选择7月标/新月标"
+                        android:layout_marginHorizontal="20dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/hd2"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="选择优惠券支付"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/hd2"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

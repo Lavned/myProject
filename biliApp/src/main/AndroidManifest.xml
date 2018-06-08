@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.ionic.ylnewapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <application
+        android:name=".BLApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/app_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="io.ionic.ylnewapp.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".view.activity.GuideActivity"
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".view.activity.FriendActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.BitAssesActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.MustSeeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.RewardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.ProductsDIGActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.ChangeHeadActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.ForgetGetCodeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.ForgetResetPwdActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.ProductAIActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.DIGDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.OtherDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.PaySuccessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.UerTificationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.NotificationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.NotifiCaDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.BankListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.BankAddActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.CouponsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.NumberCurrencyWalltActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.RechargeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.WithdrawalActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.OrderActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.WalletAdAddActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.WalletManaActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.SelectCurrency"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.CurrencySearchActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.WalletDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.WalletAddMoneyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.WalletOutMoneyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.MyWaletAddressActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.wallet.WalletOptionSuccessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.WithdrawSuccessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.SelectBankActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.SettingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.PassManaActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.PayPassActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.MyActiActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.ActivitesDetail"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.ActivitesDetail2"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.activity.mine.EdLoginPassActivity" />
+        <activity android:name=".view.activity.mine.ForgetPayActivity" />
+        <activity android:name=".view.activity.mine.FeedbackActivity" />
+        <activity android:name=".view.activity.mine.MoneyDetailActivity"></activity>
+    </application>
+
+</manifest>

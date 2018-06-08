@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.jeremyfeinstein.slidingmenu.lib.SlidingMenu
+
+        android:id="@+id/slidingmenulayout"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的钱包地址"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/black_1"
+            android:background="#f6f6f6"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/wallet_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="钱包地址管理"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/black_1"
+            android:drawableLeft="@mipmap/qb_icon3_2x"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="60dp"
+            android:textSize="15sp"/>
+
+    </com.jeremyfeinstein.slidingmenu.lib.SlidingMenu>
+
+</LinearLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+
+    <ImageView
+        android:id="@+id/img_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="8dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/dig_p1_2x" />
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BTC  /"
+            android:layout_centerVertical="true"
+            android:textSize="13sp"
+            android:textColor="@color/black33"/>
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/textView2"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OKFX"
+            android:textSize="13sp"
+            android:textColor="@color/black33"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView"
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignStart="@+id/textName"
+            android:text="成交量 /"
+            android:textColor="@color/black_1"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 成交额 "
+            android:textSize="12sp"
+            android:textColor="@color/black_1"
+            android:id="@+id/textView" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_marginRight="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black33"
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:text="$787"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_1"
+                android:layout_gravity="center"
+                android:textSize="10sp"
+                android:text="~=1900"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnmoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/red10bg"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:text="10909" />
+
+    </LinearLayout>
+
+</RelativeLayout>

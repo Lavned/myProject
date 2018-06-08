@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="时间"
+            android:textSize="13sp"
+            android:layout_marginHorizontal="20dp"
+            android:textColor="@color/black_1"/>
+        <TextView
+            android:id="@+id/detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="类型"
+            android:textSize="13sp"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/black_1"/>
+        <TextView
+            android:id="@+id/detail_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="交易金额"
+            android:textSize="13sp"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/black_1"/>
+    </RelativeLayout>
+
+    <ListView
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/detail_lv"></ListView>
+
+</LinearLayout>

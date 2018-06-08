@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    android:background="#F6F6F6"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/item_bg"
+                android:scaleType="fitXY"/>
+
+            <ImageView
+                android:id="@+id/back_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="30dp"
+                android:src="@mipmap/whiteback" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="数字资产第一季"/>
+
+            <TextView
+                android:id="@+id/detail_syl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:text="今日年华收益率"/>
+
+            <TextView
+                android:id="@+id/detail_bfb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.8%"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:paddingTop="40dp"
+                android:layout_below="@id/detail_syl"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/detail_bfb">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分散投资"
+                    android:layout_margin="5dp"
+                    android:background="@mipmap/whiterecycle"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="10sp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="优质项目"
+                    android:background="@mipmap/whiterecycle"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:textSize="10sp"
+                    android:paddingVertical="2dp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分散投资"
+                    android:background="@mipmap/whiterecycle"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="10sp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp">
+
+
+            <LinearLayout
+                android:id="@+id/bdata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="投资币种:"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/black33"/>
+                <TextView
+                    android:id="@+id/Betf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ETH"
+                    android:background="@mipmap/selectmain"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:textSize="10sp"
+                    android:paddingVertical="2dp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/main"/>
+                <TextView
+                    android:id="@+id/Bbtc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BTC"
+                    android:background="@mipmap/selectblack"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="10sp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/black33"/>
+                <TextView
+                    android:id="@+id/bbncn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BNCN"
+                    android:background="@mipmap/selectblack"
+                    android:gravity="center"
+                    android:paddingHorizontal="3dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="10sp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/black33"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tb_number"
+                android:layout_below="@id/bdata"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="投资币额:"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:paddingVertical="2dp"
+                android:textSize="13sp"
+                android:textColor="@color/black33"/>
+
+
+            <EditText
+                android:id="@+id/b_number"
+                android:layout_marginLeft="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请输入数量(最小投资币额为1)"
+                android:textSize="10sp"
+                android:maxLines="1"
+                android:inputType="number"
+                android:paddingVertical="3dp"
+                android:drawablePadding="3dp"
+                android:background="@null"
+                android:drawableBottom="@mipmap/text_line"
+                android:layout_below="@id/bdata"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="36dp">
+
+            <TextView
+                android:id="@+id/tab_btc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/main"
+                android:text="BTC交易对"/>
+
+            <TextView
+                android:id="@+id/tab_eth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black_1"
+                android:text="ETH交易对"/>
+
+            <View
+                android:id="@+id/tabbtc_line"
+                android:layout_alignParentBottom="true"
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="15dp"
+                android:background="@color/main"/>
+            <View
+                android:visibility="gone"
+                android:id="@+id/tabeth_line"
+                android:layout_alignParentBottom="true"
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="110dp"
+                android:background="@color/main"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="209dp">
+            <io.ionic.ylnewapp.custom.MyListView
+                android:id="@+id/lv_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></io.ionic.ylnewapp.custom.MyListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
+            <lecho.lib.hellocharts.view.LineChartView
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main"
+                    android:text="基金概况"
+                    android:layout_margin="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@mipmap/dig_label1_2x"/>
+
+
+                <LinearLayout
+                    android:id="@+id/showtext1"
+                    android:layout_below="@id/label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="0dp">
+
+                    <include layout="@layout/two_toggle_text1"></include>
+                </LinearLayout>
+
+
+
+                <ImageView
+                    android:id="@+id/toggle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/dig_down_2x"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="1dp"
+                    android:padding="15dp"/>
+
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main"
+                    android:text="产品参数"
+                    android:layout_margin="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@mipmap/dig_label2_2x"/>
+
+                <LinearLayout
+                    android:id="@+id/showtext2"
+                    android:visibility="gone"
+                    android:layout_below="@id/label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="0dp">
+
+                    <include layout="@layout/two_toggle_view"></include>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/toggle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/dig_down_2x"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="1dp"
+                    android:padding="15dp"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main"
+                    android:text="风控保障"
+                    android:layout_margin="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@mipmap/dig_label3_2x"/>
+
+                <LinearLayout
+                    android:id="@+id/showtext3"
+                    android:visibility="gone"
+                    android:layout_below="@id/label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="0dp">
+
+                    <include layout="@layout/two_toggle_view2"></include>
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/toggle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/dig_down_2x"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="1dp"
+                    android:padding="15dp"/>
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/sumbit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即投资"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:background="@mipmap/main_button"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

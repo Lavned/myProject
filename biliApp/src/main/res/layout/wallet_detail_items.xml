@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/icon_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/qb_icon4_2x"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/num_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0x90...909x9x"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/black_6"/>
+        <TextView
+            android:id="@+id/date_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018/12/19"
+            android:textSize="10sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black_1"/>
+
+        <TextView
+            android:id="@+id/rgnum_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+10909"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/blues"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
