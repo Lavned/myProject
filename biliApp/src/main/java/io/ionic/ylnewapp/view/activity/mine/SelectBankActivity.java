@@ -34,7 +34,7 @@ import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class SelectBankActivity extends BaseActivity {
 
-    @ViewInject(R.id.SelectCurrency_lv)
+    @ViewInject(R.id.noti_lv)
     ListView lv;
     @ViewInject(R.id.tv_title)
     TextView title;
@@ -61,7 +61,7 @@ public class SelectBankActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_currency);
+        setContentView(R.layout.activity_notification);
         init();
     }
 
