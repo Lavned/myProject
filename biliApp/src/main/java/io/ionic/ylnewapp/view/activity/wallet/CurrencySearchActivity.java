@@ -143,7 +143,7 @@ public class CurrencySearchActivity extends BaseActivity {
 
 
     private void loadList() {
-        mBuilder.setTitle("加载中...").show();
+        mBuilder.setTitle("请稍候...").show();
         OkGo.<String>get(Constants.URL_BASE + "coins/coin?key=" + keyName )
                 .tag(this)
                 .cacheTime(1000)
@@ -176,7 +176,6 @@ public class CurrencySearchActivity extends BaseActivity {
     }
 
     /**
-     * 提交信息
      */
     private void addCoin(String index) {
         mBuilder.setTitle("加载中...").show();
