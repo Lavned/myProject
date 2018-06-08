@@ -175,8 +175,6 @@ public class CurrencySearchActivity extends BaseActivity {
                 });
     }
 
-    /**
-     */
     private void addCoin(String index) {
         mBuilder.setTitle("加载中...").show();
         OkGo.<String>put(Constants.URL_BASE + "coins/coin" )
