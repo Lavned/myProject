@@ -24,10 +24,11 @@
         android:background="@color/white"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/wl_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="我的地址"
-            android:drawableLeft="@mipmap/qb_icon8_2x"
+            android:drawableLeft="@mipmap/qb_head_icon2_2x"
             android:drawablePadding="5dp"
             android:paddingVertical="15dp"
             android:layout_centerVertical="true"
@@ -108,13 +109,16 @@
             android:paddingLeft="15dp"/>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/title_icon"
+            android:layout_width="20dp"
             android:src="@mipmap/qb_logo1_2x"
             android:layout_alignParentRight="true"
             android:layout_marginRight="50dp"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
+            android:scaleType="fitXY"
+            android:layout_height="20dp" />
         <TextView
+            android:id="@+id/title_name"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:text="ETH"
@@ -141,6 +145,7 @@
             android:textSize="13sp"
             android:paddingLeft="15dp"/>
         <EditText
+            android:id="@+id/pay_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"

@@ -97,7 +97,7 @@ public class SelectBankActivity extends BaseActivity {
                         Gson gson = new Gson();
                         BankBean javaBean =gson.fromJson(response.body().toString(),BankBean.class);
                         if(javaBean.getStatus() != 200){
-                            ActivityUtils.toLogin(SelectBankActivity.this);
+                            ActivityUtils.toLogin(SelectBankActivity.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!= null){
@@ -137,6 +137,7 @@ public class SelectBankActivity extends BaseActivity {
                 PreferenceUtils.setPrefString(mContext,"bank",mData.get(position).getCount());
                 PreferenceUtils.setPrefString(mContext,"name",mData.get(position).getName());
                 PreferenceUtils.setPrefString(mContext,"icon",mData.get(position).getUrl().get(3));
+                PreferenceUtils.setPrefString(mContext,"id",mData.get(position).getId());
                 finish();
             }
         });

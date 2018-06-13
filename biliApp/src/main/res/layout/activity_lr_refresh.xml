@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <io.ionic.ylnewapp.custom.CuInteractiveKLineLayout
+        android:id="@+id/myLineLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:increasingStyle="stroke">
+
+
+
+        <ImageView
+            android:id="@+id/Left_Loading_Image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            app:srcCompat="@drawable/vector_drawable_loading2_anim"/>
+
+        <ImageView
+            android:id="@+id/Right_Loading_Image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="gone"
+            app:srcCompat="@drawable/vector_drawable_loading2_anim"/>
+    </io.ionic.ylnewapp.custom.CuInteractiveKLineLayout>
+
+</LinearLayout>

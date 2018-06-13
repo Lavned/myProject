@@ -86,7 +86,7 @@ public class BankListActivity extends BaseActivity {
                         Gson gson = new Gson();
                         BankBean javaBean =gson.fromJson(response.body().toString(),BankBean.class);
                         if(javaBean.getStatus() == 401){
-                            ActivityUtils.toLogin(BankListActivity.this);
+                            ActivityUtils.toLogin(BankListActivity.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!= null){

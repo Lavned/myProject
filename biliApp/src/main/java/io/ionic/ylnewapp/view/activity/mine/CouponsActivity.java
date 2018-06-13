@@ -122,8 +122,8 @@ public class CouponsActivity extends BaseActivity  implements  SwipeRefreshLayou
                         cou_empty.setVisibility(View.GONE);
                         Gson gson = new Gson();
                         CoumonsBean javaBean =gson.fromJson(response.body().toString(),CoumonsBean.class);
-                        if(javaBean.getStatus() != 200){
-                            ActivityUtils.toLogin(CouponsActivity.this);
+                        if(javaBean.getStatus() == 401){
+                            ActivityUtils.toLogin(CouponsActivity.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!=null) {

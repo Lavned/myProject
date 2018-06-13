@@ -6,9 +6,9 @@ package io.ionic.ylnewapp.constants;
 
 public class Constants {
 
-//    public final static String URL_BASE = "http://www.yifan886.com/";
+    public final static String URL_BASE = "http://www.yifan886.com/";
 
-    public final static String URL_BASE = "http://192.168.123.208:5000/";
+//    public final static String URL_BASE = "http://192.168.123.208:5000/";
 
 
 }

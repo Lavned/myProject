@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/it_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="fitXY"
             android:src="@mipmap/qb_logo9_2x"
             android:layout_marginVertical="5dp"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="65dp"
+            android:layout_marginLeft="55dp"
             android:textColor="@color/black33"
             android:text="BNCN"/>
 

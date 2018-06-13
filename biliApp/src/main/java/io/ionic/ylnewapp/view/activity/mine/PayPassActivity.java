@@ -113,7 +113,7 @@ public class PayPassActivity extends BaseActivity {
                             if(jsonObject.getInt("status") == 200)
                                 finish();
                             else if(jsonObject.getInt("status") == 401)
-                                ActivityUtils.toLogin(PayPassActivity.this);
+                                ActivityUtils.toLogin(PayPassActivity.this,0);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -60,14 +60,12 @@ public class WithdrawalActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.sub_btn:
-                tofinish();
-//                if(checkEmpty()){
-//                    if(Double.parseDouble(ActivityUtils.getView(paymoney)) > Double.parseDouble(money) ){
-//                        T.showShort("充值金额不能大于剩余金额");
-//                    }else
-//                        T.showShort("ok");
-////                     loadData();
-//                }
+                if(checkEmpty()){
+                    if(Double.parseDouble(ActivityUtils.getView(paymoney)) > Double.parseDouble(money) ){
+                        T.showShort("充值金额不能大于剩余金额");
+                    }else
+                        loadData();
+                }
                 break;
             case R.id.my_address :
                 startActivity(new Intent(mContext,SelectBankActivity.class));
@@ -103,29 +101,30 @@ public class WithdrawalActivity extends BaseActivity {
     /**
      * 数据复制
      */
+    String toFinshName ,bankCard;
     private void initData() {
+        bankCard = PreferenceUtils.getPrefString(mContext,"bank","");
         String names = PreferenceUtils.getPrefString(mContext,"name","");
         if(!names.equals("")){
             Glide.with(mContext)
                     .load(PreferenceUtils.getPrefString(mContext,"icon",""))
                     .into(icon);
-
             name.setText(PreferenceUtils.getPrefString(mContext,"name",""));
             int j = names.indexOf("银行");
-            text1.setText(names.substring(0,j+2));
+            toFinshName = names.substring(0,j+2);
+            text1.setText(toFinshName);
             text2.setText(names.substring(j+2,name.length()));
             text3.setText(PreferenceUtils.getPrefString(mContext,"bank",""));
+
         }
 
     }
 
     //关闭界面
     private void tofinish() {
-        PreferenceUtils.setPrefString(mContext,"name","");
-        PreferenceUtils.setPrefString(mContext,"icon","");
-        PreferenceUtils.setPrefString(mContext,"bank","");
         Intent intent =new Intent(mContext,WithdrawSuccessActivity.class);
-        intent.putExtra("card","3333");
+        intent.putExtra("card",toFinshName
+                +"("+bankCard.substring(bankCard.length()-4,bankCard.length()) +")");
         startActivity(intent);
         finish();
     }
@@ -134,11 +133,12 @@ public class WithdrawalActivity extends BaseActivity {
      * 提交
      */
     private void loadData() {
+        mBuilder.setTitle("提现中...").show();
         OkGo.<String>put(Constants.URL_BASE + "user/cash")//
                 .tag(this)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .params("payAmount", ActivityUtils.getView(paymoney))
-                .params("bankId", ActivityUtils.getView(paymoney))
+                .params("bankId", PreferenceUtils.getPrefString(mContext,"id",""))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -146,8 +146,10 @@ public class WithdrawalActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             T.showShort(jsonObject.getString("msg"));
+                            if(jsonObject.getString("status").equals("401"))
+                                ActivityUtils.toLogin(WithdrawalActivity.this,0);
                             if(jsonObject.getString("status").equals("200")){
-                                finish();
+                                tofinish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -159,6 +161,12 @@ public class WithdrawalActivity extends BaseActivity {
                         super.onError(response);
                         T.showNetworkError(mContext);
                     }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mBuilder.dismiss();
+                    }
                 });
     }
 
@@ -168,10 +176,22 @@ public class WithdrawalActivity extends BaseActivity {
      */
     public boolean checkEmpty() {
         if (ActivityUtils.getView(paymoney).equals("")) {
-            T.showShort("不可为空");
+            T.showShort("充值金额不可为空");
+            return false;
+        }
+        if (text1.getText().toString().trim().equals("")) {
+            T.showShort("请选择银行卡");
             return false;
         }
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceUtils.setPrefString(mContext,"name","");
+        PreferenceUtils.setPrefString(mContext,"icon","");
+        PreferenceUtils.setPrefString(mContext,"bank","");
+        PreferenceUtils.setPrefString(mContext,"id","");
+    }
 }

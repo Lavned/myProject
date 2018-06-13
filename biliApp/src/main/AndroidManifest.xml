@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
-        android:name=".BLApplication"
+        android:name=".view.main.BLApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -30,7 +30,7 @@
         </provider>
 
         <activity
-            android:name=".view.activity.GuideActivity"
+            android:name=".view.activity.user.GuideActivity"
             android:theme="@style/SplashTheme"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -40,50 +40,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.main.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".view.activity.LoginActivity"
+            android:name=".view.activity.user.LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".view.activity.FriendActivity"
+            android:name=".view.activity.mine.FriendActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.BitAssesActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.MustSeeActivity"
+            android:name=".view.activity.mine.AboutActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.RewardActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.ProductsDIGActivity"
+            android:name=".view.activity.product.ProductsDIGActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.ChangeHeadActivity"
+            android:name=".view.activity.user.ChangeHeadActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.ForgetGetCodeActivity"
+            android:name=".view.activity.user.ForgetGetCodeActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.ForgetResetPwdActivity"
+            android:name=".view.activity.user.ForgetResetPwdActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.ProductAIActivity"
+            android:name=".view.activity.product.ProductAIActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.DIGDetailActivity"
+            android:name=".view.activity.product.DIGDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.OtherDetailActivity"
+            android:name=".view.activity.product.OtherDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.PaySuccessActivity"
+            android:name=".view.activity.product.PaySuccessActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.mine.UerTificationActivity"
@@ -104,16 +104,10 @@
             android:name=".view.activity.mine.CouponsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.NumberCurrencyWalltActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".view.activity.mine.RechargeActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.mine.WithdrawalActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".view.activity.mine.OrderActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.wallet.WalletAdAddActivity"
@@ -166,10 +160,21 @@
         <activity
             android:name=".view.activity.mine.ActivitesDetail2"
             android:launchMode="singleTop" />
-        <activity android:name=".view.activity.mine.EdLoginPassActivity" />
-        <activity android:name=".view.activity.mine.ForgetPayActivity" />
-        <activity android:name=".view.activity.mine.FeedbackActivity" />
-        <activity android:name=".view.activity.mine.MoneyDetailActivity"></activity>
+        <activity android:name=".view.activity.mine.EdLoginPassActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.activity.mine.ForgetPayActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.activity.mine.FeedbackActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.activity.mine.MoneyDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".view.activity.kline.Enable_Refresh_Activity"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.activity.mine.CountMoneyActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.activity.mine.MyOrderActivity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

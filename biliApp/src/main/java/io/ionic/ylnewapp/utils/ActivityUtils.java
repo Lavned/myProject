@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.util.ConvertUtils;
-import io.ionic.ylnewapp.view.activity.LoginActivity;
+import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 
 /**
  * Created by mogojing on 2018/5/18/0018.
@@ -29,12 +29,14 @@ public class ActivityUtils {
         }
     }
 
-    public static void toLogin(final Activity mContext){
+    public static void toLogin(final Activity mContext,final int status){
         T.showShort("登录状态已失效，请重新登录");
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                Intent  intent = new Intent(mContext, LoginActivity.class);
+                intent.putExtra("status",status);//0是Activity,1是fragment
+                mContext.startActivity(intent);
                 mContext.finish();
 
             }

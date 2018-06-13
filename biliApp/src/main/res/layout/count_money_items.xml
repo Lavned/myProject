@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="30dp">
+
+        <ImageView
+            android:id="@+id/money_icon"
+            android:layout_width="5dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:background="#c8e9a0"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:id="@+id/money_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/black33"
+            android:text="数字货币"/>
+
+        <TextView
+            android:id="@+id/money_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/black33"
+            android:text="1000"/>
+
+    </RelativeLayout>
+</RelativeLayout>

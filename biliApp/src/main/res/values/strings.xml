@@ -10,13 +10,13 @@
     <string name="app_exit_prompt">再按一次退出程序</string>
 
 
-    <string name="span_1"><Data><![CDATA[1.邀请好友购买OTC套利新月产品，即可获得其首次入金额<font color="#8951EC">0.2%</font>的奖励]]></Data></string>
-    <string name="span_2"><Data><![CDATA[2.邀请好友购买OTC套利一季产品，即可获得其首次入金额<font color="#8951EC">0.9%</font>的奖励]]></Data></string>
-    <string name="span_3"><Data><![CDATA[3.邀请好友购买OTC套利半年产品，即可获得其首次入金额<font color="#8951EC">0.2%</font>的奖励]]></Data></string>
-    <string name="span_4"><Data><![CDATA[4.邀请好友购买OTC套利全年产品，即可获得其首次入金额<font color="#8951EC">1.9%</font>的奖励]]></Data></string>
-    <string name="span_5"><Data><![CDATA[5.邀请好友购买ETF基金产品，即可获得其首次入金额<font color="#8951EC">4%</font>的奖励]]></Data></string>
-    <string name="span_6"><Data><![CDATA[6.邀请好友购买ICO，即可获得其首次入金额<font color="#8951EC">9%</font>的奖励]]></Data></string>
-    <string name="span_7"><Data><![CDATA[例如：5月1日-5月30日邀请金为8000元,在6月20日可以进行8000元的提取,提取到账时间为1-3个工作日,提取位置在<font color="#8951EC">我的账号-->好友推荐</font>]]></Data></string>
+    <string name="span_1"><Data><![CDATA[1.邀请好友购买OTC套利新月产品，即可获得其首次入金额<font color="#ff0000">0.2%</font>的奖励]]></Data></string>
+    <string name="span_2"><Data><![CDATA[2.邀请好友购买OTC套利一季产品，即可获得其首次入金额<font color="#ff0000">0.9%</font>的奖励]]></Data></string>
+    <string name="span_3"><Data><![CDATA[3.邀请好友购买OTC套利半年产品，即可获得其首次入金额<font color="#ff0000">0.2%</font>的奖励]]></Data></string>
+    <string name="span_4"><Data><![CDATA[4.邀请好友购买OTC套利全年产品，即可获得其首次入金额<font color="#ff0000">1.9%</font>的奖励]]></Data></string>
+    <string name="span_5"><Data><![CDATA[5.邀请好友购买ETF基金产品，即可获得其首次入金额<font color="#ff0000">4%</font>的奖励]]></Data></string>
+    <string name="span_6"><Data><![CDATA[6.邀请好友购买ICO，即可获得其首次入金额<font color="#ff0000">9%</font>的奖励]]></Data></string>
+    <string name="span_7"><Data><![CDATA[例如：5月1日-5月30日邀请金为8000元,在6月20日可以进行8000元的提取,提取到账时间为1-3个工作日,提取位置在<font color="#ff0000">我的账号-->好友推荐</font>]]></Data></string>
 
     <string name="seetext">马六甲比特基金是知名数字货币投资机构,旗下拥有数字货币定期理财产品、区块链私募投资和数字货币交易所等业务。我们将提供安全有保障的投资项目,您可以将闲散资金就给有融资需求的优质企业,轻松赚取远高于银行定期存款的收益。</string>
 

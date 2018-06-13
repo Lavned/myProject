@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/qb_icon3_2x"
         android:scaleType="fitXY"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:padding="10dp"
         tools:layout_editor_absoluteX="354dp"

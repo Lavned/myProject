@@ -13,6 +13,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.bean.BalanceBean;
+import io.ionic.ylnewapp.bean.response.BankBean;
+import io.ionic.ylnewapp.utils.DateUtil;
 
 /**
  * Created by mogojing on 2018/6/7/0007.
@@ -21,9 +24,9 @@ import io.ionic.ylnewapp.R;
 public class MoneyDetailAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private List<String> mData;
+    private List<BalanceBean.BodyBean> mData;
 
-    public MoneyDetailAdapter(Context mContext, List<String> mData) {
+    public MoneyDetailAdapter(Context mContext, List<BalanceBean.BodyBean> mData) {
         mLayoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mData = mData;
@@ -47,6 +50,7 @@ public class MoneyDetailAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
+        BalanceBean.BodyBean item = mData.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mLayoutInflater.inflate(R.layout.money_detail_items, parent, false);
@@ -58,7 +62,16 @@ public class MoneyDetailAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        holder.tv_text.setText(mData.get(position).getTitle());
+        holder.tv_no.setText(item.getCountn()+"");
+        holder.tv_name.setText(item.getContent());
+        holder.tv_date.setText(DateUtil.getYmdforJson(item.getCreated()));
+        if(item.getCountn().contains("-")){
+            holder.tv_no.setTextColor(mContext.getColor(R.color.red));
+        }else {
+            holder.tv_no.setTextColor(mContext.getColor(R.color.green));
+        }
+
+
         return convertView;
     }
 

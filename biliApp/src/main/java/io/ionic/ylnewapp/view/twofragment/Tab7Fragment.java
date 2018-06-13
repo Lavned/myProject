@@ -184,6 +184,9 @@ public class Tab7Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
 
     @Override
     public void onRefresh() {
+        if (refreshLayout==null){
+            return;
+        }
         refreshLayout.setRefreshing(true);
         initData("");
         if(adapter!=null){

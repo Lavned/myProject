@@ -5,13 +5,13 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="rectangle">
 
-            <solid android:color="#7ED321" />
+            <solid android:color="#7ed321" />
             <!-- 描边 -->
             <stroke android:width="0.5dp"
-                android:color="#7ED321"
+                android:color="#7ed321"
                 />
             <!-- 圆角 -->
-            <cornsers
+            <corners
                 android:radius="5dp"
                 />
         </shape>

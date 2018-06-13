@@ -97,7 +97,7 @@ public class WalletAdAddActivity extends BaseActivity {
                                     finish();
                                     break;
                                 case 401:
-                                    ActivityUtils.toLogin(WalletAdAddActivity.this);
+                                    ActivityUtils.toLogin(WalletAdAddActivity.this,0);
                                     break;
                             }
                         } catch (JSONException e) {

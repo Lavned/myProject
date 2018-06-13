@@ -10,7 +10,7 @@ import com.jiangyy.easydialog.LoadingDialog;
 
 import org.xutils.x;
 
-import io.ionic.ylnewapp.BLApplication;
+import io.ionic.ylnewapp.view.main.BLApplication;
 import io.ionic.ylnewapp.R;
 
 /**

@@ -121,7 +121,7 @@ public class WalletManaActivity extends BaseActivity {
                         Gson gson = new Gson();
                         AddressBean javaBean =gson.fromJson(response.body().toString(),AddressBean.class);
                         if (javaBean.getStatus() == 401)
-                                ActivityUtils.toLogin(WalletManaActivity.this);
+                                ActivityUtils.toLogin(WalletManaActivity.this,0);
                         mData = javaBean.getBody();
                         if(mData!= null){
                             initView(mData);

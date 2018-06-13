@@ -29,6 +29,7 @@ public  class DateUtil {
         return dateNowStr;
     }
 
+
     public static String getDateAndTimeLazy() {
         Date date = new Date();//取时间
         Calendar calendar = Calendar.getInstance();

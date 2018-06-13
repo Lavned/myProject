@@ -32,6 +32,7 @@ public class WalletDetailActivity extends BaseActivity {
 
     List<String> mData;
     WalletDetailAdapater adapater;
+    String titleName ="";
 
     public static WalletDetailActivity activity;
 
@@ -74,16 +75,24 @@ public class WalletDetailActivity extends BaseActivity {
      */
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
-        title.setText("BBB");
+        Intent intent = getIntent();
+        titleName = intent.getStringExtra("name");
+        int i = titleName.indexOf("|");
+        title.setText(titleName.substring(0,i));
     }
 
     void startActivityTo(int type){
+        Intent intent;
         switch (type){
             case 1:
-                startActivity(new Intent(mContext,WalletAddMoneyActivity.class));
+                intent = new Intent(mContext,WalletAddMoneyActivity.class);
+                intent.putExtra("name",titleName);
+                startActivity(intent);
                 break;
             case 2:
-                startActivity(new Intent(mContext,WalletOutMoneyActivity.class));
+                intent = new Intent(mContext,WalletOutMoneyActivity.class);
+                intent.putExtra("name",titleName);
+                startActivity(intent);
                 break;
         }
     }

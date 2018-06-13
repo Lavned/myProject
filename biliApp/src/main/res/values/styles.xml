@@ -20,13 +20,13 @@
 
     <style name="friendText">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/friebd_text</item>
         <item name="android:layout_margin">8dp</item>
     </style>
 
     <style name="yqText">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/friebd_text</item>
         <item name="android:layout_margin">4dp</item>
     </style>
 

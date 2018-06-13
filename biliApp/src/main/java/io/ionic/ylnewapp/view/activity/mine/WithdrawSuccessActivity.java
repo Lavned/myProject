@@ -20,6 +20,8 @@ public class WithdrawSuccessActivity extends BaseActivity {
 
     @ViewInject(R.id.one_time)
     TextView one_time;
+    @ViewInject(R.id.idcard)
+    TextView card;
 
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.textView3})
     private void click(View v){
@@ -46,6 +48,9 @@ public class WithdrawSuccessActivity extends BaseActivity {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         one_time.setText(DateUtil.getDateAndTime());
         one_time.setText("预计到账时间："+DateUtil.getDateAndTimeLazy());
+        Intent intent = getIntent();
+        String cardName = intent.getStringExtra("card");
+        card.setText(cardName);
     }
 
 }

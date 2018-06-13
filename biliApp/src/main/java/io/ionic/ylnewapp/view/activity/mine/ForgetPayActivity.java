@@ -138,7 +138,7 @@ public class ForgetPayActivity extends BaseActivity {
                             if(jsonObject.getInt("status") == 200)
                                 finish();
                             else if(jsonObject.getInt("status") == 401)
-                                ActivityUtils.toLogin(ForgetPayActivity.this);
+                                ActivityUtils.toLogin(ForgetPayActivity.this,0);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -206,7 +206,7 @@ public class ForgetPayActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             T.showShort(jsonObject.getString("msg"));
                             if(jsonObject.getInt("status") == 401){
-                                ActivityUtils.toLogin(ForgetPayActivity.this);
+                                ActivityUtils.toLogin(ForgetPayActivity.this,0);
                             }
                             if(jsonObject.getString("status").equals("200")){
                                 showPass();

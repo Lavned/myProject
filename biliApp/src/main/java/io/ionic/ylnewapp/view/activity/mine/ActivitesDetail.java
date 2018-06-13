@@ -1,7 +1,9 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -77,7 +79,7 @@ public class ActivitesDetail extends BaseActivity {
                         Gson gson = new Gson();
                         ActivitiesDetailBean javaBean =gson.fromJson(response.body().toString(),ActivitiesDetailBean.class);
                         if(javaBean.getStatus() == 401){
-                            ActivityUtils.toLogin(ActivitesDetail.this);
+                            ActivityUtils.toLogin(ActivitesDetail.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!= null){
@@ -110,6 +112,52 @@ public class ActivitesDetail extends BaseActivity {
         }
         adapter = new ActivityDetailAdapter(mContext,data);
         lvs.setAdapter(adapter);
+        lvs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(mData.get(position).isStatu() ==true){
+                    startActivity(new Intent(mContext,CouponsActivity.class));
+                    finish();
+                }else {
+                    getCounps(mData.get(position).getType()+"");
+                }
+
+            }
+        });
+    }
+
+    //领取优惠券
+    private void getCounps(String  type) {
+        mBuilder.setTitle("领取中...").show();
+        OkGo.<String>put(Constants.URL_BASE + "user/packet" )
+                .tag(this)
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .params("type",type)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        ActivitiesDetailBean javaBean =gson.fromJson(response.body().toString(),ActivitiesDetailBean.class);
+                        if(javaBean.getStatus() == 401)
+                            ActivityUtils.toLogin(ActivitesDetail.this,0);
+                        if(javaBean.getStatus() == 200){
+                            T.showShort("领取成功");
+                            loadData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mBuilder.dismiss();
+                    }
+                });
     }
 
 }

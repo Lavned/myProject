@@ -15,7 +15,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.response.DIGBean;
-import io.ionic.ylnewapp.view.activity.ProductsDIGActivity;
+import io.ionic.ylnewapp.view.activity.product.ProductsDIGActivity;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.

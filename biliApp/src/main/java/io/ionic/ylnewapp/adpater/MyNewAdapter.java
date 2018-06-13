@@ -179,7 +179,7 @@ public class MyNewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         try {
                             jsonObject = new JSONObject(response.body().toString());
                             if(jsonObject.getInt("status") == 401){
-                                ActivityUtils.toLogin((Activity) context);
+                                ActivityUtils.toLogin((Activity) context,0);
                             }else if(jsonObject.getInt("status") == 200){
                                 if (Activity.class.isInstance(context)) {
                                     activity = (Activity) context;

@@ -15,9 +15,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.response.AIBean;
-import io.ionic.ylnewapp.utils.DateUtil;
-import io.ionic.ylnewapp.view.activity.ProductAIActivity;
-import io.ionic.ylnewapp.view.activity.ProductsDIGActivity;
+import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.

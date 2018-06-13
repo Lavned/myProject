@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -98,8 +99,19 @@ public class NotificationActivity extends BaseActivity {
     }
 
 
-    void  initView(List<NotifiBean.BodyBean>mData){
+    private void  initView(final List<NotifiBean.BodyBean>mData){
         listView.setAdapter(new ListAdapter(mContext,mData));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext,NotifiCaDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("content",mData.get(position).getContent());
+                bundle.putString("title",mData.get(position).getTitle());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -146,17 +158,17 @@ public class NotificationActivity extends BaseActivity {
             holder.tv_text = convertView.findViewById(R.id.tixte);
             holder.tv_img = convertView.findViewById(R.id.text_img);
             holder.tv_text.setText(mData.get(position).getTitle());
-            holder.tv_img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mContext,NotifiCaDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("content",mData.get(position).getContent());
-                    bundle.putString("title",mData.get(position).getTitle());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            });
+//            holder.tv_img.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(mContext,NotifiCaDetailActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("content",mData.get(position).getContent());
+//                    bundle.putString("title",mData.get(position).getTitle());
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+//                }
+//            });
             return convertView;
         }
 

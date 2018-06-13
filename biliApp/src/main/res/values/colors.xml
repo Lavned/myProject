@@ -24,6 +24,7 @@
     <color name="main">#FEA620</color>
     <color name="red">#ff1010</color>
 
-    <color name="one_bg">#8951EC</color>
+    <color name="one_bg">#685BE1</color>
+    <color name="friebd_text">#5B29CC</color>
     <color name="cfcfcf">#CFCFCF</color>
 </resources>

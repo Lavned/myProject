@@ -51,9 +51,8 @@ public class RechargeActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.sub_btn:
-                tofinish();
-//                if(checkEmpty())
-//                    loadData();
+                if(checkEmpty())
+                    loadData();
                 break;
             case R.id.num_copy:
                 ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);// 将文本内容放到系统剪贴板里。
@@ -67,9 +66,6 @@ public class RechargeActivity extends BaseActivity {
 
     //关闭界面
     private void tofinish() {
-        PreferenceUtils.setPrefString(mContext,"bank","");
-        PreferenceUtils.setPrefString(mContext,"name","");
-        PreferenceUtils.setPrefString(mContext,"icon","");
         Intent intent =new Intent(mContext,WalletOptionSuccessActivity.class);
         intent.putExtra("name","3");
         startActivity(intent);
@@ -109,10 +105,12 @@ public class RechargeActivity extends BaseActivity {
      * 提交
      */
     private void loadData() {
+        mBuilder.setTitle("充值中...").show();
         OkGo.<String>put(Constants.URL_BASE + "user/charge")//
                 .tag(this)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .params("payAmount", ActivityUtils.getView(paymoney))
+                .params("bankId", PreferenceUtils.getPrefString(mContext,"id",""))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -120,11 +118,10 @@ public class RechargeActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             T.showShort(jsonObject.getString("msg"));
+                            if(jsonObject.getString("status").equals("401"))
+                                ActivityUtils.toLogin(RechargeActivity.this,0);
                             if(jsonObject.getString("status").equals("200")){
-                                Intent intent =new Intent(mContext,WalletOptionSuccessActivity.class);
-                                intent.putExtra("name","3");
-                                startActivity(intent);
-                                finish();
+                                tofinish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -136,6 +133,12 @@ public class RechargeActivity extends BaseActivity {
                         super.onError(response);
                         T.showNetworkError(mContext);
                     }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mBuilder.dismiss();
+                    }
                 });
     }
 
@@ -145,10 +148,22 @@ public class RechargeActivity extends BaseActivity {
      */
     public boolean checkEmpty() {
         if (ActivityUtils.getView(paymoney).equals("")) {
-            T.showShort("用户名不可为空");
+            T.showShort("充值金额不可为空");
+            return false;
+        }
+        if (PreferenceUtils.getPrefString(mContext,"id","").equals("")) {
+            T.showShort("请选择银行卡");
             return false;
         }
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceUtils.setPrefString(mContext,"name","");
+        PreferenceUtils.setPrefString(mContext,"icon","");
+        PreferenceUtils.setPrefString(mContext,"bank","");
+        PreferenceUtils.setPrefString(mContext,"id","");
+    }
 }

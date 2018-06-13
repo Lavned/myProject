@@ -167,7 +167,7 @@ public class SelectCurrency extends BaseActivity implements  SwipeRefreshLayout.
                         Gson gson = new Gson();
                         CoinBean javaBean =gson.fromJson(response.body().toString(),CoinBean.class);
                         if(javaBean.getStatus() == 401){
-                            ActivityUtils.toLogin(SelectCurrency.this);
+                            ActivityUtils.toLogin(SelectCurrency.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!= null){

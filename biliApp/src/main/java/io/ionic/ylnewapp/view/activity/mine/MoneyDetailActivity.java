@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -18,7 +19,10 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.MoneyDetailAdapter;
+import io.ionic.ylnewapp.bean.BalanceBean;
 import io.ionic.ylnewapp.constants.Constants;
+import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
@@ -31,7 +35,7 @@ public class MoneyDetailActivity extends BaseActivity {
     ListView listView;
 
     MoneyDetailAdapter adapter ;
-    List<String> mData ;
+    List<BalanceBean.BodyBean> mData ;
 
     @Event(type = View.OnClickListener.class,value = R.id.tv_back)
     private void click(View v){
@@ -56,24 +60,27 @@ public class MoneyDetailActivity extends BaseActivity {
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         title.setText("交易明细");
-        initView(mData);
-//        loadData();
+        loadData();
     }
 
 
     private void loadData() {
         mBuilder.setTitle("加载中...").show();
-        OkGo.<String>get(Constants.URL_BASE + "home/notices")//
+        OkGo.<String>get(Constants.URL_BASE + "user/balance")//
                 .tag(this)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String data = response.body();//
-//                        Gson gson = new Gson();
-//                        NotifiBean  javaBean =gson.fromJson(data.toString(),NotifiBean.class);
-//                        mData = javaBean.getBody();
-//                        if(mData!=null)
-//                            initView(mData);
+                        Gson gson = new Gson();
+                        BalanceBean  javaBean =gson.fromJson(data.toString(),BalanceBean.class);
+                        if(javaBean.getStatus() ==401) {
+                            ActivityUtils.toLogin(MoneyDetailActivity.this,0);
+                        }
+                        mData = javaBean.getBody();
+                        if(mData!=null)
+                            initView(mData);
                     }
 
                     @Override
@@ -91,10 +98,7 @@ public class MoneyDetailActivity extends BaseActivity {
     }
 
 
-    void  initView(List<String> mData){
-        mData = new ArrayList<>();
-        mData.add("333333333");
-        mData.add("444444444");
+    void  initView(List<BalanceBean.BodyBean> mData){
         adapter = new MoneyDetailAdapter(mContext,mData);
         listView.setAdapter(adapter);
     }

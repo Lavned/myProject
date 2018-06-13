@@ -76,7 +76,7 @@ public class ActivitesDetail2 extends BaseActivity {
                         Gson gson = new Gson();
                         ActivitiesDetailBean javaBean =gson.fromJson(response.body().toString(),ActivitiesDetailBean.class);
                         if(javaBean.getStatus() == 401){
-                            ActivityUtils.toLogin(ActivitesDetail2.this);
+                            ActivityUtils.toLogin(ActivitesDetail2.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!= null){

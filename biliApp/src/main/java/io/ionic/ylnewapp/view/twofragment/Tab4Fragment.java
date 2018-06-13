@@ -183,6 +183,9 @@ public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
 
     @Override
     public void onRefresh() {
+        if (refreshLayout==null){
+            return;
+        }
         refreshLayout.setRefreshing(true);
         if(adapter!=null){
             adapter.resetDatas();

@@ -83,13 +83,14 @@
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/main"
                 android:text="最新通知"/>
-            <TextView
+            <TextSwitcher
+                android:id="@+id/text_switch"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:layout_marginLeft="8dp"
-                android:textColor="@color/black_1"
-                android:text="明天要放假啦......"/>
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center_horizontal"
+                android:text="最新通知，明天放假了" />
         </LinearLayout>
 
         <RelativeLayout

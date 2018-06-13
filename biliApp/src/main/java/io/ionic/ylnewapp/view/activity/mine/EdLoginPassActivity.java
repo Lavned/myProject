@@ -95,7 +95,7 @@ public class EdLoginPassActivity extends BaseActivity {
                             if(jsonObject.getInt("status") == 200)
                                 finish();
                             else if(jsonObject.getInt("status") == 401)
-                                ActivityUtils.toLogin(EdLoginPassActivity.this);
+                                ActivityUtils.toLogin(EdLoginPassActivity.this,0);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

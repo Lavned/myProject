@@ -154,7 +154,7 @@ public class CurrencySearchActivity extends BaseActivity {
                         Gson gson = new Gson();
                         CoinBean javaBean =gson.fromJson(response.body().toString(),CoinBean.class);
                         if(javaBean.getStatus() == 401){
-                            ActivityUtils.toLogin(CurrencySearchActivity.this);
+                            ActivityUtils.toLogin(CurrencySearchActivity.this,0);
                         }
                         mData = javaBean.getBody();
                         if(mData!= null){
@@ -193,7 +193,7 @@ public class CurrencySearchActivity extends BaseActivity {
                         try {
                             jsonObject = new JSONObject(response.body().toString());
                             if(jsonObject.getInt("status") == 401){
-                                ActivityUtils.toLogin(CurrencySearchActivity.this);
+                                ActivityUtils.toLogin(CurrencySearchActivity.this,0);
                             }else if(jsonObject.getInt("status") == 200){
                                 finish();
                             }

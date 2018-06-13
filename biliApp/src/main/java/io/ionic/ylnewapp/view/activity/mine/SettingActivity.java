@@ -3,11 +3,8 @@ package io.ionic.ylnewapp.view.activity.mine;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
@@ -17,9 +14,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.MustSeeActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class SettingActivity extends BaseActivity {
@@ -51,7 +46,7 @@ public class SettingActivity extends BaseActivity {
                 T.showShort("当前版本号为" + getVersion());
                 break;
             case R.id.re_about:
-                startActivity(new Intent(mContext,MustSeeActivity.class));
+                startActivity(new Intent(mContext,AboutActivity.class));
                 break;
             case R.id.re_pass:
                 startActivity(new Intent(mContext,PassManaActivity.class));
