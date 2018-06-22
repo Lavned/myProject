@@ -1,5 +1,6 @@
 package io.ionic.ylnewapp.view.activity.product;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,7 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -25,7 +30,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.adpater.products.DigoneAdapter;
+import io.ionic.ylnewapp.bean.products.ProductsDeatilBean;
+import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyListView;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
+import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
@@ -57,6 +67,14 @@ public class ProductsDIGActivity extends BaseActivity {
     TextView bbncn;
     @ViewInject(R.id.b_number)
     EditText number;
+    @ViewInject(R.id.de_name)
+    TextView de_name;
+    @ViewInject(R.id.de_rate)
+    TextView de_rate;
+    @ViewInject(R.id.de_btn1)
+    TextView de_btn1;
+    @ViewInject(R.id.de_btn2)
+    TextView de_btn2;
 
     @ViewInject(R.id.tab_btc)
     TextView tab_btc;
@@ -75,8 +93,9 @@ public class ProductsDIGActivity extends BaseActivity {
     @ViewInject(R.id.chart)
     LineChartView chart;
 
+    DigoneAdapter mAdapter;
 
-
+    public static Activity activity;
 
     @Event(type = View.OnClickListener.class,value = {R.id.toggle1,R.id.toggle2,R.id.toggle3
     ,R.id.Betf,R.id.Bbtc,R.id.bbncn,R.id.tab_btc,R.id.tab_eth,R.id.back_1,R.id.sumbit_btn})
@@ -84,7 +103,13 @@ public class ProductsDIGActivity extends BaseActivity {
         closeView();
         switch (v.getId()){
             case R.id.sumbit_btn:
-                startActivity(new Intent(ProductsDIGActivity.this,DIGDetailActivity.class));
+                if(!number.getText().toString().trim().equals("")){
+                    PreferenceUtils.setPrefString(mContext,"bnum",number.getText().toString().trim());
+                    startActivity(new Intent(ProductsDIGActivity.this,DIGDetailActivity.class));
+                }else {
+                    T.showShort("起投金额不能为空");
+                }
+                break;
             case R.id.back_1:
                 finish();
             case R.id.toggle1:
@@ -101,18 +126,21 @@ public class ProductsDIGActivity extends BaseActivity {
                 betf.setBackgroundResource(R.mipmap.selectmain);
                 betf.setTextColor(getColor(R.color.main));
                 number.setHint("请输入数量(最小投资币额为1)");
+                PreferenceUtils.setPrefString(mContext,"bz","ETH");
                 break;
             case R.id.Bbtc:
                 clearbg(1);
                 bbtc.setBackgroundResource(R.mipmap.selectmain);
                 bbtc.setTextColor(getColor(R.color.main));
                 number.setHint("请输入数量(最小投资币额为1)");
+                PreferenceUtils.setPrefString(mContext,"bz","BTC");
                 break;
             case R.id.bbncn:
                 clearbg(1);
                 number.setHint("请输入数量(最小投资币额为100000)");
                 bbncn.setBackgroundResource(R.mipmap.selectmain);
                 bbncn.setTextColor(getColor(R.color.main));
+                PreferenceUtils.setPrefString(mContext,"bz","BNCN");
                 break;
             case R.id.tab_btc:
                 clearbg(2);
@@ -129,9 +157,6 @@ public class ProductsDIGActivity extends BaseActivity {
 
 
     private List<String> mData = new ArrayList<String>(Arrays.asList("HongYang", "GuoLin", "RenYuGang", "Jiatao","LiZhao"));
-    private Context context;
-
-
     int[] scores = {10, 42, 43, 33, 10, 40, 22, 18, 40, 20};//图表的数据点
     private LineChartData data;
     private boolean hasAxes = true;
@@ -145,11 +170,27 @@ public class ProductsDIGActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_item);
         ImmersionBar.with(this).init();
-        context = this;
+        activity = this;
         initView();
-        iitChart();
     }
 
+    private void initView() {
+        setView();
+        iitChart();
+        initListView();
+    }
+
+    private void setView(){
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        de_name.setText(bundle.getString("name"));
+        de_rate.setText(bundle.getString("rate"));
+        de_btn1.setText(bundle.getString("btn1"));
+        de_btn2.setText(bundle.getString("btn2"));
+        PreferenceUtils.setPrefString(mContext,"bz","ETH");
+        PreferenceUtils.setPrefString(mContext,"brate",bundle.getString("rate"));
+        PreferenceUtils.setPrefString(mContext,"btname",bundle.getString("name"));
+    }
     /**
      * chart
      */
@@ -168,8 +209,8 @@ public class ProductsDIGActivity extends BaseActivity {
     /**
      * view
      */
-    private void initView() {
-        ListAdapter mAdapter = new ListAdapter(context, mData);
+    private void initListView() {
+        mAdapter = new DigoneAdapter(mContext, mData);
         lvData.setAdapter(mAdapter);
         lvData.setOnTouchListener(new View.OnTouchListener() {
 
@@ -184,62 +225,6 @@ public class ProductsDIGActivity extends BaseActivity {
             }
         });
     }
-
-
-    //内部适配器
-    class ListAdapter extends BaseAdapter {
-        private LayoutInflater mLayoutInflater;
-        private Context mContext;
-        private List<String> mData;
-
-        public ListAdapter(Context mContext, List<String> mData) {
-            mLayoutInflater = LayoutInflater.from(mContext);
-            this.mContext = mContext;
-            this.mData = mData;
-        }
-
-        @Override
-        public int getCount() {
-            return mData == null ? 0 : mData.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                convertView = mLayoutInflater.inflate(R.layout.item_listview, parent, false);
-                holder.tv_btn = convertView.findViewById(R.id.btnmoney);
-                holder.tv_img = convertView.findViewById(R.id.img_photo);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-//            holder.tv_btn.setText(mData.get(position));
-            if (position == 2){
-                holder.tv_img.setImageResource(R.mipmap.dig_p4_2x);
-                holder.tv_btn.setBackgroundResource(R.drawable.green10bg);
-            }
-            return convertView;
-        }
-
-        //holder
-        class ViewHolder {
-            private TextView tv_btn;
-            private ImageView tv_img;
-        }
-    }
-
 
     /**
      * chart相关

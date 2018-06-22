@@ -23,7 +23,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.products.AIAdapter;
-import io.ionic.ylnewapp.bean.response.AIBean;
+import io.ionic.ylnewapp.bean.products.AIBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
 
@@ -56,7 +56,6 @@ public class Tab2Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         findView(view);
         initRefreshLayout();
         context = getActivity();
-        //在oncreateview中调用这个
         if(!isViewShown){
             initData();
         }

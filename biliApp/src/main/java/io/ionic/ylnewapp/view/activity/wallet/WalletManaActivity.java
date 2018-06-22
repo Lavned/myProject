@@ -2,21 +2,17 @@ package io.ionic.ylnewapp.view.activity.wallet;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
-import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -31,13 +27,11 @@ import java.util.List;
 import java.util.Random;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.AddressBean;
-import io.ionic.ylnewapp.bean.response.BankBean;
+import io.ionic.ylnewapp.bean.AddressBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.mine.BankListActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 

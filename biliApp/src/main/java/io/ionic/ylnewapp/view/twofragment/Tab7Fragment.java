@@ -2,6 +2,7 @@ package io.ionic.ylnewapp.view.twofragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,12 +30,14 @@ import java.util.List;
 
 import cn.qqtheme.framework.picker.DatePicker;
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.TETFBean;
+import io.ionic.ylnewapp.bean.products.TETFBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.DateUtil;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
  * Created by cmo on 16-7-21.
@@ -239,17 +242,27 @@ public class Tab7Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
             if (holder instanceof HeaderHolder) {
                 HeaderHolder headerHolder = (HeaderHolder) holder;
             } else if (holder instanceof NormalHolder) {
-                ((NormalHolder) holder).name.setText(datas.get(position -1).getName());
-                ((NormalHolder) holder).content1.setText(datas.get(position -1).getContent().get(0));
-                ((NormalHolder) holder).content2.setText(datas.get(position -1).getContent().get(1));
-                ((NormalHolder) holder).number.setText(StringUtils.sliptStr(datas.get(position -1).getOrderid()));
-                ((NormalHolder) holder).day.setText(DateUtil.getYmdforJson(datas.get(position -1).getDate()));
-                ((NormalHolder) holder).btnVal.setText(""+datas.get(position -1).getBtn());
-                if(datas.get(position -1).getBtn().equals("已锁定")) {
+                final TETFBean item = datas.get(position -1);
+                ((NormalHolder) holder).name.setText(item.getName());
+                ((NormalHolder) holder).content1.setText(item.getContent().get(0));
+                ((NormalHolder) holder).content2.setText(item.getContent().get(1));
+                ((NormalHolder) holder).number.setText(StringUtils.sliptStr(item.getOrderid()));
+                ((NormalHolder) holder).day.setText(DateUtil.getYmdforJson(item.getDate()));
+                ((NormalHolder) holder).btnVal.setText(""+item.getBtn());
+                if(item.getBtn().equals("已锁定")) {
                     ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.lockbtn);
                 }else{
                     ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.main_btn);
                 }
+                ((NormalHolder) holder).btnVal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PreferenceUtils.setPrefString(context,"oname",item.getName());
+                        PreferenceUtils.setPrefString(context,"KEY",item.getKey());
+                        PreferenceUtils.setPrefString(context,"orderid",item.getOrderid());
+                        context.startActivity(new Intent(context, ProductAIActivity.class));
+                    }
+                });
 
             } else {
                 ((FootHolder) holder).tips.setVisibility(View.VISIBLE);
@@ -257,6 +270,12 @@ public class Tab7Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                     fadeTips = false;
                     if (datas.size() > 0) {
                         ((FootHolder) holder).tips.setText("正在加载更多...");
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((FootHolder) holder).tips.setVisibility(View.GONE);
+                            }
+                        }, 500);
                     }
                 } else {
                     if (datas.size() > 0) {

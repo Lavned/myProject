@@ -59,6 +59,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/text_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/text_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,6 +82,7 @@
             android:textColor="@color/black_1"
             android:textSize="13sp" />
         <TextView
+            android:visibility="gone"
             android:id="@+id/text_5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,7 +96,6 @@
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginTop="10dp"
         android:id="@+id/container"
         android:background="@color/white"
         android:layout_width="match_parent"

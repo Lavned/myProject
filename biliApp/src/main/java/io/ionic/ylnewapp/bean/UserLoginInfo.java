@@ -12,8 +12,8 @@ public class UserLoginInfo {
     /**
      * status : 200
      * msg : 登录成功
-     * body : {"_id":"5ac47f83608b1d1980905c8e","password":"96e79218965eb72c92a549dd5a330112","username":"17858968657","mobStatus":"0","created":"2018-04-04T07:32:19.604Z","updated":"2018-04-04T07:32:19.604Z","address":[{"address":"11111111111111111111111","type":1,"id":"20180514154108"},{"address":"5555555","type":2,"id":"20180514154108"},{"count":"0xd4F55c460ccc61914d1D5f321952574A94c8191b","name":"1","id":"20180514161323"}],"banks":[{"count":"guguggjgj","name":"建设银行"},{"count":"guguggjgj","name":"建设银行2"}],"bankcount":"","bankcode":"","name":"name","idcard":"330721199603264812","roletype":"0","is_admin":false,"zhifuPay":null,"zijinPay":"","qianbao":5000,"email":null,"weixin":null,"qq":null,"header":""}
-     * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwic2VsZWN0ZWQiOnsibW9TdGF0dXMiOjAsIm1haWxTZWMiOjAsInVzZXJTdGF0dXMiOjAsIm90aGVyVGVsIjowLCJfX3YiOjAsImxhc3RUaW1lIjowLCJub3dUaW1lIjowLCJyZW1vdGVpcCI6MH0sImdldHRlcnMiOnt9LCJfaWQiOiI1YWM0N2Y4MzYwOGIxZDE5ODA5MDVjOGUiLCJ3YXNQb3B1bGF0ZWQiOmZhbHNlLCJhY3RpdmVQYXRocyI6eyJwYXRocyI6eyJwYXNzd29yZCI6ImluaXQiLCJ1c2VybmFtZSI6ImluaXQiLCJoZWFkZXIiOiJpbml0IiwicXEiOiJpbml0Iiwid2VpeGluIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsInFpYW5iYW8iOiJpbml0IiwiemlqaW5QYXkiOiJpbml0IiwiemhpZnVQYXkiOiJpbml0IiwiaXNfYWRtaW4iOiJpbml0Iiwicm9sZXR5cGUiOiJpbml0IiwiaWRjYXJkIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwiYmFua2NvZGUiOiJkZWZhdWx0IiwiYmFua2NvdW50IjoiZGVmYXVsdCIsImJhbmtzIjoiaW5pdCIsImFkZHJlc3MiOiJpbml0IiwidXBkYXRlZCI6ImluaXQiLCJjcmVhdGVkIjoiaW5pdCIsIl9pZCI6ImluaXQifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnsiYmFua2NvZGUiOnRydWUsImJhbmtjb3VudCI6dHJ1ZX0sImluaXQiOnsiYmFua3MiOnRydWUsImFkZHJlc3MiOnRydWUsImhlYWRlciI6dHJ1ZSwicXEiOnRydWUsIndlaXhpbiI6dHJ1ZSwiZW1haWwiOnRydWUsInFpYW5iYW8iOnRydWUsInppamluUGF5Ijp0cnVlLCJ6aGlmdVBheSI6dHJ1ZSwiaXNfYWRtaW4iOnRydWUsInJvbGV0eXBlIjp0cnVlLCJpZGNhcmQiOnRydWUsIm5hbWUiOnRydWUsInVwZGF0ZWQiOnRydWUsImNyZWF0ZWQiOnRydWUsInVzZXJuYW1lIjp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwiX2lkIjp0cnVlfSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6e319LCJzdGF0ZU5hbWVzIjpbInJlcXVpcmUiLCJtb2RpZnkiLCJpbml0IiwiZGVmYXVsdCIsImlnbm9yZSJdfSwicGF0aHNUb1Njb3BlcyI6e30sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfSwiJG9wdGlvbnMiOnRydWV9LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiaGVhZGVyIjoiIiwicXEiOm51bGwsIndlaXhpbiI6bnVsbCwiZW1haWwiOm51bGwsInFpYW5iYW8iOjUwMDAsInppamluUGF5IjoiIiwiemhpZnVQYXkiOm51bGwsImlzX2FkbWluIjpmYWxzZSwicm9sZXR5cGUiOiIwIiwiaWRjYXJkIjoiMzMwNzIxMTk5NjAzMjY0ODEyIiwibmFtZSI6Im5hbWUiLCJiYW5rY29kZSI6IiIsImJhbmtjb3VudCI6IiIsImJhbmtzIjpbeyJuYW1lIjoi5bu66K6-6ZO26KGMIiwiY291bnQiOiJndWd1Z2dqZ2oifSx7Im5hbWUiOiLlu7rorr7pk7booYwyIiwiY291bnQiOiJndWd1Z2dqZ2oifV0sImFkZHJlc3MiOlt7ImlkIjoiMjAxODA1MTQxNTQxMDgiLCJ0eXBlIjoxLCJhZGRyZXNzIjoiMTExMTExMTExMTExMTExMTExMTExMTEifSx7ImlkIjoiMjAxODA1MTQxNTQxMDgiLCJ0eXBlIjoyLCJhZGRyZXNzIjoiNTU1NTU1NSJ9LHsiaWQiOiIyMDE4MDUxNDE2MTMyMyIsIm5hbWUiOiIxIiwiY291bnQiOiIweGQ0RjU1YzQ2MGNjYzYxOTE0ZDFENWYzMjE5NTI1NzRBOTRjODE5MWIifV0sInVwZGF0ZWQiOiIyMDE4LTA0LTA0VDA3OjMyOjE5LjYwNFoiLCJjcmVhdGVkIjoiMjAxOC0wNC0wNFQwNzozMjoxOS42MDRaIiwibW9iU3RhdHVzIjoiMCIsInVzZXJuYW1lIjoiMTc4NTg5Njg2NTciLCJwYXNzd29yZCI6Ijk2ZTc5MjE4OTY1ZWI3MmM5MmE1NDlkZDVhMzMwMTEyIiwiX2lkIjoiNWFjNDdmODM2MDhiMWQxOTgwOTA1YzhlIn0sIiRpbml0Ijp0cnVlLCJpYXQiOjE1MjY2MjM0NzgsImV4cCI6MTUyNjYyNzA3OH0.kZl8KIl5RIGFtCudhxsPnU9Fp2QeNWpTAAFi4jNt91U
+     * body : {"_id":"5ac47f83608b1d1980905c8e","password":"96e79218965eb72c92a549dd5a330112","username":"17858968657","mobStatus":"0","created":"2018-04-04T07:32:19.604Z","updated":"2018-04-04T07:32:19.604Z","address":[{"address":"ggg","type":"555","id":"20180613144711"},{"address":"222","type":"222","id":"20180613145021"},{"address":"33333","type":"2222","id":"20180613145404"}],"banks":[{"count":"6222081001011788753","name":"中国工商银行上海金杨支行","id":"20180522142656"},{"count":"6222081001011788753","name":"中国银行上海金杨支行","id":"20180522142656"}],"bankcount":"","bankcode":"","name":"泾甪路","idcard":"622425199308257329","roletype":"0","is_admin":false,"zhifuPay":"93279e3308bdbbeed946fc965017f67a","zijinPay":"","qianbao":68457,"email":"","weixin":"","qq":"","header":""}
+     * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwic2VsZWN0ZWQiOnsibW9TdGF0dXMiOjAsIm1haWxTZWMiOjAsInVzZXJTdGF0dXMiOjAsIm90aGVyVGVsIjowLCJfX3YiOjAsImxhc3RUaW1lIjowLCJub3dUaW1lIjowLCJyZW1vdGVpcCI6MH0sImdldHRlcnMiOnt9LCJfaWQiOiI1YWM0N2Y4MzYwOGIxZDE5ODA5MDVjOGUiLCJ3YXNQb3B1bGF0ZWQiOmZhbHNlLCJhY3RpdmVQYXRocyI6eyJwYXRocyI6eyJwYXNzd29yZCI6ImluaXQiLCJ1c2VybmFtZSI6ImluaXQiLCJoZWFkZXIiOiJpbml0IiwicXEiOiJpbml0Iiwid2VpeGluIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsInFpYW5iYW8iOiJpbml0IiwiemlqaW5QYXkiOiJpbml0IiwiemhpZnVQYXkiOiJpbml0IiwiaXNfYWRtaW4iOiJpbml0Iiwicm9sZXR5cGUiOiJpbml0IiwiaWRjYXJkIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwiYmFua2NvZGUiOiJkZWZhdWx0IiwiYmFua2NvdW50IjoiZGVmYXVsdCIsImJhbmtzIjoiaW5pdCIsImFkZHJlc3MiOiJpbml0IiwidXBkYXRlZCI6ImluaXQiLCJjcmVhdGVkIjoiaW5pdCIsIl9pZCI6ImluaXQifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnsiYmFua2NvZGUiOnRydWUsImJhbmtjb3VudCI6dHJ1ZX0sImluaXQiOnsiYmFua3MiOnRydWUsImFkZHJlc3MiOnRydWUsImhlYWRlciI6dHJ1ZSwicXEiOnRydWUsIndlaXhpbiI6dHJ1ZSwiZW1haWwiOnRydWUsInFpYW5iYW8iOnRydWUsInppamluUGF5Ijp0cnVlLCJ6aGlmdVBheSI6dHJ1ZSwiaXNfYWRtaW4iOnRydWUsInJvbGV0eXBlIjp0cnVlLCJpZGNhcmQiOnRydWUsIm5hbWUiOnRydWUsInVwZGF0ZWQiOnRydWUsImNyZWF0ZWQiOnRydWUsInVzZXJuYW1lIjp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwiX2lkIjp0cnVlfSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6e319LCJzdGF0ZU5hbWVzIjpbInJlcXVpcmUiLCJtb2RpZnkiLCJpbml0IiwiZGVmYXVsdCIsImlnbm9yZSJdfSwicGF0aHNUb1Njb3BlcyI6e30sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfSwiJG9wdGlvbnMiOnRydWV9LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiaGVhZGVyIjoiIiwicXEiOiIiLCJ3ZWl4aW4iOiIiLCJlbWFpbCI6IiIsInFpYW5iYW8iOjY4NDU3LCJ6aWppblBheSI6IiIsInpoaWZ1UGF5IjoiOTMyNzllMzMwOGJkYmJlZWQ5NDZmYzk2NTAxN2Y2N2EiLCJpc19hZG1pbiI6ZmFsc2UsInJvbGV0eXBlIjoiMCIsImlkY2FyZCI6IjYyMjQyNTE5OTMwODI1NzMyOSIsIm5hbWUiOiLms77nlKrot68iLCJiYW5rY29kZSI6IiIsImJhbmtjb3VudCI6IiIsImJhbmtzIjpbeyJpZCI6IjIwMTgwNTIyMTQyNjU2IiwibmFtZSI6IuS4reWbveW3peWVhumTtuihjOS4iua1t-mHkeadqOaUr-ihjCIsImNvdW50IjoiNjIyMjA4MTAwMTAxMTc4ODc1MyJ9LHsiaWQiOiIyMDE4MDUyMjE0MjY1NiIsIm5hbWUiOiLkuK3lm73pk7booYzkuIrmtbfph5HmnajmlK_ooYwiLCJjb3VudCI6IjYyMjIwODEwMDEwMTE3ODg3NTMifV0sImFkZHJlc3MiOlt7ImlkIjoiMjAxODA2MTMxNDQ3MTEiLCJ0eXBlIjoiNTU1IiwiYWRkcmVzcyI6ImdnZyJ9LHsiaWQiOiIyMDE4MDYxMzE0NTAyMSIsInR5cGUiOiIyMjIiLCJhZGRyZXNzIjoiMjIyIn0seyJpZCI6IjIwMTgwNjEzMTQ1NDA0IiwidHlwZSI6IjIyMjIiLCJhZGRyZXNzIjoiMzMzMzMifV0sInVwZGF0ZWQiOiIyMDE4LTA0LTA0VDA3OjMyOjE5LjYwNFoiLCJjcmVhdGVkIjoiMjAxOC0wNC0wNFQwNzozMjoxOS42MDRaIiwibW9iU3RhdHVzIjoiMCIsInVzZXJuYW1lIjoiMTc4NTg5Njg2NTciLCJwYXNzd29yZCI6Ijk2ZTc5MjE4OTY1ZWI3MmM5MmE1NDlkZDVhMzMwMTEyIiwiX2lkIjoiNWFjNDdmODM2MDhiMWQxOTgwOTA1YzhlIn0sIiRpbml0Ijp0cnVlLCJpYXQiOjE1Mjg5NTU3ODQsImV4cCI6MTUyODk1OTM4NH0.jQNDHLtqJeQWVeD70z2fuDl_zTffBSvxMRVZv0960DI
      */
 
     private int status;
@@ -61,20 +61,20 @@ public class UserLoginInfo {
          * mobStatus : 0
          * created : 2018-04-04T07:32:19.604Z
          * updated : 2018-04-04T07:32:19.604Z
-         * address : [{"address":"11111111111111111111111","type":1,"id":"20180514154108"},{"address":"5555555","type":2,"id":"20180514154108"},{"count":"0xd4F55c460ccc61914d1D5f321952574A94c8191b","name":"1","id":"20180514161323"}]
-         * banks : [{"count":"guguggjgj","name":"建设银行"},{"count":"guguggjgj","name":"建设银行2"}]
+         * address : [{"address":"ggg","type":"555","id":"20180613144711"},{"address":"222","type":"222","id":"20180613145021"},{"address":"33333","type":"2222","id":"20180613145404"}]
+         * banks : [{"count":"6222081001011788753","name":"中国工商银行上海金杨支行","id":"20180522142656"},{"count":"6222081001011788753","name":"中国银行上海金杨支行","id":"20180522142656"}]
          * bankcount :
          * bankcode :
-         * name : name
-         * idcard : 330721199603264812
+         * name : 泾甪路
+         * idcard : 622425199308257329
          * roletype : 0
          * is_admin : false
-         * zhifuPay : null
+         * zhifuPay : 93279e3308bdbbeed946fc965017f67a
          * zijinPay :
-         * qianbao : 5000
-         * email : null
-         * weixin : null
-         * qq : null
+         * qianbao : 68457
+         * email :
+         * weixin :
+         * qq :
          * header :
          */
 
@@ -90,12 +90,12 @@ public class UserLoginInfo {
         private String idcard;
         private String roletype;
         private boolean is_admin;
-        private Object zhifuPay;
+        private String zhifuPay;
         private String zijinPay;
         private int qianbao;
-        private Object email;
-        private Object weixin;
-        private Object qq;
+        private String email;
+        private String weixin;
+        private String qq;
         private String header;
         private List<AddressBean> address;
         private List<BanksBean> banks;
@@ -196,11 +196,11 @@ public class UserLoginInfo {
             this.is_admin = is_admin;
         }
 
-        public Object getZhifuPay() {
+        public String getZhifuPay() {
             return zhifuPay;
         }
 
-        public void setZhifuPay(Object zhifuPay) {
+        public void setZhifuPay(String zhifuPay) {
             this.zhifuPay = zhifuPay;
         }
 
@@ -220,27 +220,27 @@ public class UserLoginInfo {
             this.qianbao = qianbao;
         }
 
-        public Object getEmail() {
+        public String getEmail() {
             return email;
         }
 
-        public void setEmail(Object email) {
+        public void setEmail(String email) {
             this.email = email;
         }
 
-        public Object getWeixin() {
+        public String getWeixin() {
             return weixin;
         }
 
-        public void setWeixin(Object weixin) {
+        public void setWeixin(String weixin) {
             this.weixin = weixin;
         }
 
-        public Object getQq() {
+        public String getQq() {
             return qq;
         }
 
-        public void setQq(Object qq) {
+        public void setQq(String qq) {
             this.qq = qq;
         }
 
@@ -270,18 +270,14 @@ public class UserLoginInfo {
 
         public static class AddressBean {
             /**
-             * address : 11111111111111111111111
-             * type : 1
-             * id : 20180514154108
-             * count : 0xd4F55c460ccc61914d1D5f321952574A94c8191b
-             * name : 1
+             * address : ggg
+             * type : 555
+             * id : 20180613144711
              */
 
             private String address;
-            private int type;
+            private String type;
             private String id;
-            private String count;
-            private String name;
 
             public String getAddress() {
                 return address;
@@ -291,11 +287,11 @@ public class UserLoginInfo {
                 this.address = address;
             }
 
-            public int getType() {
+            public String getType() {
                 return type;
             }
 
-            public void setType(int type) {
+            public void setType(String type) {
                 this.type = type;
             }
 
@@ -306,32 +302,18 @@ public class UserLoginInfo {
             public void setId(String id) {
                 this.id = id;
             }
-
-            public String getCount() {
-                return count;
-            }
-
-            public void setCount(String count) {
-                this.count = count;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
         }
 
         public static class BanksBean {
             /**
-             * count : guguggjgj
-             * name : 建设银行
+             * count : 6222081001011788753
+             * name : 中国工商银行上海金杨支行
+             * id : 20180522142656
              */
 
             private String count;
             private String name;
+            private String id;
 
             public String getCount() {
                 return count;
@@ -347,6 +329,14 @@ public class UserLoginInfo {
 
             public void setName(String name) {
                 this.name = name;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
             }
         }
     }

@@ -45,7 +45,7 @@
                 android:singleLine="true"
                 android:drawableLeft="@mipmap/f_search2x"
                 android:drawablePadding="8dp"
-                android:hint="搜索币种"/>
+                android:hint="搜索"/>
 
 
             <ImageView

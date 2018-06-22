@@ -25,6 +25,8 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.CountMoneyAdapter;
+import io.ionic.ylnewapp.adpater.CountMoneyAdapterRight;
+import io.ionic.ylnewapp.bean.TotalBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
@@ -43,28 +45,25 @@ public class CountMoneyActivity extends BaseActivity {
     //数据
     private PieChartData pieChardata;
     List<SliceValue> values = new ArrayList<>();
-    private int[] data = {21, 20, 9, 2, 19,20,70};
-    private int[] colorData = {Color.parseColor("#46c099"),
-            Color.parseColor("#8180ff"),
-            Color.parseColor("#50b2ef"),
-            Color.parseColor("#aad8fb"),
-            Color.parseColor("#f7d878"),
-            Color.parseColor("#c8e9a0"),
-            Color.parseColor("#f4a277")};
 
     private boolean hasLabels = true;
     private boolean hasLabelsOutside = true;
     private boolean hasCenterCircle = false;
     private boolean isExploded = false;
     private boolean hasLabelForSelected = false;
+    List<TotalBean.BodyBean.OrdersBean> mData;
+    private List<Integer> countData;
+    private List<Integer> colorData;
 
 
     @ViewInject(R.id.lv_count)
     ListView lv_count;
     CountMoneyAdapter adapter;
-    List<String> mData;
     @ViewInject(R.id.count)
     TextView count;
+    @ViewInject(R.id.right_lv)
+    ListView lvRight;
+    CountMoneyAdapterRight adapterRight;
 
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back})
     private void click(View v){
@@ -81,29 +80,21 @@ public class CountMoneyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count_money);
         init();
-        initCharts();
-        initView();
-//        loadData();
+        loadData();
     }
 
-    private void initView() {
-        mData = new ArrayList<>();
-        mData.add("法币余额");
-        mData.add("数字货币余额");
-        mData.add("法币余额");
-        mData.add("数字货币余额");
-        mData.add("法币余额");
-        mData.add("数字货币余额");
-        mData.add("法币余额");
+    private void initView( List<TotalBean.BodyBean.OrdersBean> mData) {
         adapter = new CountMoneyAdapter(mContext,mData);
         lv_count.setAdapter(adapter);
+        adapterRight = new CountMoneyAdapterRight(mContext,mData);
+        lvRight.setAdapter(adapterRight);
     }
 
 
 
     private void loadData() {
         mBuilder.setTitle("加载中...").show();
-        OkGo.<String>get(Constants.URL_BASE + "user/balance")//
+        OkGo.<String>get(Constants.URL_BASE + "user/total")//
                 .tag(this)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .execute(new StringCallback() {
@@ -111,13 +102,15 @@ public class CountMoneyActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         String data = response.body();//
                         Gson gson = new Gson();
-//                        BalanceBean  javaBean =gson.fromJson(data.toString(),BalanceBean.class);
-//                        if(javaBean.getStatus() ==401) {
-//                            ActivityUtils.toLogin(MoneyDetailActivity.this);
-//                        }
-//                        mData = javaBean.getBody();
-//                        if(mData!=null)
-//                            initView(mData);
+                        TotalBean javaBean =gson.fromJson(data.toString(),TotalBean.class);
+                        if(javaBean.getStatus() ==401) {
+                            ActivityUtils.toLogin(CountMoneyActivity.this,0);
+                        }
+                        mData = javaBean.getBody().getOrders();
+                        if(mData!=null){
+                            initCharts(mData);
+                            initView(mData);
+                        }
                     }
 
                     @Override
@@ -134,9 +127,15 @@ public class CountMoneyActivity extends BaseActivity {
                 });
     }
 
-    private void initCharts() {
+    private void initCharts(List<TotalBean.BodyBean.OrdersBean> mData) {
         chart = findViewById(R.id.chart);
         chart.setOnValueTouchListener(new ValueTouchListener());
+        countData = new ArrayList<>();
+        colorData = new ArrayList<>();
+        for (int i =0;i<mData.size();i++){
+            countData.add(mData.get(i).getCount());
+            colorData.add(Color.parseColor(mData.get(i).getColor()));
+        }
         generateData();
     }
 
@@ -146,8 +145,8 @@ public class CountMoneyActivity extends BaseActivity {
      * 获取数据
      */
     private void setPieChartData() {
-        for (int i = 0; i < data.length; ++i) {
-            SliceValue sliceValue = new SliceValue((float) data[i], colorData[i]);
+        for (int i = 0; i < countData.size(); i++) {
+            SliceValue sliceValue = new SliceValue((float) countData.get(i), colorData.get(i));
             values.add(sliceValue);
         }
     }

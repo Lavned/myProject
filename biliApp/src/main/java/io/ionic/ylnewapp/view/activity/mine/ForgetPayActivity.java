@@ -1,6 +1,7 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +69,10 @@ public class ForgetPayActivity extends BaseActivity {
                 next();
                 break;
             case R.id.pay_next:
+                if(pay_edit.getText().toString().trim().equals("")){
+                    T.showShort("不可输入空密码");
+                    return;
+                }
                 count ++ ;
                 switch (count){
                     case 1:
@@ -113,13 +118,14 @@ public class ForgetPayActivity extends BaseActivity {
                     pay_next.setVisibility(View.GONE);
                 }else {
                     pay_next.setVisibility(View.VISIBLE);
-                    PreferenceUtils.setPrefString(mContext, "three", pay_edit.getText().toString().trim());
                 }
             }
         });
     }
 
     private void editPayPass() {
+        Log.i("000000",
+                pay_edit.getText().toString().trim());
         String payPwd = PreferenceUtils.getPrefString(mContext,"one","");
         mBuilder.setTitle("请稍候...").show();
         OkGo.<String>put(Constants.URL_BASE + "user/payPwd")//
@@ -238,5 +244,15 @@ public class ForgetPayActivity extends BaseActivity {
             return true;
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceUtils.setPrefString(mContext, "one","");
+        PreferenceUtils.setPrefString(mContext, "two","");
+        PreferenceUtils.setPrefString(mContext, "three","");
+    }
+
 
 }

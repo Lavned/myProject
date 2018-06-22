@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.TBTCBean;
+import io.ionic.ylnewapp.bean.products.TBTCBean;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.

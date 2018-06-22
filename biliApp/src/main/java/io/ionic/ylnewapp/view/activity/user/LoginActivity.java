@@ -265,6 +265,7 @@ public class LoginActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        hasPay();
                         String data = response.body();//
                         Gson gson = new Gson();
                         UserLoginInfo userLoginInfoResp =gson.fromJson(data.toString(),UserLoginInfo.class);
@@ -307,26 +308,32 @@ public class LoginActivity extends BaseActivity {
         PreferenceUtils.setPrefBoolean(mContext,"login_status",true);
     }
 
-    //验证token
-    /*private void getMe(String token) {
-        Log.i("OkGo",PreferenceUtils.getPrefString(mContext,"token","")+"lll");
-        OkGo.<String>get(Constants.URL_BASE + "user/getMe")//
-                .tag(this)//
-                .headers("Authorization", "Bearer " + token)
+    /**
+     * 获取用户信息
+     */
+    private void hasPay() {
+        OkGo.<String>post(Constants.URL_BASE + "user/hasPay")
+                .tag(this)
+                .params("username", PreferenceUtils.getPrefString(mContext, "account", ""))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String data = response.body();//这个就是返回来的结果
-                        T.showShort(data);
+                        JSONObject gson = null;
+                        try {
+                            gson = new JSONObject(response.body());
+                            PreferenceUtils.setPrefString(mContext, "hasPay", gson.getString("body") + "");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        T.showShort(response.toString());
+                        T.showNetworkError(mContext);
                     }
                 });
-    }*/
+    }
 
 
     @Override

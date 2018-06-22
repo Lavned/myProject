@@ -1,6 +1,5 @@
 package io.ionic.ylnewapp.view.twofragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,7 +23,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.products.OneMainAdapter;
-import io.ionic.ylnewapp.bean.response.DIGBean;
+import io.ionic.ylnewapp.bean.products.DIGBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
 
@@ -43,7 +42,6 @@ public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     private OneMainAdapter adapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
     List<DIGBean> digList;
-    Activity context;
     public LoadingDialog.Builder mBuilder ;
 
     @Override
@@ -51,10 +49,7 @@ public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         View view =  inflater.inflate(R.layout.fragemt_tab_01, container, false);
         findView(view);
         initRefreshLayout();
-        context = getActivity();
         mBuilder = new LoadingDialog.Builder(getActivity());
-        mBuilder.setTitle("加载中...").show();
-        //在oncreateview中调用这个
         if(!isViewShown){
             initData();
         }
@@ -72,7 +67,6 @@ public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         super.setUserVisibleHint(isVisibleToUser);
         if(getView()!= null){
             isViewShown = true;
-            // 包含当页面被选择时显示数据的逻辑主要asynctask填充数据
            initData();
            onRefresh();
         } else {
@@ -83,6 +77,7 @@ public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
 
     private void initData() {
         //加载数据
+        mBuilder.setTitle("加载中...").show();
         OkGo.<String>get(Constants.URL_BASE + "product/products?type=DIG")//
                 .tag(this)//
                 .execute(new StringCallback() {
@@ -149,7 +144,7 @@ public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                         }, 500);
                     }
 
-                    if (adapter.isFadeTips() == true && lastVisibleItem + 2 == adapter.getItemCount()) {
+                    if (adapter.isFadeTips() == true && lastVisibleItem + 1 == adapter.getItemCount()) {
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -201,8 +196,17 @@ public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
             @Override
             public void run() {
                 refreshLayout.setRefreshing(false);
+                if(mBuilder!= null)
+                    mBuilder.dismiss();
             }
         }, 1000);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(mBuilder!= null)
+            mBuilder.dismiss();
     }
 }
 

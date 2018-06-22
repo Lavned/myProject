@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="60dp">
+
+
+    <ImageView
+        android:id="@+id/del_btn"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/hq_icon3_2x"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img1_photo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/app_logo" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textName1"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BTC"
+                android:textSize="13sp"
+                android:textColor="@color/black33"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全网"
+                android:layout_below="@id/textName1"
+                android:textColor="@color/black_1"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/textNum1"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="OKFX"
+            android:textSize="13sp"
+            android:textColor="@color/black33"/>
+
+
+        <TextView
+            android:id="@+id/btnmoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:background="@drawable/red10bg"
+            android:paddingVertical="5dp"
+            android:layout_alignParentRight="true"
+            android:paddingHorizontal="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:text="10909" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="75dp"
-                    android:text="17512125000"
+                    android:text="登录/注册"
                     android:textColor="@color/white"
                     android:textSize="13sp" />
 
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.00"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -262,6 +262,7 @@
                 android:drawableTop="@mipmap/me_icon1_2x"
                 android:gravity="center"
                 android:text="已付款"
+                android:paddingTop="5dp"
                 android:textColor="@color/black33"
                 android:textSize="11sp" />
 
@@ -278,6 +279,7 @@
                 android:drawableTop="@mipmap/me_icon2_2x"
                 android:gravity="center"
                 android:text="待付款"
+                android:paddingTop="5dp"
                 android:textColor="@color/black33"
                 android:textSize="11sp" />
 
@@ -294,6 +296,7 @@
                 android:drawableTop="@mipmap/me_icon3_2x"
                 android:gravity="center"
                 android:text="待赎回"
+                android:paddingTop="5dp"
                 android:textColor="@color/black33"
                 android:textSize="11sp" />
 
@@ -310,6 +313,7 @@
                 android:drawableTop="@mipmap/me_icon4_2x"
                 android:gravity="center"
                 android:text="已赎回"
+                android:paddingTop="5dp"
                 android:textColor="@color/black33"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -510,6 +514,7 @@
             android:paddingVertical="15dp">
 
             <TextView
+                android:id="@+id/qq"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -521,6 +526,7 @@
                 android:textSize="11sp" />
 
             <TextView
+                android:id="@+id/help"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

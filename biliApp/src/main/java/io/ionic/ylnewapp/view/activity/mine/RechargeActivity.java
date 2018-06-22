@@ -3,6 +3,7 @@ package io.ionic.ylnewapp.view.activity.mine;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -23,8 +25,11 @@ import org.xutils.view.annotation.ViewInject;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.MD5Util;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
+import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
 import io.ionic.ylnewapp.view.activity.wallet.WalletOptionSuccessActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
@@ -43,6 +48,7 @@ public class RechargeActivity extends BaseActivity {
     @ViewInject(R.id.name)
     TextView name;
 
+    PayFragment payFragment = new PayFragment();
 
     @Event(type = View.OnClickListener.class,value ={ R.id.tv_back,R.id.sub_btn,R.id.num_copy,R.id.my_address})
     private void click(View v){
@@ -52,7 +58,10 @@ public class RechargeActivity extends BaseActivity {
                 break;
             case R.id.sub_btn:
                 if(checkEmpty())
-                    loadData();
+                    if(PreferenceUtils.getPrefString(mContext,"hasPay","").equals("true"))
+                        checkAuth();
+                    else
+                        ActivityUtils.hasPay(RechargeActivity.this);
                 break;
             case R.id.num_copy:
                 ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);// 将文本内容放到系统剪贴板里。
@@ -64,13 +73,7 @@ public class RechargeActivity extends BaseActivity {
         }
     }
 
-    //关闭界面
-    private void tofinish() {
-        Intent intent =new Intent(mContext,WalletOptionSuccessActivity.class);
-        intent.putExtra("name","3");
-        startActivity(intent);
-        finish();
-    }
+
 
 
     @Override
@@ -100,6 +103,84 @@ public class RechargeActivity extends BaseActivity {
         }
 
     }
+
+
+    //检测鉴权
+    private void checkAuth() {
+        payFragment.show(getSupportFragmentManager(), "pay");
+        payFragment.setPaySuccessCallBack(new PayPwdView.InputCallBack() {
+            @Override
+            public void onInputFinish(String result) {
+                userAuth(result);
+            }
+        });
+    }
+
+
+
+    /**
+     * 用户鉴权
+     */
+    private void userAuth(String payPwd) {
+        mBuilder.setTitle("请稍候...").show();
+        OkGo.<String>post(Constants.URL_BASE + "user/authPay")//
+                .tag(this)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .params("payPwd", MD5Util.encrypt(payPwd))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String data = response.body();//这个就是返回来的结果
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(RechargeActivity.this,0);
+                                    break;
+                                case "200":
+                                    payFragment.dismiss();
+                                    loadData();
+                                    break;
+                                case "400":
+                                    payFragment.dismiss();
+                                    new CommonDialog.Builder(RechargeActivity.this)
+                                            .setMessage(jsonObject.getString("msg")).setTitle("提示")
+                                            .setPositiveButton("重试", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    payFragment.show(getSupportFragmentManager(), "pay");
+                                                }
+                                            }, R.color.main).setNegativeButton("忘记密码", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ActivityUtils.toForgetPwd(RechargeActivity.this);
+                                        }
+                                    },R.color.main).show();
+                                    break;
+                                case "403":
+                                    T.showShort(jsonObject.getString("msg"));
+                                    ActivityUtils.toEdPwd(RechargeActivity.this);
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mBuilder.dismiss();
+                    }
+                });
+    }
+
 
     /**
      * 提交
@@ -156,6 +237,14 @@ public class RechargeActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+    //关闭界面
+    private void tofinish() {
+        Intent intent =new Intent(mContext,WalletOptionSuccessActivity.class);
+        intent.putExtra("name","3");
+        startActivity(intent);
+        finish();
     }
 
     @Override

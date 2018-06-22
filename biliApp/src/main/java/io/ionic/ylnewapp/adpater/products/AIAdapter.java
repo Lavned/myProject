@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.AIBean;
+import io.ionic.ylnewapp.bean.products.AIBean;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
@@ -49,11 +50,12 @@ public class AIAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.textViewHeader.setText("");
         } else if (holder instanceof NormalHolder) {
+           final AIBean item = datas.get(position-1);
             ((NormalHolder) holder).name.setText(datas.get(position-1).getName());
             ((NormalHolder) holder).content1.setText(datas.get(position -1).getContent().get(0));
             ((NormalHolder) holder).content2.setText(datas.get(position -1).getContent().get(1));
@@ -65,7 +67,17 @@ public class AIAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((NormalHolder) holder).btnVal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context, ProductAIActivity.class));
+                    ((NormalHolder) holder).btnVal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PreferenceUtils.setPrefString(context,"pid",item.getPid());
+                            PreferenceUtils.setPrefString(context,"orate",item.getRate());
+                            PreferenceUtils.setPrefString(context,"oname",item.getName());
+                            PreferenceUtils.setPrefString(context,"oweek",item.getWeek());
+                            PreferenceUtils.setPrefString(context,"KEY",item.getKey());
+                            context.startActivity(new Intent(context, ProductAIActivity.class));
+                        }
+                    });
                 }
             });
 
@@ -73,8 +85,14 @@ public class AIAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((FootHolder) holder).tips.setVisibility(View.VISIBLE);
             if (hasMore == true) {
                 fadeTips = false;
-                if (datas.size() > 0) {
+                if (datas.size() > 0 ) {
                     ((FootHolder) holder).tips.setText("正在加载更多...");
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((FootHolder) holder).tips.setVisibility(View.GONE);
+                        }
+                    }, 500);
                 }
             } else {
                 if (datas.size() > 0) {

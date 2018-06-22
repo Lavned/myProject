@@ -16,12 +16,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="20dp"
             android:scaleType="fitXY"
             android:src="@mipmap/whiteback" />
 
         <TextView
+            android:id="@+id/btname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -58,7 +59,7 @@
 
             <TextSwitcher
                 android:id="@+id/text_switcher"
-                android:layout_width="209dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"
                 android:gravity="center_horizontal"
@@ -93,6 +94,7 @@
                     android:text="投资币种：" />
 
                 <TextView
+                    android:id="@+id/bName"
                     style="@style/two_toggle_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,6 +121,7 @@
                     android:text="投资币额：" />
 
                 <TextView
+                    android:id="@+id/bNum"
                     style="@style/two_toggle_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,6 +148,7 @@
                     android:text="年化利率：" />
 
                 <TextView
+                    android:id="@+id/bRate"
                     style="@style/two_toggle_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,100 +161,49 @@
                 android:layout_height="10dp"
                 android:background="#F6F6F6" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:background="@mipmap/detailbg1"
-                android:orientation="vertical">
+                android:background="@color/white"
+                android:paddingHorizontal="10dp">
 
                 <TextView
+                    style="@style/two_toggle_text_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:text="付款地址"
-                    android:textColor="@color/black33"
-                    android:textSize="13sp" />
+                    android:drawableLeft="@mipmap/other_icon"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="余币支付" />
 
-                <TextView
-                    android:id="@+id/pay_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="20dp"
-                    android:background="@mipmap/zwt002"
-                    android:gravity="center_horizontal|center"
-                    android:text="063dwd23332cdds2239988999900099000000000"
-                    android:textColor="@color/black33"
-                    android:textSize="12sp" />
+                <CheckBox
+                    android:enabled="false"
+                    android:padding="10dp"
+                    android:checked="true"
+                    android:id="@+id/cb_money"
+                    android:layout_width="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_height="15dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/choosepay"
+                    android:button="@null"/>
+            </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:src="@mipmap/picture2x" />
-
-                <TextView
-                    android:id="@+id/copy_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="10dp"
-                    android:background="@mipmap/mainrecycle"
-                    android:paddingHorizontal="15dp"
-                    android:paddingVertical="3dp"
-                    android:text="点击复制"
-                    android:textColor="@drawable/textckmain"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="10dp"
-                android:background="@mipmap/detailbg2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
-                    android:text="我的钱包地址"
-                    android:textColor="@color/black33"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:background="@mipmap/zwt002"
-                    android:gravity="center_horizontal|center"
-                    android:text="063dwd23332cdds2239988999900099000000000"
-                    android:textColor="@color/black33"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:text="请认真核对您的钱包地址，如有错误及时联系客服处理"
-                    android:textColor="@color/red"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
+                android:layout_height="10dp"
+                android:background="#F6F6F6" />
 
             <Button
+                android:id="@+id/dig_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginVertical="30dp"
+                android:layout_marginVertical="60dp"
                 android:background="@mipmap/forgetpwd"
                 android:text="确认支付"
                 android:textColor="@drawable/textclick"

@@ -22,13 +22,15 @@
             android:textColor="@color/black_6"
             android:textSize="13sp"
             android:layout_marginHorizontal="10dp"
-            android:hint="请详细描述您的问题或建议，我们将及时跟进处理（如有其他问题请添加相关截图）"
+            android:hint="请详细描述您的问题或建议，我们将及时跟进处理"
             android:paddingVertical="10dp"
             android:paddingHorizontal="20dp"
+            android:gravity="top"
             android:layout_marginBottom="40dp"
             android:id="@+id/feed_edit"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/select_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

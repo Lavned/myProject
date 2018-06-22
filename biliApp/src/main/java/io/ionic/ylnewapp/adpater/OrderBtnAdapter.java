@@ -13,6 +13,7 @@ import com.suke.widget.SwitchButton;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.httpOrder.OrderUtils;
 
 /**
  * Created by mogojing on 2018/6/12/0012.
@@ -55,7 +56,38 @@ public class OrderBtnAdapter  extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv.setText(mData.get(position));
+        switch (mData.get(position)){
+//             1 继续支付 2 取消订单 3 我要挂单 4 修改挂单 5 撤销挂单 6 续投 7 赎回
+            case "1" :
+                holder.tv.setText("继续支付");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                break;
+            case "2" :
+                holder.tv.setText("取消订单");
+                holder.tv.setBackgroundResource(R.mipmap.order_button2_2x);
+                holder.tv.setTextColor(mContext.getColor(R.color.black_1));
+                break;
+            case "3" :
+                holder.tv.setText("我要挂单");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_3);
+                break;
+            case "4" :
+                holder.tv.setText("修改挂单");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                break;
+            case "5" :
+                holder.tv.setText("撤销挂单");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                break;
+            case "6" :
+                holder.tv.setText("续投");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                break;
+            case "7" :
+                holder.tv.setText("赎回");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                break;
+        }
         return convertView;
     }
 
@@ -63,5 +95,7 @@ public class OrderBtnAdapter  extends BaseAdapter {
   public static  class ViewHolder {
         public TextView tv;
     }
+
+
 
 }

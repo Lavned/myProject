@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -19,9 +20,13 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
+import java.util.List;
+
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.bean.GetMeBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyDialog;
+import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
@@ -58,7 +63,6 @@ public class UerTificationActivity extends BaseActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,46 @@ public class UerTificationActivity extends BaseActivity {
         init();
     }
 
+
+
+    /**
+     * 提交实名信息
+     */
+    private void isTification() {
+        OkGo.<String>get(Constants.URL_BASE + "user/getMe")//
+                .tag(this)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        GetMeBean javaBean =gson.fromJson(response.body().toString(),GetMeBean.class);
+                        if(javaBean!= null){
+                            initView(javaBean);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+                });
+    }
+
+    void initView(GetMeBean javaBean){
+        if(!javaBean.getBody().getName().equals("")){
+            userName.setText(javaBean.getBody().getName()+"");
+            userName.setEnabled(false);
+            userIDcard.setText(javaBean.getBody().getIdcard()+"");
+            userIDcard.setEnabled(false);
+            userZfb.setText(javaBean.getBody().getZhifuPay()+"");
+            userEmail.setText(javaBean.getBody().getEmail()+"");
+            userQq.setText(javaBean.getBody().getQq()+"");
+            userWx.setText(javaBean.getBody().getWeixin()+"");
+        }
+
+    }
 
     /**
      * 提交实名信息
@@ -110,6 +154,7 @@ public class UerTificationActivity extends BaseActivity {
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         title.setText("实名认证");
+        isTification();
     }
 
 

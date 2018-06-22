@@ -1,6 +1,7 @@
 package io.ionic.ylnewapp.adpater.products;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.ICOBean;
+import io.ionic.ylnewapp.bean.products.ICOBean;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
+import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.
@@ -52,14 +55,26 @@ public class ICOAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.textViewHeader.setText("");
         } else if (holder instanceof NormalHolder) {
-            ((NormalHolder) holder).name.setText(datas.get(position-1).getName());
-            ((NormalHolder) holder).content1.setText(datas.get(position -1).getContent().get(0));
-            ((NormalHolder) holder).content2.setText(datas.get(position -1).getContent().get(1));
-            ((NormalHolder) holder).number.setText(datas.get(position -1).getRate());
-            ((NormalHolder) holder).day.setText(datas.get(position -1).getWeek());
-            ((NormalHolder) holder).btnVal.setText(""+datas.get(position -1).getBtn());
-            ((NormalHolder) holder).content3.setText(datas.get(position -1).getTitleRate());
-            ((NormalHolder) holder).content4.setText(""+datas.get(position -1).getTitleWeek());
+            final ICOBean item = datas.get(position -1);
+            ((NormalHolder) holder).name.setText(item.getName());
+            ((NormalHolder) holder).content1.setText(item.getContent().get(0));
+            ((NormalHolder) holder).content2.setText(item.getContent().get(1));
+            ((NormalHolder) holder).number.setText(item.getRate());
+            ((NormalHolder) holder).day.setText(item.getWeek());
+            ((NormalHolder) holder).btnVal.setText(""+item.getBtn());
+            ((NormalHolder) holder).content3.setText(item.getTitleRate());
+            ((NormalHolder) holder).content4.setText(""+item.getTitleWeek());
+            ((NormalHolder) holder).btnVal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PreferenceUtils.setPrefString(context,"pid",item.getPid());
+                    PreferenceUtils.setPrefString(context,"orate",item.getRate());
+                    PreferenceUtils.setPrefString(context,"oname",item.getName());
+                    PreferenceUtils.setPrefString(context,"oweek",item.getWeek());
+                    PreferenceUtils.setPrefString(context,"KEY",item.getKey());
+                    context.startActivity(new Intent(context, ProductAIActivity.class));
+                }
+            });
 
         } else {
             ((FootHolder) holder).tips.setVisibility(View.VISIBLE);
@@ -67,6 +82,12 @@ public class ICOAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 fadeTips = false;
                 if (datas.size() > 0) {
                     ((FootHolder) holder).tips.setText("正在加载更多...");
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((FootHolder) holder).tips.setVisibility(View.GONE);
+                        }
+                    }, 500);
                 }
             } else {
                 if (datas.size() > 0) {

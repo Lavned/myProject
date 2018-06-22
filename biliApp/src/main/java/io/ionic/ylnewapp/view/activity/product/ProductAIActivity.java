@@ -1,5 +1,6 @@
 package io.ionic.ylnewapp.view.activity.product;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.jaeger.library.StatusBarUtil;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -24,6 +26,8 @@ public class ProductAIActivity extends BaseActivity {
     @ViewInject(R.id.webview)
     WebView myWebView;
 
+    public  static Activity activity;
+
     @Event(type = View.OnClickListener.class,value = R.id.button)
     private void click(View view){
         startActivity(new Intent(ProductAIActivity.this,OtherDetailActivity.class));
@@ -33,7 +37,13 @@ public class ProductAIActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_ai);
-        ImmersionBar.with(this).init();
+        activity = this;
+//        ImmersionBar.with(this).init();
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+      loadView();
+    }
+
+    private void loadView() {
         myWebView.loadUrl("http://192.168.123.10/ai.html");
         //加载本地中的html
         //myWebView.loadUrl("file:///android_asset/www/test2.html");
@@ -46,7 +56,6 @@ public class ProductAIActivity extends BaseActivity {
         //将WebAppInterface于javascript绑定
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
     }
-
 
 
     @Override

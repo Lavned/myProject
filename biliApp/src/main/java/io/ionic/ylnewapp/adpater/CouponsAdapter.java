@@ -1,6 +1,7 @@
 package io.ionic.ylnewapp.adpater;
 
 import android.content.Context;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,9 @@ import java.util.List;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.CoumonsBean;
 import io.ionic.ylnewapp.utils.DateUtil;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
+import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
+import io.ionic.ylnewapp.view.main.MainActivity;
 
 /**
  * Created by mogojing on 2018/5/30/0030.
@@ -38,15 +42,30 @@ public class CouponsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ((ViewHolder) holder).name.setText(mData.get(position).getName());
         String time = DateUtil.getYmdforJson(mData.get(position).getStarted())+"~"+DateUtil.getYmdforJson(mData.get(position).getEnded());
         ((ViewHolder) holder).date.setText(time);
         ((ViewHolder) holder).money.setText("￥" + mData.get(position).getAmount()+"");
         switch (mData.get(position).getStatus()){
             case "1"://可使用
-                ((ViewHolder) holder).reCon.setBackgroundResource(R.mipmap.yhq_bg_2x);
-                ((ViewHolder) holder).use.setVisibility(View.VISIBLE);
+                if(CouponsActivity.type ==1){
+                    ((ViewHolder) holder).reCon.setBackgroundResource(R.mipmap.yhq_bg_2x);
+                    ((ViewHolder) holder).use.setVisibility(View.VISIBLE);
+                }else if(CouponsActivity.type ==2){
+                    if(mData.get(position).getAmount() == 588){
+                        ((ViewHolder) holder).reCon.setBackgroundResource(R.mipmap.yhq_bg_2x);
+                        ((ViewHolder) holder).use.setVisibility(View.VISIBLE);
+                    }else {
+                        ((ViewHolder) holder).reCon.setBackgroundResource(R.mipmap.yhq_bg2_2x);
+                        ((ViewHolder) holder).use.setVisibility(View.GONE);
+                        ((ViewHolder) holder).reCon.setEnabled(false);
+                    }
+                }
+                else {
+                    ((ViewHolder) holder).reCon.setBackgroundResource(R.mipmap.yhq_bg_2x);
+                    ((ViewHolder) holder).use.setVisibility(View.VISIBLE);
+                }
                 break;
             case "2": // 已使用
                 ((ViewHolder) holder).reCon.setBackgroundResource(R.mipmap.yhq_bg2_2x);
@@ -57,6 +76,22 @@ public class CouponsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ((ViewHolder) holder).use.setVisibility(View.GONE);
                 break;
         }
+        ((ViewHolder) holder).use.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreferenceUtils.setPrefString(mContext,"coumoney",mData.get(position).getAmount()+"");
+                PreferenceUtils.setPrefString(mContext,"couid",mData.get(position).getPacketid()+"");
+                if(CouponsActivity.type ==1 || CouponsActivity.type == 2){
+                    CouponsActivity.activity.finish();
+                }else {
+                    Message msg = new Message();
+                    msg.what =1;
+                    MainActivity.NOHandler myHandler = new MainActivity.NOHandler(mContext);
+                    myHandler.sendMessage(msg);
+                    CouponsActivity.activity.finish();
+                }
+            }
+        });
     }
 
     @Override

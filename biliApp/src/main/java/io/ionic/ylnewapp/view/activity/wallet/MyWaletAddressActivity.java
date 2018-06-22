@@ -1,7 +1,6 @@
 package io.ionic.ylnewapp.view.activity.wallet;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,12 +17,11 @@ import com.lzy.okgo.model.Response;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.MyAddressAdapter;
-import io.ionic.ylnewapp.bean.response.AddressBean;
+import io.ionic.ylnewapp.bean.AddressBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;

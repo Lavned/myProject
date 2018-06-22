@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
@@ -20,7 +27,12 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.FriendAdapter;
+import io.ionic.ylnewapp.bean.FirendBean;
+import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyDialog;
+import io.ionic.ylnewapp.custom.MyListView;
+import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
@@ -42,13 +54,20 @@ public class FriendActivity extends BaseActivity {
     TextView span_6;
     @ViewInject(R.id.span_7)
     TextView span_7;
+    @ViewInject(R.id.scrollView)
+    ScrollView scrollView;
 
+    @ViewInject(R.id.count_people)
+    TextView count_people;
+    @ViewInject(R.id.count_money)
+    TextView count_money;
     @ViewInject(R.id.copy_text)
     TextView copy_text;
     @ViewInject(R.id.lv_code)
-    ListView lv_code;
+    MyListView lv_code;
     FriendAdapter adapter;
-    List<String> mData;
+    List<FirendBean.BodyBean.ListBean> mData;
+
 
 
     @Event(type = View.OnClickListener.class,value ={ R.id.tv_back ,R.id.fr_copy})
@@ -83,23 +102,44 @@ public class FriendActivity extends BaseActivity {
      * 网络请求
      */
     private void loadData() {
-        initView();
+        OkGo.<String>get(Constants.URL_BASE + "invite/invited")//
+                .tag(this)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        FirendBean javaBean =gson.fromJson(response.body().toString(),FirendBean.class);
+                        if(javaBean.getStatus() == 401){
+                            ActivityUtils.toLogin(FriendActivity.this,0);
+                        }
+                        mData = javaBean.getBody().getList();
+                        count_money.setText(javaBean.getBody().getMoneys()+"");
+                        count_people.setText(javaBean.getBody().getPerson()+"");
+                        if(mData!= null){
+                            initView(mData);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+                });
     }
 
     /**
      * listView
      */
-    private void initView() {
-        mData = new ArrayList<>();
-        mData.add("8888");
-        mData.add("1000");
-        mData.add("9999");
+    private void initView(List<FirendBean.BodyBean.ListBean> mData) {
         adapter = new FriendAdapter(mContext,mData);
         lv_code.setAdapter(adapter);
     }
 
     //界面init
     private void init() {
+        scrollView.smoothScrollTo(0,0);
         StatusBarUtil.setColor(this,getColor(R.color.colorPrimary),225);
         title.setText("邀请好友");
         setTextColor();

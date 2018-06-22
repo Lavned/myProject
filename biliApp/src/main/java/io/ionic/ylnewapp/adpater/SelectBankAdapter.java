@@ -9,15 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.jiangyy.easydialog.CommonDialog;
 import com.suke.widget.SwitchButton;
 
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.BankBean;
-import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.mine.BankListActivity;
+import io.ionic.ylnewapp.bean.BankBean;
 
 /**
  * Created by mogojing on 2018/6/6/0006.

@@ -3,6 +3,9 @@ package io.ionic.ylnewapp.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,12 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.AccountBean;
-import io.ionic.ylnewapp.bean.response.BankBean;
+import io.ionic.ylnewapp.bean.AccountBean;
+import io.ionic.ylnewapp.bean.BankBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
+import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
 import io.ionic.ylnewapp.view.activity.mine.FriendActivity;
 import io.ionic.ylnewapp.view.activity.mine.BankListActivity;
 import io.ionic.ylnewapp.view.activity.mine.CountMoneyActivity;
@@ -62,6 +67,7 @@ public class FragmentFour extends BaseFragment {
     Context context;
     List<BankBean.BodyBean> mData = new ArrayList<>();
     String allMoney ="0";
+    List<AccountBean.BodyBean.SizeBean> listData;
 
 
     /**
@@ -70,7 +76,8 @@ public class FragmentFour extends BaseFragment {
      */
     @Event(type = View.OnClickListener.class,value = {R.id.user_certification,R.id.mine_notification,R.id.re_bank,R.id.re_coupons,
             R.id.money_in,R.id.monet_out,R.id.my_order,R.id.my_setting,R.id.my_activity,R.id.text_feed
-                ,R.id.money_detail,R.id.my_friend,R.id.my_money_count,R.id.tv_type1,R.id.tv_type2,R.id.tv_type3,R.id.tv_type4})
+                ,R.id.money_detail,R.id.my_friend,R.id.my_money_count,R.id.tv_type1,R.id.tv_type2,R.id.tv_type3,R.id.tv_type4
+            ,R.id.help,R.id.qq})
     private void click(View view){
         switch (view.getId()){
             case R.id.user_certification:
@@ -126,22 +133,34 @@ public class FragmentFour extends BaseFragment {
             case R.id.tv_type4 :
                 toOrder(3);
                 break;
-
+            case R.id.help :
+                break;
+            case R.id.qq:
+                String qqNum = "2852370178";
+                if (checkApkExist(getActivity(), "com.tencent.mobileqq")){
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin="+qqNum+"&version=1")));
+                }else{
+                   T.showShort("本机未安装QQ应用");
+                }
+                break;
         }
 
     }
 
     @ViewInject(R.id.tv_type1)
     TextView type1;
+    @ViewInject(R.id.tv_type2)
+    TextView type2;
+    @ViewInject(R.id.tv_type3)
+    TextView type3;
+    @ViewInject(R.id.tv_type4)
+    TextView type4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = x.view().inject(this, inflater, container);
         context = getActivity();
-        new QBadgeView(context).bindTarget(type1).setBadgeNumber(5)
-                .setBadgeGravity(Gravity.TOP | Gravity.END).
-                setBadgeTextSize(9, true).setBadgePadding(1, true);
         init();
         return view;
     }
@@ -181,6 +200,27 @@ public class FragmentFour extends BaseFragment {
 
 
     /**
+     * 设置订单角标
+     */
+    private void initBage(){
+        if(listData!=null && listData.size() > 0 ){
+//            setBadge(type1,listData.get(1).getSize());
+            setBadge(type2,listData.get(0).getSize());
+            setBadge(type3,listData.get(2).getSize());
+//            setBadge(type4,listData.get(3).getSize());
+        }
+    }
+    public void setBadge(TextView tv,int size){
+        if(size > 0 ){
+            new QBadgeView(context).bindTarget(tv).setBadgeText(" ")
+                    .setBadgeGravity(Gravity.TOP | Gravity.END).
+                    setBadgeTextSize(7, true).setBadgePadding(1, true);
+        }
+
+    }
+
+
+    /**
      * 获取用户信息
      */
     private void getAccount() {
@@ -201,6 +241,8 @@ public class FragmentFour extends BaseFragment {
                             money.setText(javaBean.getBody().getQianbao()+"");
                             username.setText(javaBean.getBody().getUsername()+"");
                             PreferenceUtils.setPrefString(getActivity(),"money",javaBean.getBody().getQianbao()+"");
+                            listData = javaBean.getBody().getSize();
+                            initBage();
                         }
 
                     }
@@ -261,5 +303,18 @@ public class FragmentFour extends BaseFragment {
                 });
     }
 
+
+
+    public boolean checkApkExist(Context context, String packageName) {
+        if (packageName == null || "".equals(packageName))
+            return false;
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName,
+                    PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 
 }

@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.ActivityBean;
+import io.ionic.ylnewapp.bean.ActivityBean;
 
 /**
  * Created by mogojing on 2018/6/6/0006.

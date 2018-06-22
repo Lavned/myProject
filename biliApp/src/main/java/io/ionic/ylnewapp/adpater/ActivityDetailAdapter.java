@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.ActivitiesDetailBean;
+import io.ionic.ylnewapp.bean.ActivitiesDetailBean;
 
 /**
  * Created by mogojing on 2018/6/7/0007.

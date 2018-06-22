@@ -2,6 +2,7 @@ package io.ionic.ylnewapp.view.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.jiangyy.easydialog.LoadingDialog;
 
 import org.xutils.x;
 
+import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
 import io.ionic.ylnewapp.view.main.BLApplication;
 import io.ionic.ylnewapp.R;
 
@@ -29,6 +31,7 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setStatusBar();
         mContext = this;
         x.view().inject(this);

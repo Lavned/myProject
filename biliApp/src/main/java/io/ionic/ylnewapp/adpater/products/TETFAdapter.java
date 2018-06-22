@@ -2,6 +2,7 @@ package io.ionic.ylnewapp.adpater.products;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +24,12 @@ import java.util.List;
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.util.ConvertUtils;
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.TETFBean;
+import io.ionic.ylnewapp.bean.products.TETFBean;
 import io.ionic.ylnewapp.utils.DateUtil;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.
@@ -66,16 +69,30 @@ public class TETFAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
-//            headerHolder.textViewHeader.setText("");
         } else if (holder instanceof NormalHolder) {
-            ((NormalHolder) holder).name.setText(datas.get(position -1).getName());
-            ((NormalHolder) holder).content1.setText(datas.get(position -1).getContent().get(0));
-            ((NormalHolder) holder).content2.setText(datas.get(position -1).getContent().get(1));
-            ((NormalHolder) holder).number.setText(StringUtils.sliptStr(datas.get(position -1).getOrderid()));
-            ((NormalHolder) holder).day.setText(DateUtil.getYmdforJson(datas.get(position -1).getDate()));
-            ((NormalHolder) holder).btnVal.setText(""+datas.get(position -1).getBtn());
-            if(datas.get(position -1).getBtn().equals("已锁定"))
+            final TETFBean item =datas.get(position -1) ;
+            ((NormalHolder) holder).name.setText(item.getName());
+            ((NormalHolder) holder).content1.setText(item.getContent().get(0));
+            ((NormalHolder) holder).content2.setText(item.getContent().get(1));
+            ((NormalHolder) holder).number.setText(StringUtils.sliptStr(item.getOrderid()));
+            ((NormalHolder) holder).day.setText(DateUtil.getYmdforJson(item.getDate()));
+            ((NormalHolder) holder).btnVal.setText(""+item.getBtn());
+            if(item.getBtn().equals("已锁定")){
                 ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.lockbtn);
+                ((NormalHolder) holder).btnVal.setEnabled(false);
+            }
+
+            ((NormalHolder) holder).btnVal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    PreferenceUtils.setPrefString(context,"pid",item.get());
+//                    PreferenceUtils.setPrefString(context,"orate",item.getRate());
+                    PreferenceUtils.setPrefString(context,"oname",item.getName());
+//                    PreferenceUtils.setPrefString(context,"oweek",item.getWeek());
+                    PreferenceUtils.setPrefString(context,"KEY",item.getKey());
+                    context.startActivity(new Intent(context, ProductAIActivity.class));
+                }
+            });
 
         } else {
             ((FootHolder) holder).tips.setVisibility(View.VISIBLE);

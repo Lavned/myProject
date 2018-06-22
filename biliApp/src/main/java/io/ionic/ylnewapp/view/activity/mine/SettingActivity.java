@@ -15,7 +15,9 @@ import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
+import io.ionic.ylnewapp.view.main.BLApplication;
 
 public class SettingActivity extends BaseActivity {
 
@@ -39,6 +41,9 @@ public class SettingActivity extends BaseActivity {
                         .setPositiveButton("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                startActivity(new Intent(mContext, LoginActivity.class));
+                                finish();
+                                BLApplication.finishStack();
                             }
                         }).setNegativeButton("取消", null).show();
                 break;

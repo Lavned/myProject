@@ -24,12 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.CoinBean;
+import io.ionic.ylnewapp.bean.CoinBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.wallet.SelectCurrency;
 
 /**
  * Created by mogojing on 2018/6/8/0008.

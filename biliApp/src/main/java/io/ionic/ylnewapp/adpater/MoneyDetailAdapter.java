@@ -1,20 +1,16 @@
 package io.ionic.ylnewapp.adpater;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.BalanceBean;
-import io.ionic.ylnewapp.bean.response.BankBean;
 import io.ionic.ylnewapp.utils.DateUtil;
 
 /**

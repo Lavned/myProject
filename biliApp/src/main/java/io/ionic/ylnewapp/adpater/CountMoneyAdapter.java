@@ -1,6 +1,7 @@
 package io.ionic.ylnewapp.adpater;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.bean.TotalBean;
 
 /**
  * Created by mogojing on 2018/6/12/0012.
@@ -21,9 +23,9 @@ import io.ionic.ylnewapp.R;
 public class CountMoneyAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private List<String> mData;
+    private  List<TotalBean.BodyBean.OrdersBean> mData;
 
-    public CountMoneyAdapter(Context mContext, List<String> mData) {
+    public CountMoneyAdapter(Context mContext,  List<TotalBean.BodyBean.OrdersBean> mData) {
         mLayoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mData = mData;
@@ -58,7 +60,9 @@ public class CountMoneyAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.name.setText(mData.get(position));
+        holder.name.setText(mData.get(position).getType()+"");
+        holder.num.setText(mData.get(position).getCount()+"");
+        holder.icon.setBackgroundColor(Color.parseColor(mData.get(position).getColor()));
         return convertView;
     }
 

@@ -2,7 +2,7 @@ package io.ionic.ylnewapp.view.twofragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,32 +17,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.zhouwei.library.CustomPopWindow;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.qqtheme.framework.picker.DatePicker;
-import cn.qqtheme.framework.util.ConvertUtils;
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.TBTCBean;
+import io.ionic.ylnewapp.bean.products.TBTCBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.DateUtil;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
  * Created by cmo on 16-7-21.
@@ -253,21 +250,43 @@ public class Tab8Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                 TBTCAdapter.HeaderHolder headerHolder = (TBTCAdapter.HeaderHolder) holder;
                 headerHolder.mSearch.setText("");
             } else if (holder instanceof TBTCAdapter.NormalHolder) {
-                ((TBTCAdapter.NormalHolder) holder).name.setText(datas.get(position - 1).getName());
-                ((TBTCAdapter.NormalHolder) holder).content1.setText(datas.get(position - 1).getContent().get(0));
-                ((TBTCAdapter.NormalHolder) holder).content2.setText(datas.get(position - 1).getContent().get(1));
-                ((TBTCAdapter.NormalHolder) holder).number.setText(StringUtils.sliptStr(datas.get(position - 1).getOrderid()));
-                ((TBTCAdapter.NormalHolder) holder).day.setText(DateUtil.getYmdforJson(datas.get(position - 1).getDate()));
-                ((TBTCAdapter.NormalHolder) holder).btnVal.setText("" + datas.get(position - 1).getBtn());
-                if (datas.get(position - 1).getBtn().equals("已锁定"))
-                    ((TBTCAdapter.NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.lockbtn);
-
+                try {
+                    final TBTCBean item = datas.get(position - 1);
+                    ((TBTCAdapter.NormalHolder) holder).name.setText(item.getName());
+                    ((TBTCAdapter.NormalHolder) holder).content1.setText(item.getContent().get(0));
+                    ((TBTCAdapter.NormalHolder) holder).content2.setText(item.getContent().get(1));
+                    ((TBTCAdapter.NormalHolder) holder).number.setText(StringUtils.sliptStr(item.getOrderid()));
+                    ((TBTCAdapter.NormalHolder) holder).day.setText(DateUtil.getYmdforJson(item.getDate()));
+                    ((TBTCAdapter.NormalHolder) holder).btnVal.setText("" + item.getBtn());
+                    if (item.getBtn().equals("已锁定"))
+                        ((TBTCAdapter.NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.lockbtn);
+                    else{
+                        ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.main_btn);
+                    }
+                    ((NormalHolder) holder).btnVal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PreferenceUtils.setPrefString(context,"oname",item.getName());
+                            PreferenceUtils.setPrefString(context,"KEY",item.getKey());
+                            PreferenceUtils.setPrefString(context,"orderid",item.getOrderid());
+                            context.startActivity(new Intent(context, ProductAIActivity.class));
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             } else {
                 ((TBTCAdapter.FootHolder) holder).tips.setVisibility(View.VISIBLE);
                 if (hasMore == true) {
                     fadeTips = false;
                     if (datas.size() > 0) {
                         ((TBTCAdapter.FootHolder) holder).tips.setText("正在加载更多...");
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((FootHolder) holder).tips.setVisibility(View.GONE);
+                            }
+                        }, 500);
                     }
                 } else {
                     if (datas.size() > 0) {

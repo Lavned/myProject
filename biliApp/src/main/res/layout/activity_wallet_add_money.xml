@@ -67,15 +67,17 @@
         android:layout_height="40dp">
 
         <TextView
+            android:id="@+id/address_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="00000000000000000000000000000000000"
+            android:text="0x65e7Fd5479beb0D11C0073259E22809E2e3BEa6e"
             android:paddingVertical="10dp"
             android:layout_centerVertical="true"
             android:textColor="@color/black_6"
             android:textSize="11sp"
             android:paddingLeft="15dp"/>
         <Button
+            android:id="@+id/address_copy"
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:background="@mipmap/qb_icon9_2x"

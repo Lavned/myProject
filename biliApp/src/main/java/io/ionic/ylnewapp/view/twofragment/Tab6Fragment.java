@@ -23,7 +23,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.products.ICOAdapter;
-import io.ionic.ylnewapp.bean.response.ICOBean;
+import io.ionic.ylnewapp.bean.products.ICOBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
 

@@ -1,7 +1,6 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,18 +17,15 @@ import com.lzy.okgo.model.Response;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.SelectBankAdapter;
-import io.ionic.ylnewapp.bean.response.BankBean;
+import io.ionic.ylnewapp.bean.BankBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.wallet.CurrencySearchActivity;
-import io.ionic.ylnewapp.view.activity.wallet.SelectCurrency;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class SelectBankActivity extends BaseActivity {

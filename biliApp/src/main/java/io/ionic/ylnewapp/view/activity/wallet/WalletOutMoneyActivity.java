@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
+import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -26,8 +27,11 @@ import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.WalletDetailAdapater;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.MD5Util;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
+import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class WalletOutMoneyActivity extends BaseActivity {
@@ -43,6 +47,8 @@ public class WalletOutMoneyActivity extends BaseActivity {
     @ViewInject(R.id.ma_walName)
     TextView ma_walName;
 
+    PayFragment payFragment = new PayFragment();
+
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.submit_btn,R.id.my_address})
     private void click(View v){
         switch (v.getId()){
@@ -54,7 +60,10 @@ public class WalletOutMoneyActivity extends BaseActivity {
                 break;
             case R.id.submit_btn:
                 if (checkEmpty())
-                    submitData();
+                    if(PreferenceUtils.getPrefString(mContext,"hasPay","").equals("true"))
+                        checkAuth();
+                    else
+                        ActivityUtils.hasPay(WalletOutMoneyActivity.this);
                 break;
         }
     }
@@ -66,6 +75,84 @@ public class WalletOutMoneyActivity extends BaseActivity {
         init();
     }
 
+
+
+    //鉴权验证
+    private void checkAuth() {
+        payFragment.show(getSupportFragmentManager(), "pay");
+        payFragment.setPaySuccessCallBack(new PayPwdView.InputCallBack() {
+            @Override
+            public void onInputFinish(String result) {
+                userAuth(result);
+            }
+        });
+    }
+
+
+
+    /**
+     * 用户鉴权
+     */
+    private void userAuth(String payPwd) {
+        mBuilder.setTitle("请稍候...").show();
+        OkGo.<String>post(Constants.URL_BASE + "user/authPay")//
+                .tag(this)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .params("payPwd", MD5Util.encrypt(payPwd))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String data = response.body();//这个就是返回来的结果
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(WalletOutMoneyActivity.this,0);
+                                    break;
+                                case "200":
+                                    payFragment.dismiss();
+                                    submitData();
+                                    break;
+                                case "400":
+                                    payFragment.dismiss();
+                                    new CommonDialog.Builder(WalletOutMoneyActivity.this)
+                                            .setMessage(jsonObject.getString("msg")).setTitle("提示")
+                                            .setPositiveButton("重试", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    payFragment.show(getSupportFragmentManager(), "pay");
+                                                }
+                                            }, R.color.main).setNegativeButton("忘记密码", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ActivityUtils.toForgetPwd(WalletOutMoneyActivity.this);
+                                        }
+                                    },R.color.main).show();
+                                    break;
+                                case "403":
+                                    T.showShort(jsonObject.getString("msg"));
+                                    ActivityUtils.toEdPwd(WalletOutMoneyActivity.this);
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mBuilder.dismiss();
+                    }
+                });
+    }
+    
     /**
      * 网络操作
      */

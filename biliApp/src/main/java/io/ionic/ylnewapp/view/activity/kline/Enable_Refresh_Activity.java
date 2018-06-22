@@ -45,7 +45,7 @@ public class Enable_Refresh_Activity extends BaseActivity {
     private EntrySet entrySet;
     private int loadStartPos = 5500;
     private int loadEndPos = 6000;
-    private int loadCount = 100;
+    private int loadCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

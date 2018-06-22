@@ -23,7 +23,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.products.OTCAdapter;
-import io.ionic.ylnewapp.bean.response.OTCBean;
+import io.ionic.ylnewapp.bean.products.OTCBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
 

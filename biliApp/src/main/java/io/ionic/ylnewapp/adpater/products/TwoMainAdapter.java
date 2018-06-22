@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.ETFBean;
+import io.ionic.ylnewapp.bean.products.ETFBean;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.

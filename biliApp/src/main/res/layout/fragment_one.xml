@@ -7,6 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:clipChildren="false"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:orientation="vertical">
@@ -24,45 +25,45 @@
             android:background="#fff"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/hm_see"
+                android:id="@+id/hm_one"
                 android:textSize="13sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/h_must_see2x"
+                android:drawableTop="@mipmap/h_icon1_2x"
                 android:textColor="#666666"
                 android:gravity="center"
                 android:drawablePadding="5dp"
                 android:text="新手必看"/>
             <TextView
-                android:id="@+id/hm_reward"
+                android:id="@+id/hm_two"
                 android:textSize="13sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/h_reward2x"
+                android:drawableTop="@mipmap/h_icon2_2x"
                 android:textColor="#666666"
                 android:gravity="center"
                 android:drawablePadding="5dp"
-                android:text="新手奖励"/>
+                android:text="我的红包"/>
             <TextView
-                android:id="@+id/hm_money"
+                android:id="@+id/hm_three"
                 android:textSize="13sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/h_assets2x"
+                android:drawableTop="@mipmap/h_icon3_2x"
                 android:textColor="#666666"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="比特资产"/>
+                android:text="活动中心"/>
             <TextView
-                android:id="@+id/hm_friend"
+                android:id="@+id/hm_four"
                 android:textSize="13sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/h_invitation2x"
+                android:drawableTop="@mipmap/h_icon4_2x"
                 android:textColor="#666666"
                 android:drawablePadding="5dp"
                 android:gravity="center"
@@ -82,6 +83,7 @@
                 android:textSize="11sp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/main"
+                android:textStyle="bold"
                 android:text="最新通知"/>
             <TextSwitcher
                 android:id="@+id/text_switch"
@@ -116,7 +118,7 @@
                 android:layout_below="@+id/tjxm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="这是一个很好的项目啊"
+                android:text="数字货币理财基金"
                 android:textColor="@color/black_1"
                 android:layout_marginTop="8dp"
                 android:textSize="11sp"
@@ -137,10 +139,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginHorizontal="15dp"
+            android:clipChildren="false"
             android:layout_height="180dp">
-            <android.support.v4.view.ViewPager
+            <io.ionic.ylnewapp.custom.customViewpagerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:layout_marginHorizontal="10dp"
                 android:id="@+id/one_viewpager"/>
         </LinearLayout>
 
@@ -165,7 +170,7 @@
                 android:layout_below="@+id/tjxm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="创造更高价值"
+                android:text="法币优选项目，创造更高价值"
                 android:textColor="@color/black_1"
                 android:layout_marginTop="8dp"
                 android:textSize="11sp"

@@ -62,7 +62,11 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:layout_height="wrap_content">
-                    <include layout="@layout/money_right"/>
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        android:id="@+id/right_lv"></ListView>
                 </LinearLayout>
             </LinearLayout>
 

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -17,72 +19,59 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.jaeger.library.StatusBarUtil;
 
-import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.custom.MyViewPager;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 import io.ionic.ylnewapp.view.fragment.FragmentFour;
 import io.ionic.ylnewapp.view.fragment.FragmentOne;
 import io.ionic.ylnewapp.view.fragment.FragmentThree;
 import io.ionic.ylnewapp.view.fragment.FragmentTwo;
-import io.ionic.ylnewapp.view.fragment.FragmentWal;
 
 
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
 
-    private Context context;
     private long mExitTime;//退出计时
 
 
     @ViewInject(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
-    @ViewInject(R.id.vp_home)
-    MyViewPager mVpHome;
+//    @ViewInject(R.id.vp_home)
+    public static MyViewPager mVpHome;
 
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private boolean isFullScreen = false;
 
 
-
-
-
-    @Event(type = View.OnClickListener.class ,value = R.id.tv_back)
-    private void click(View view){
-        startActivity(new Intent(context, LoginActivity.class));//login
-//        T.showShort("ff");
-//        new CommonDialog.Builder(this)
-//                .setTitle("标题")
-//                .setMessage("这里是提示内容")
-//                .setPositiveButton("确定", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                }).setNegativeButton("取消", null).show();
-    }
-
-
+    Intent intent;
+    String name = "";
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        x.view().inject(this);
-        context = this;
-//        ImmersionBar.with(this).init(); //初始化，默认透明状态栏和黑色导航栏
-//        initTopTitle("我是首页啊");
-        initNavigatoinBar();
+        mVpHome = findViewById(R.id.vp_home);
         initFragment();
-}
+        initNavigatoinBar();
+    }
 
+
+
+//    @Subscribe(threadMode = ThreadMode.MAIN )
+//    public void Event(MessageEvent messageEvent) {
+//        name = messageEvent.getMessage();
+//        mVpHome.setCurrentItem(Integer.parseInt(messageEvent.getMessage()),false);
+//    }
+
+
+    //fragment重写
     private void initFragment() {
         mVpHome.setScanScroll(false);
         mVpHome.setOnPageChangeListener(new MyViewPager.OnPageChangeListener() {
@@ -104,10 +93,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                         }
                         StatusBarUtil.setColor(MainActivity.this, Color.parseColor("#ffffff"), 225);//
                         break;
-                    case 3:
-                        isFullScreen = true;
-                        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0,null);
-                        break;
+//                    case 3:
+//                        isFullScreen = true;
+//                        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0,null);
+//                        break;
                     case 4:
                         isFullScreen = true;
                         StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0,null);
@@ -116,9 +105,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            public void onPageScrollStateChanged(int state) {}
         });
         mVpHome.setOffscreenPageLimit(0);
         mVpHome.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -148,12 +135,71 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     }
 
 
+
+
+    //底部导航栏
+    private void initNavigatoinBar() {
+        TextBadgeItem badgeItem = new TextBadgeItem();//添加标记
+        badgeItem.setHideOnSelect(false)
+                .setText("10")
+                .setBorderWidth(0);
+
+        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+        mBottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.h_home, getString(R.string.item_home)).setInactiveIconResource(R.drawable.h_home_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1)
+//                        .setBadgeItem(badgeItem))//设置提醒
+                ).addItem(new BottomNavigationItem(R.drawable.h_financial, getString(R.string.item_financial)).setInactiveIconResource(R.drawable.h_financial_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
+                .addItem(new BottomNavigationItem(R.drawable.h_market, getString(R.string.item_market)).setInactiveIconResource(R.drawable.h_market_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
+//                .addItem(new BottomNavigationItem(R.drawable.h_wallet, getString(R.string.item_wallet)).setInactiveIconResource(R.drawable.h_wallet_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
+                .addItem(new BottomNavigationItem(R.drawable.h_mine, getString(R.string.item_mine)).setInactiveIconResource(R.drawable.h_mine_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
+                .setFirstSelectedPosition(0)
+                .initialise();
+
+        mBottomNavigationBar.setTabSelectedListener(this);
+        mFragmentList.add(new FragmentOne());
+        mFragmentList.add(new FragmentTwo());
+        mFragmentList.add(new FragmentThree());
+//        mFragmentList.add(new FragmentWal());
+        mFragmentList.add(new FragmentFour());
+        intent = getIntent();
+    }
+
+
+    @Override
+    public void onTabSelected(int position) {
+        mVpHome.setCurrentItem(position,false);
+    }
+
+    @Override
+    public void onTabUnselected(int position) {}
+
+    @Override
+    public void onTabReselected(int position) {}
+
     @Override
     protected void setStatusBar() {
         isFullScreen = true;
         StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0,null);
     }
 
+
+    public interface Fragment2Fragment{
+        public void gotoFragment(MyViewPager viewPager);
+    }
+    private  Fragment2Fragment fragment2Fragment;
+    public void setFragment2Fragment(Fragment2Fragment fragment2Fragment){
+        this.fragment2Fragment = fragment2Fragment;
+    }
+
+    public void forSkip(){
+        if(fragment2Fragment!=null){
+            fragment2Fragment.gotoFragment(mVpHome);
+        }
+    }
+
+
+    //沉浸式重绘
     public void resetFragmentView(Fragment fragment) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             View contentView = findViewById(android.R.id.content);
@@ -172,48 +218,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         // 获得状态栏高度
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
-    }
-
-    //底部导航栏
-    private void initNavigatoinBar() {
-        TextBadgeItem badgeItem = new TextBadgeItem();//添加标记
-        badgeItem.setHideOnSelect(false)
-                .setText("10")
-                .setBorderWidth(0);
-
-        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
-        mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
-        mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.h_home, getString(R.string.item_home)).setInactiveIconResource(R.drawable.h_home_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1)
-//                        .setBadgeItem(badgeItem))//设置提醒
-                ).addItem(new BottomNavigationItem(R.drawable.h_financial, getString(R.string.item_financial)).setInactiveIconResource(R.drawable.h_financial_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
-                .addItem(new BottomNavigationItem(R.drawable.h_market, getString(R.string.item_market)).setInactiveIconResource(R.drawable.h_market_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
-                .addItem(new BottomNavigationItem(R.drawable.h_wallet, getString(R.string.item_wallet)).setInactiveIconResource(R.drawable.h_wallet_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
-                .addItem(new BottomNavigationItem(R.drawable.h_mine, getString(R.string.item_mine)).setInactiveIconResource(R.drawable.h_mine_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
-                .setFirstSelectedPosition(0)
-                .initialise();
-
-        mBottomNavigationBar.setTabSelectedListener(this);
-
-        mFragmentList.add(new FragmentOne());
-        mFragmentList.add(new FragmentTwo());
-        mFragmentList.add(new FragmentThree());
-        mFragmentList.add(new FragmentWal());
-        mFragmentList.add(new FragmentFour());
-    }
-
-
-    @Override
-    public void onTabSelected(int position) {
-        mVpHome.setCurrentItem(position,false);
-    }
-
-    @Override
-    public void onTabUnselected(int position) {
-    }
-
-    @Override
-    public void onTabReselected(int position) {
     }
 
 
@@ -236,6 +240,30 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+
+    //用来更新
+    public static class NOHandler extends Handler {
+        private Context context;
+
+        public NOHandler(Context context) {
+            this.context = context;
+        }
+
+        // 子类必须重写此方法,接受数据
+        @Override
+        public void handleMessage(Message msg) {
+            try{
+                if(msg.what ==1){
+                    mVpHome.setCurrentItem(1);
+                    PreferenceUtils.setPrefString(context,"test","test");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
 }

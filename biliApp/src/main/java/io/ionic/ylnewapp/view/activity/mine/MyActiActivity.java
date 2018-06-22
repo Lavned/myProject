@@ -20,7 +20,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.MyActiviAdapter;
-import io.ionic.ylnewapp.bean.response.ActivityBean;
+import io.ionic.ylnewapp.bean.ActivityBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;

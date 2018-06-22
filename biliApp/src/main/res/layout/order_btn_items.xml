@@ -4,12 +4,11 @@
             android:id="@+id/order_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/maincolorbg"
+            android:background="@mipmap/order_button_2x"
             android:layout_margin="10dp"
             android:textColor="@drawable/textclick"
             android:text="继续投资"
             android:textSize="12sp"
-            android:paddingHorizontal="20dp"
             android:layout_gravity="right"
             android:paddingVertical="5dp"
             android:gravity="center">

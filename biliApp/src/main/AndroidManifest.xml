@@ -53,13 +53,7 @@
             android:name=".view.activity.mine.FriendActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.BitAssesActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".view.activity.mine.AboutActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".view.activity.RewardActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.product.ProductsDIGActivity"
@@ -149,7 +143,10 @@
             android:name=".view.activity.mine.PassManaActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.mine.PayPassActivity"
+            android:name=".view.activity.mine.EdPayPassActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.AddPayPassActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.mine.MyActiActivity"
@@ -160,21 +157,38 @@
         <activity
             android:name=".view.activity.mine.ActivitesDetail2"
             android:launchMode="singleTop" />
-        <activity android:name=".view.activity.mine.EdLoginPassActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".view.activity.mine.ForgetPayActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".view.activity.mine.FeedbackActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".view.activity.mine.MoneyDetailActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".view.activity.mine.EdLoginPassActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.ForgetPayActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.FeedbackActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.MoneyDetailActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.kline.Enable_Refresh_Activity"
             android:launchMode="singleTop" />
-        <activity android:name=".view.activity.mine.CountMoneyActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".view.activity.mine.MyOrderActivity"
+        <activity
+            android:name=".view.activity.mine.CountMoneyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.MyOrderActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.activity.market.ZxSzDetailActivity" />
+        <activity
+            android:name=".view.activity.user.AgreementActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.market.MarketSearchActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.activity.product.WebViewActivity"
             android:launchMode="singleTop"></activity>
+        <activity android:name=".view.activity.all.BitAssesActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

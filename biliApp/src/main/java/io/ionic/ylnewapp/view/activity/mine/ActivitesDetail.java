@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -20,8 +19,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.ActivityDetailAdapter;
-import io.ionic.ylnewapp.bean.response.ActivitiesDetailBean;
-import io.ionic.ylnewapp.bean.response.BankBean;
+import io.ionic.ylnewapp.bean.ActivitiesDetailBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyListView;
 import io.ionic.ylnewapp.utils.ActivityUtils;

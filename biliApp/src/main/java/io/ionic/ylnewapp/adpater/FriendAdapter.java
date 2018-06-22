@@ -10,6 +10,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.bean.FirendBean;
+import io.ionic.ylnewapp.utils.DateUtil;
 
 /**
  * Created by mogojing on 2018/6/12/0012.
@@ -18,9 +20,9 @@ import io.ionic.ylnewapp.R;
 public class FriendAdapter extends BaseAdapter {
         private LayoutInflater mLayoutInflater;
         private Context mContext;
-        private List<String> lsData;
+        private List<FirendBean.BodyBean.ListBean> lsData;
 
-        public FriendAdapter(Context mContext, List<String> lsData) {
+        public FriendAdapter(Context mContext, List<FirendBean.BodyBean.ListBean> lsData) {
             mLayoutInflater = LayoutInflater.from(mContext);
             this.mContext = mContext;
             this.lsData = lsData;
@@ -54,8 +56,9 @@ public class FriendAdapter extends BaseAdapter {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.fri_money.setText(lsData.get(position));
-
+            holder.fri_money.setText(lsData.get(position).getMoney()+"");
+            holder.fri_date.setText(DateUtil.getYmdforJson(lsData.get(position).getCreated()));
+            holder.fri_phone.setText(lsData.get(position).getUserid()+"");
             return convertView;
         }
 

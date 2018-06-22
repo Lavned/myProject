@@ -1,300 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:scrollbars="none"
     android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:background="@mipmap/byb3bg">
-
-        <ImageView
-            android:id="@+id/back_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="20dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/whiteback" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
-            android:text="智能投顾区块链一号"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#f6f6f6"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:background="@mipmap/zwt001"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/notifaction"
-                android:layout_marginRight="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
-                android:gravity="center_horizontal"
-                android:text="最新通知，明天放假了" />
-        </LinearLayout>
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:paddingHorizontal="5dp">
+            android:layout_height="68dp"
+            android:background="@mipmap/byb3bg">
+
+            <ImageView
+                android:id="@+id/back_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/whiteback" />
 
             <TextView
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                style="@style/two_toggle_text_left"
+                android:id="@+id/title_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="投资币种：" />
-
-            <EditText
-                android:id="@+id/tz_number"
-                style="@style/two_toggle_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:background="@null"
-                android:hint="1000起购" />
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="15dp"
+                android:text="智能"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:background="@color/white"
-            android:paddingHorizontal="5dp">
-
-            <TextView
-                style="@style/two_toggle_text_left"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#f6f6f6"/>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="投资币额：" />
-
-            <TextView
-                style="@style/two_toggle_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:text="4000个" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:paddingHorizontal="5dp">
-
-            <TextView
-                style="@style/two_toggle_text_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="年化利率：" />
-
-            <TextView
-                style="@style/two_toggle_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:text="4.8%" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#F6F6F6" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/black_1"
-            android:text="请选择支付方式"
-            android:layout_margin="20dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                style="@style/two_toggle_text_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/other_icon"
-                android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="余额支付" />
+                android:layout_centerInParent="true"
+                android:background="@mipmap/zwt001"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/notifaction"
+                    android:layout_marginRight="10dp"/>
 
-            <CheckBox
-                android:padding="10dp"
-                android:checked="true"
-                android:id="@+id/cb_money"
-                android:layout_width="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_height="15dp"
-                android:layout_marginVertical="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/choosepay"
-                android:button="@null"/>
-        </RelativeLayout>
+                <TextSwitcher
+                    android:id="@+id/text_switcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center"
+                    android:gravity="center_horizontal"
+                    android:text="最新通知，明天放假了" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                style="@style/two_toggle_text_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/yl_icon"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                android:text="银联支付" />
-
-            <CheckBox
-                android:id="@+id/cb_card"
-                android:padding="10dp"
-                android:layout_width="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_height="15dp"
-                android:layout_marginVertical="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/choosepay"
-                android:button="@null"/>
+            </LinearLayout>
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="60dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:id="@+id/cb_agreed"
-                android:checked="true"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginVertical="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/choosepay"
-                android:button="@null"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingHorizontal="5dp">
+
+                <TextView
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="投资金额：" />
+
+                <EditText
+                    android:id="@+id/tz_number"
+                    style="@style/two_toggle_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:background="@null"
+                    android:inputType="numberDecimal"
+                    android:gravity="right"
+                    android:hint="1000起购" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingHorizontal="5dp">
+
+                <TextView
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="产品周期：" />
+
+                <TextView
+                    android:id="@+id/tz_week"
+                    style="@style/two_toggle_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingHorizontal="5dp">
+
+                <TextView
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="年回报率：" />
+
+                <TextView
+                    android:id="@+id/tz_rate"
+                    style="@style/two_toggle_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="4.8%" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F6F6F6" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black_6"
-                android:textSize="11sp"
-                android:text="已同意并阅读"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
                 android:textSize="12sp"
-                android:text="《投资风险协议书》"/>
+                android:textColor="@color/black_1"
+                android:text="请选择支付方式"
+                android:layout_margin="20dp"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/other_icon"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="余额支付" />
+
+                <CheckBox
+                    android:padding="10dp"
+                    android:checked="true"
+                    android:id="@+id/cb_money"
+                    android:layout_width="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_height="15dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/choosepay"
+                    android:button="@null"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/yl_icon"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="银联支付" />
+
+                <CheckBox
+                    android:id="@+id/cb_card"
+                    android:padding="10dp"
+                    android:layout_width="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_height="15dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/choosepay"
+                    android:button="@null"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/hb"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/zf_icon_2x"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="红包" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/hb_tip"
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"
+                    android:text="暂无可用红包" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/me_gray_back_2x"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_agreen"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="60dp"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/cb_agreed"
+                    android:checked="true"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/choosepay"
+                    android:button="@null"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_6"
+                    android:textSize="11sp"
+                    android:text="已同意并阅读"/>
+                <TextView
+                    android:id="@+id/ag_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:text="《投资风险协议书》"/>
+
+                <TextView
+                    android:id="@+id/ag_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:text="《资产委托协议书》"/>
+
+            </LinearLayout>
             <TextView
+                android:id="@+id/ag_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
                 android:textSize="12sp"
-                android:text="《资产委托协议书》"/>
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="《智能投顾招募说明》"/>
+
+
+
+            <Button
+                android:id="@+id/pay_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/forgetpwd"
+                android:text="确认支付"
+                android:textColor="@drawable/textclick"
+                android:layout_marginVertical="10dp"
+                android:textSize="18sp" />
 
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textSize="12sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="《智能投顾招募说明》"/>
-
-
-
-        <Button
-            android:id="@+id/pay_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@mipmap/forgetpwd"
-            android:text="确认支付"
-            android:textColor="@drawable/textclick"
-            android:layout_marginVertical="10dp"
-            android:textSize="18sp" />
 
     </LinearLayout>
 
 
-</LinearLayout>
+
+
+</ScrollView>

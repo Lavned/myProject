@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.bean.response.AddressBean;
+import io.ionic.ylnewapp.bean.AddressBean;
 
 /**
  * Created by mogojing on 2018/6/5/0005.

@@ -27,7 +27,7 @@ import java.util.List;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.CurrencyNameAdapater;
 import io.ionic.ylnewapp.adpater.CurrencyLvAdapter;
-import io.ionic.ylnewapp.bean.response.CoinBean;
+import io.ionic.ylnewapp.bean.CoinBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
@@ -82,7 +82,6 @@ public class CurrencySearchActivity extends BaseActivity {
     private void initListView(final List<CoinBean.BodyBean> mData) {
         if(mData != null & mData.size() == 0)  {
             T.showShort("暂无数据");
-            return;
         }
         lvAdapte=new CurrencyLvAdapter(mContext, mData);
         lvAdapte.notifyDataSetChanged();

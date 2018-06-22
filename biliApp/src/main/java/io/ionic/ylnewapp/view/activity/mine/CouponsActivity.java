@@ -1,5 +1,7 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -65,6 +67,8 @@ public class CouponsActivity extends BaseActivity  implements  SwipeRefreshLayou
     List<CoumonsBean.BodyBean> mData1;
 
 
+   public static Activity activity;
+
 
     @Event(type = View.OnClickListener.class,value ={ R.id.tv_back,R.id.tv_1,R.id.tv_2,R.id.tv_3,R.id.tv_4})
     private void click(View v){
@@ -99,13 +103,21 @@ public class CouponsActivity extends BaseActivity  implements  SwipeRefreshLayou
     }
 
 
+    public static int type = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupons);
+        activity = this;
         init();
+        Intent intent = getIntent();
+        if (intent!=null){
+            type = intent.getIntExtra("type",0);
+        }
         loadData(1);
     }
+
 
     /**
      * 获取网络数据
@@ -249,5 +261,10 @@ public class CouponsActivity extends BaseActivity  implements  SwipeRefreshLayou
                 refreshLayout.setRefreshing(false);
             }
         }, 1000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

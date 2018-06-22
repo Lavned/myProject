@@ -38,7 +38,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:text="+5000"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:layout_marginHorizontal="10dp"
                 android:textColor="@color/red"/>
         </RelativeLayout>

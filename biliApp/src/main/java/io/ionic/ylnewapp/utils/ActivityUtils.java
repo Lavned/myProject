@@ -8,11 +8,17 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.jiangyy.easydialog.CommonDialog;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.util.ConvertUtils;
+import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.view.activity.mine.AddPayPassActivity;
+import io.ionic.ylnewapp.view.activity.mine.ForgetPayActivity;
+import io.ionic.ylnewapp.view.activity.mine.EdPayPassActivity;
 import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 
 /**
@@ -43,6 +49,40 @@ public class ActivityUtils {
         }, 1500);
     }
 
+    public static void toForgetPwd(final Activity mContext){
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mContext.startActivity(new Intent(mContext, ForgetPayActivity.class));
+                mContext.finish();
+
+            }
+        }, 300);
+    }
+
+    public static void toEdPwd(final Activity mContext){
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mContext.startActivity(new Intent(mContext, EdPayPassActivity.class));
+                mContext.finish();
+
+            }
+        }, 300);
+    }
+
+
+    public static  void  hasPay(final Activity mContext){
+            new CommonDialog.Builder(mContext)
+                    .setMessage("请设置支付密码").setTitle("提示")
+                    .setPositiveButton("前往设置", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mContext.startActivity(new Intent(mContext,AddPayPassActivity.class));
+                            mContext.finish();
+                        }
+                    }, R.color.main).setNegativeButton("取消",null).show();
+    }
 
     /**
      * 获取viewText
