@@ -9,55 +9,35 @@
         android:id="@+id/img_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:src="@mipmap/qb_logo1_2x"
+        android:layout_centerVertical="true"
         android:layout_marginHorizontal="8dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/dig_p1_2x" />
+        android:scaleType="fitXY"/>
 
     <RelativeLayout
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:gravity="center"
-        android:layout_marginLeft="80dp"
+        android:layout_toRightOf="@id/img_photo"
+        android:layout_marginLeft="5dp"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textName"
+            android:id="@+id/textBTC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BTC  /"
+            android:text="BTC"
             android:layout_centerVertical="true"
-            android:textSize="13sp"
-            android:textColor="@color/black33"/>
-        <TextView
-            android:layout_centerVertical="true"
-            android:id="@+id/textView2"
-            android:layout_marginLeft="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OKFX"
             android:textSize="13sp"
             android:textColor="@color/black33"/>
 
         <TextView
+            android:id="@+id/textEXName"
+            android:layout_below="@id/textBTC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView"
-            android:layout_alignBottom="@+id/textView"
-            android:layout_alignStart="@+id/textName"
-            android:text="成交量 /"
+            android:text="成交量"
             android:textColor="@color/black_1"
             android:textSize="12sp" />
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="40dp"
-            android:layout_below="@+id/textName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 成交额 "
-            android:textSize="12sp"
-            android:textColor="@color/black_1"
-            android:id="@+id/textView" />
 
     </RelativeLayout>
 
@@ -73,6 +53,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/text_cny"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black33"
@@ -80,6 +61,7 @@
                 android:layout_gravity="center"
                 android:text="$787"/>
             <TextView
+                android:id="@+id/text_usd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_1"

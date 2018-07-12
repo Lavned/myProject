@@ -14,6 +14,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
@@ -36,16 +37,18 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.exit_login:
                 new CommonDialog.Builder(SettingActivity.this)
-                        .setTitle("温馨提示")
-                        .setMessage("确定要退出登录吗？")
+                        .setTitle("温馨提示",R.color.main)
+                        .setMessage("确定要退出登录吗？",R.color.main)
                         .setPositiveButton("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                PreferenceUtils.setPrefString(mContext,"token","");
+                                PreferenceUtils.setPrefString(mContext,"loginIn","");
                                 startActivity(new Intent(mContext, LoginActivity.class));
                                 finish();
                                 BLApplication.finishStack();
                             }
-                        }).setNegativeButton("取消", null).show();
+                        },R.color.main).setNegativeButton("取消", null).show();
                 break;
             case R.id.re_version:
                 T.showShort("当前版本号为" + getVersion());
@@ -64,6 +67,7 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         init();
+        verison.setText("V" + getVersion());
     }
 
     /**

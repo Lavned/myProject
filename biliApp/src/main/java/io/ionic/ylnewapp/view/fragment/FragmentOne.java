@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,15 +16,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TabHost;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.google.gson.Gson;
+import com.jiangyy.easydialog.OtherDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -34,14 +44,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.adpater.HotAdapter;
+import io.ionic.ylnewapp.bean.HomeBean;
 import io.ionic.ylnewapp.bean.NotifiBean;
 import io.ionic.ylnewapp.constants.Constants;
+import io.ionic.ylnewapp.custom.MyListView;
 import io.ionic.ylnewapp.custom.MyViewPager;
+import io.ionic.ylnewapp.custom.NewListView;
 import io.ionic.ylnewapp.custom.ViewpagerTransformAnim;
 import io.ionic.ylnewapp.custom.customViewpagerView;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.all.BitAssesActivity;
-import io.ionic.ylnewapp.view.activity.mine.CountMoneyActivity;
+import io.ionic.ylnewapp.view.activity.kline.Enable_Refresh_Activity;
 import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
 import io.ionic.ylnewapp.view.activity.mine.FriendActivity;
 import io.ionic.ylnewapp.view.activity.mine.MyActiActivity;
@@ -64,23 +78,28 @@ public class FragmentOne extends BaseFragment {
     private boolean isFlipping = false; // 是否启用预警信息轮播
     private List<String> mWarningTextList = new ArrayList<>();
     List<NotifiBean.BodyBean> mData ;
+
+    List<HomeBean.BodyBean.HotBean> HOTData ;
+    List<HomeBean.BodyBean.PushBean> PUSHData ;
+
     @ViewInject(R.id.text_switch)
     TextSwitcher mTextSwitcher;
+    @ViewInject(R.id.onescrollView)
+    ScrollView scrollView;
 
-    public List<View> views;
+//    public List<View> views;
     private ViewPagerAdapter vpAdapter;
 
     @ViewInject(R.id.one_viewpager)
     customViewpagerView one_viewpager;
 
-    @ViewInject(R.id.hm_one)
-    TextView hm_friend;
-    @ViewInject(R.id.hm_two)
-    TextView hm_money;
-    @ViewInject(R.id.hm_three)
-    TextView hm_reward;
-    @ViewInject(R.id.hm_four)
-    TextView hm_see;
+    @ViewInject(R.id.position_num)
+    TextView position_num;
+    @ViewInject(R.id.position_count)
+    TextView position_count;
+    @ViewInject(R.id.one_lv)
+    NewListView oneLv;
+    HotAdapter adapter;
 
     @Event(type = View.OnClickListener.class ,value = {R.id.hm_one,R.id.hm_two,R.id.hm_three,R.id.hm_four,R.id.text_switch})
     private void click(View view){
@@ -98,7 +117,7 @@ public class FragmentOne extends BaseFragment {
                 startActivity(new Intent(getActivity(),FriendActivity.class));
                 break;
             case R.id.text_switch :
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+                startActivity(new Intent(getActivity(),NotificationActivity.class));
                 break;
         }
     }
@@ -113,7 +132,7 @@ public class FragmentOne extends BaseFragment {
         mainActivity.setFragment2Fragment(new MainActivity.Fragment2Fragment() {
             @Override
             public void gotoFragment(MyViewPager viewPager) {
-                viewPager.setCurrentItem(i);
+                viewPager.setCurrentItem(i,false);
             }
         });
         mainActivity.forSkip();
@@ -123,13 +142,17 @@ public class FragmentOne extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = x.view().inject(this, inflater, container);
-        initViewPager();
+        scrollView.smoothScrollTo(0,0);
+        getHomeData();
         getNotifiData();
         return view;//fragment注解;
     }
 
 
-
+    /**
+     * 跑马灯
+     * @param datas
+     */
     private void initText(List<NotifiBean.BodyBean> datas) {
         setTextSwitcher();
         mWarningTextList.add(mData.get(0).getTitle());
@@ -153,8 +176,9 @@ public class FragmentOne extends BaseFragment {
                         Gson gson = new Gson();
                         NotifiBean javaBean =gson.fromJson(data.toString(),NotifiBean.class);
                         mData = javaBean.getBody();
-                        if(mData!=null)
+                        if(mData!=null){
                             initText(mData);
+                        }
                     }
 
                     @Override
@@ -166,100 +190,181 @@ public class FragmentOne extends BaseFragment {
                 });
     }
 
+    /**
+     * 获取通知列表
+     */
+    private void getHomeData() {
+        OkGo.<String>get(Constants.URL_BASE + "home/home")//
+                .tag(this)//
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String data = response.body();//
+                        Gson gson = new Gson();
+                        HomeBean javaBean =gson.fromJson(data.toString(),HomeBean.class);
+                        HOTData = javaBean.getBody().getHot();
+                        PUSHData = javaBean.getBody().getPush();
+                        initViewPager(PUSHData);
+                        initHot(HOTData);
+                    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        startFlipping();
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(getActivity());
+                    }
+
+                });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        stopFlipping();
+    private void  toTwo(List<HomeBean.BodyBean.PushBean>PUSHData,int position){
+        int num = 0;
+        switch (PUSHData.get(position).getKey()){
+            case "DIG":
+                num = 0;
+                break;
+            case "AI":
+                num = 1;
+                break;
+            case "ETF":
+                num = 2;
+                break;
+            case "OTC":
+                num = 3;
+                break;
+            case "BTC":
+                num = 4;
+                break;
+            case "ICO":
+                num = 5;
+                break;
+            case "TETF":
+                num = 6;
+                break;
+            case "TBTC":
+                num = 7;
+                break;
+        }
+        toFragment(1);
+        Message message = new Message();
+        message.what= num;
+        FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(getActivity());
+        myHandler.sendMessage(message);
     }
 
-
-    int currentPosition = 0;
-    //初始化中间轮播控件
-    private void initViewPager() {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        views = new ArrayList<View>();
-        //获取View对象
-        View view1 = inflater.inflate(R.layout.main_view_items, null);
-        View view2 = inflater.inflate(R.layout.main_view_items, null);
-        View view3 = inflater.inflate(R.layout.main_view_items, null);
-        //view对象放在List<view>中
-        views.add(view1);
-        views.add(view2);
-        views.add(view3);
-        one_viewpager.setOffscreenPageLimit(3);
-        one_viewpager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
-        //List<view>放在适配器ViewPagerAdapter中
-        vpAdapter = new ViewPagerAdapter(views, getActivity());
-        //获取ViewPage,设置适配器;
-        one_viewpager.setAdapter(vpAdapter);
-        one_viewpager.setPageTransformer(true, new ViewpagerTransformAnim());
-
-        one_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    /**
+     * 底部list
+     * @param hotData
+     */
+    private void initHot(final List<HomeBean.BodyBean.HotBean> hotData) {
+        adapter = new HotAdapter(getActivity(),hotData);
+        oneLv.setAdapter(adapter);
+        oneLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPosition = position;
-                Log.i("--------9999",position+"---");
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-               // 若viewpager滑动未停止，直接返回
-                if (state != ViewPager.SCROLL_STATE_IDLE) return;
-//        若当前为第一张，设置页面为倒数第二张
-                if (currentPosition == 0) {
-                    one_viewpager.setCurrentItem(views.size()-2,false);
-                } else if (currentPosition == views.size()-1) {
-//        若当前为倒数第一张，设置页面为第二张
-                    one_viewpager.setCurrentItem(0,false);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int num = 0;
+                switch (hotData.get(position).getKey()){
+                    case "DIG":
+                        num = 0;
+                        break;
+                    case "AI":
+                        num = 1;
+                        break;
+                    case "ETF":
+                        num = 2;
+                        break;
+                    case "OTC":
+                        num = 3;
+                        break;
+                    case "BTC":
+                        num = 4;
+                        break;
+                    case "ICO":
+                        num = 5;
+                        break;
+                    case "TETF":
+                        num = 6;
+                        break;
+                    case "TBTC":
+                        num = 7;
+                        break;
                 }
+                toFragment(1);
+                Message message = new Message();
+                message.what= num;
+                FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(getActivity());
+                myHandler.sendMessage(message);
             }
         });
     }
 
 
+
+    //初始化中间轮播控件
+    private void initViewPager(final List<HomeBean.BodyBean.PushBean> pushBeans) {
+        one_viewpager.setOffscreenPageLimit(3);
+        one_viewpager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
+        //List<view>放在适配器ViewPagerAdapter中
+        vpAdapter = new ViewPagerAdapter( getActivity(),pushBeans);
+        //获取ViewPage,设置适配器;
+        one_viewpager.setAdapter(vpAdapter);
+        one_viewpager.setPageTransformer(true, new ViewpagerTransformAnim());
+    }
+
+
+    /**
+     * 适配器
+     */
     class ViewPagerAdapter extends PagerAdapter {
         private Context context;
         private List<View> viewlist;
-        public ViewPagerAdapter( List<View> views,Context context) {
+        List<HomeBean.BodyBean.PushBean> pushBeans;
+        public ViewPagerAdapter( Context context, List<HomeBean.BodyBean.PushBean> pushBeans) {
             this.context = context;
-            this.viewlist = views;
+            this.pushBeans = pushBeans;
         }
-        /**
-         * 页面宽度所占ViewPager测量宽度的权重比例，默认为1
-         */
-//        @Override
-//        public float getPageWidth(int position) {
-//            return (float) 0.9;
-//        }
-        //重新4个方法
+
         @Override
         public int getCount() {
-            return views.size();
+            return Integer.MAX_VALUE;
         }
-        //instantiateItem()：将当前view添加到ViewGroup中，并返回当前View
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(views.get(position));
-            return views.get(position);
+        public Object instantiateItem(ViewGroup container, final int position) {
+            View v = LayoutInflater.from(context).inflate(R.layout.main_view_items , null);
+            TextView textView = v.findViewById(R.id.view_name);
+            TextView view_title = v.findViewById(R.id.view_title);
+            TextView text1 = v.findViewById(R.id.view_texte1);
+            TextView text2 = v.findViewById(R.id.view_texte2);
+            TextView text3 = v.findViewById(R.id.view_texte3);
+            TextView text4 = v.findViewById(R.id.view_texte4);
+            LinearLayout view_item = v.findViewById(R.id.view_item);
+
+            final int i  = position % pushBeans.size();
+            view_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toTwo(pushBeans,i);
+                }
+            });
+            textView.setText(pushBeans.get(i).getName());
+            view_title.setText(pushBeans.get(i).getTitle());
+            text1.setText(pushBeans.get(i).getRate()+"");
+            text2.setText(pushBeans.get(i).getWeek()+"");
+            text3.setText(pushBeans.get(i).getTitleRate());
+            text4.setText(pushBeans.get(i).getTitleWeek());
+
+            position_count.setText(" / "+pushBeans.size()+"");
+            position_num.setText( i+1+"");
+
+
+            container.addView(v);
+            return v;
         }
         //destroyItem()：删除当前的View;
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(views.get(position));
+            container.removeView((View)object);
         }
-        //isViewFromObject判断当前的View 和 我们想要的Object(值为View) 是否一样;返回 trun / false;
         @Override
         public boolean isViewFromObject(View arg0, Object arg1) {
             return (arg0 == arg1);
@@ -268,6 +373,9 @@ public class FragmentOne extends BaseFragment {
     }
 
 
+    /**
+     * 设置跑马灯
+     */
     private void setTextSwitcher() {
         mTextSwitcher.setInAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_bottom));
         mTextSwitcher.setOutAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_top));
@@ -346,6 +454,24 @@ public class FragmentOne extends BaseFragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+    }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+        startFlipping();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        stopFlipping();
+    }
 
 }

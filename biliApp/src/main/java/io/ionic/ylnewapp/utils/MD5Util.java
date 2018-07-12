@@ -9,7 +9,6 @@ import java.security.MessageDigest;
 /**
  * MD5加密工具类
  * <p/>
- * 作者：余天然 on 16/5/9 上午11:46
  */
 public class MD5Util {
 

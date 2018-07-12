@@ -81,13 +81,14 @@
     <GridView
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:numColumns="6"
         android:verticalSpacing="5dp"
         android:layout_marginHorizontal="15dp"
         android:horizontalSpacing="5dp"
         android:columnWidth="120dp"
         android:stretchMode="columnWidth"
+        android:paddingBottom="10dp"
         android:gravity="center"  ></GridView>
 
     <View

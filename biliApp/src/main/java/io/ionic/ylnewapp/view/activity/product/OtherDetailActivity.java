@@ -1,39 +1,24 @@
 package io.ionic.ylnewapp.view.activity.product;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
-import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
@@ -48,14 +33,6 @@ import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class OtherDetailActivity extends BaseActivity {
 
-
-    Context context;
-    private int index = 0;//textview上下滚动下标
-    private Handler handler = new Handler();
-    private boolean isFlipping = false; // 是否启用预警信息轮播
-    private List<String> mWarningTextList = new ArrayList<>();
-    @ViewInject(R.id.text_switcher)
-    TextSwitcher mTextSwitcher;
 
 
     @ViewInject(R.id.tz_number)
@@ -141,10 +118,6 @@ public class OtherDetailActivity extends BaseActivity {
      */
     private void init() {
         StatusBarUtil.setTranslucentForImageViewInFragment(this, 0,null);
-        setView();
-        mWarningTextList.add("请在有效期内及时付款，超时订单将自动取消");
-        setTextSwitcher();
-        setData();
     }
 
     /**
@@ -262,10 +235,16 @@ public class OtherDetailActivity extends BaseActivity {
                         try {
                             jsonObject= new JSONObject(response.body());
                             T.showShort(jsonObject.getString("msg"));
-                            if(jsonObject.getString("status").equals("401"))
-                                ActivityUtils.toLogin(OtherDetailActivity.this,0);
-                            if(jsonObject.getString("status").equals("200")){
-                                  nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(OtherDetailActivity.this,0);
+                                    break;
+                                case "402":
+                                    ActivityUtils.noMoney(OtherDetailActivity.this);
+                                    break;
+                                case "200":
+                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -306,10 +285,16 @@ public class OtherDetailActivity extends BaseActivity {
                         try {
                             jsonObject= new JSONObject(response.body());
                             T.showShort(jsonObject.getString("msg"));
-                            if(jsonObject.getString("status").equals("401"))
-                                ActivityUtils.toLogin(OtherDetailActivity.this,0);
-                            if(jsonObject.getString("status").equals("200")){
-                                nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(OtherDetailActivity.this,0);
+                                    break;
+                                case "402":
+                                    ActivityUtils.noMoney(OtherDetailActivity.this);
+                                    break;
+                                case "200":
+                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -336,13 +321,21 @@ public class OtherDetailActivity extends BaseActivity {
      * otc的下单
      */
     private void newOrderOtc() {
+        String packet =PreferenceUtils.getPrefString(mContext,"couid","");
         mBuilder.setTitle("请求中...").show();
+        HttpParams params = new HttpParams();
+        if(packet.equals("")){//不携带红包参数
+            params.put("pid",PreferenceUtils.getPrefString(mContext,"pid",""));
+            params.put("payAmount",editText.getText().toString().trim());
+        }else {
+            params.put("pid",PreferenceUtils.getPrefString(mContext,"pid",""));
+            params.put("payAmount",editText.getText().toString().trim());
+            params.put("packetid",packet);
+        }
         OkGo.<String>put(Constants.URL_BASE + "order/newOrder")//
                 .tag(this)
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
-                .params("pid",PreferenceUtils.getPrefString(mContext,"pid",""))
-                .params("payAmount",editText.getText().toString().trim())
-                .params("packetid",PreferenceUtils.getPrefString(mContext,"couid",""))
+                .params(params)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -350,10 +343,16 @@ public class OtherDetailActivity extends BaseActivity {
                         try {
                             jsonObject= new JSONObject(response.body());
                             T.showShort(jsonObject.getString("msg"));
-                            if(jsonObject.getString("status").equals("401"))
-                                ActivityUtils.toLogin(OtherDetailActivity.this,0);
-                            if(jsonObject.getString("status").equals("200")){
-                                  nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(OtherDetailActivity.this,0);
+                                    break;
+                                case "402":
+                                    ActivityUtils.noMoney(OtherDetailActivity.this);
+                                    break;
+                                case "200":
+                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -485,110 +484,36 @@ public class OtherDetailActivity extends BaseActivity {
                 url = Constants.WbUrl.webIcoProtocol;
                 break;
             case "TETF":
+                editText.setText(PreferenceUtils.getPrefString(mContext,"moneys",""));
+                editText.setEnabled(false);
                 ag3.setVisibility(View.GONE);
                 break;
             case "TBTC":
+                editText.setText(PreferenceUtils.getPrefString(mContext,"moneys",""));
+                editText.setEnabled(false);
                 ag3.setVisibility(View.GONE);
                 break;
-        }
-    }
-
-
-
-    //跑马灯设置
-    private void setTextSwitcher() {
-        mTextSwitcher.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_in_bottom));
-        mTextSwitcher.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_out_top));
-        mTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                TextView textView = new TextView(mContext);
-                textView.setSingleLine();
-                textView.setTextSize(12);//字号
-                textView.setTextColor(getColor(R.color.main));
-                textView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-                textView.setSingleLine();
-                textView.setText("请在有效期内及时付款，超时订单将自动取消");
-                textView.setGravity(Gravity.CENTER);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                params.gravity = Gravity.CENTER;
-                textView.setLayoutParams(params);
-                textView.setPadding(25, 0, 25, 0);
-                return textView;
-            }
-        });
-    }
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            if (!isFlipping) {
-                return;
-            }
-            index++;
-            mTextSwitcher.setText(mWarningTextList.get(index % mWarningTextList.size()));
-            if (index == mWarningTextList.size()) {
-                index = 0;
-            }
-            startFlipping();
-        }
-    };
-
-    //开启信息轮播
-    public void startFlipping() {
-        if (mWarningTextList.size() > 0) {
-            handler.removeCallbacks(runnable);
-            isFlipping = true;
-            handler.postDelayed(runnable, 3000);
-        }
-    }
-
-    //关闭信息轮播
-    public void stopFlipping() {
-        if (mWarningTextList.size() > 0) {
-            isFlipping = false;
-            handler.removeCallbacks(runnable);
-        }
-    }
-
-    //设置数据
-    private void setData() {
-        if (mWarningTextList.size() == 0) {
-            mTextSwitcher.setText(mWarningTextList.get(0));
-            index = 0;
-        }
-        if (mWarningTextList.size() > 0) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mTextSwitcher.setText(mWarningTextList.get(0));
-                    index = 0;
-                }
-            }, 1000);
-            mTextSwitcher.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_in_bottom));
-            mTextSwitcher.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_out_top));
-            startFlipping();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        startFlipping();
+        setView();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        stopFlipping();
         PreferenceUtils.setPrefString(mContext, "coumoney", "");
+        PreferenceUtils.setPrefString(mContext, "couid", "");
     }
 
 
     @Override
     protected void onDestroy() {
         PreferenceUtils.setPrefString(mContext, "coumoney", "");
+        PreferenceUtils.setPrefString(mContext, "couid", "");
         super.onDestroy();
     }
 }

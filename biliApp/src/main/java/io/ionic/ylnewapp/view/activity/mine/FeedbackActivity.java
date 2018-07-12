@@ -44,8 +44,8 @@ public class FeedbackActivity extends BaseActivity {
             case R.id.feed_submit:
                 if(feed_edit.getText().toString().trim().equals("")){
                     T.showShort("请输入您的意见");
-                }else if(feed_edit.getText().toString().trim().equals("")){
-                    T.showShort("请输入您的意见");
+                }else if(feed_num.getText().toString().trim().equals("")){
+                    T.showShort("请输入您的联系方式");
                 }else
                     loadData();
                 break;

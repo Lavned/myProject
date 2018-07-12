@@ -48,13 +48,14 @@ public class ActivityDetailAdapter2 extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mLayoutInflater.inflate(R.layout.acti_detail_items2, parent, false);
+            holder.name = convertView.findViewById(R.id.icon_name);
+            holder.num = convertView.findViewById(R.id.icon_num);
+            holder.use = convertView.findViewById(R.id.icon_use);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.name = convertView.findViewById(R.id.icon_name);
-        holder.num = convertView.findViewById(R.id.icon_num);
-        holder.use = convertView.findViewById(R.id.icon_use);
+
         String datas = mData.get(position).getName();
         int index = datas.indexOf("%");
         holder.num.setText(datas.substring(0,index+1));

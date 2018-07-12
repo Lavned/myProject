@@ -4,11 +4,14 @@ package io.ionic.ylnewapp.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -20,6 +23,9 @@ import io.ionic.ylnewapp.view.base.BaseFragment;
 import io.ionic.ylnewapp.view.activity.market.MarketFragment1;
 import io.ionic.ylnewapp.view.activity.market.MarketFragment2;
 import io.ionic.ylnewapp.view.activity.market.MarketSearchActivity;
+
+import static io.ionic.ylnewapp.view.activity.market.MarketFragment2.mSocket;
+import static io.ionic.ylnewapp.view.activity.market.MarketFragment1.mSockets;
 
 
 /**
@@ -119,14 +125,29 @@ public class FragmentThree extends BaseFragment {
 
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        if(mSocket!=null){
-//            mSocket.disconnect();
-//            mSocket.off("ticker", onNewMessage);
-//        }
+        Log.i("socketlog","我关啦lllalalallllllllll");
+        if(mSocket!=null){
+            mSocket.disconnect();
+        }
+        if(mSockets!=null){
+            mSockets.disconnect();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
     }
 
 }

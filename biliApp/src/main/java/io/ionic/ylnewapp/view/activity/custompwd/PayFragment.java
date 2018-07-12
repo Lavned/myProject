@@ -1,6 +1,7 @@
 package io.ionic.ylnewapp.view.activity.custompwd;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.mine.ForgetPayActivity;
 
 
 /**
@@ -59,6 +61,13 @@ public class PayFragment extends DialogFragment implements View.OnClickListener 
         PwdInputMethodView inputMethodView = (PwdInputMethodView) dialog.findViewById(R.id.inputMethodView);
         psw_input.setInputMethodView(inputMethodView);
         psw_input.setInputCallBack(inputCallBack);
+        TextView textView = dialog.findViewById(R.id.forgerpwd);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ForgetPayActivity.class));
+            }
+        });
 
         dialog.findViewById(R.id.iv_close).setOnClickListener(this);
     }

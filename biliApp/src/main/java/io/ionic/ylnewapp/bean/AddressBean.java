@@ -40,7 +40,7 @@ public class AddressBean {
          */
 
         private String id;
-        private int type;
+        private String type;
         private String address;
 
         public String getId() {
@@ -51,11 +51,11 @@ public class AddressBean {
             this.id = id;
         }
 
-        public int getType() {
+        public String getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(String type) {
             this.type = type;
         }
 

@@ -235,11 +235,11 @@ public class WalletAddMoneyActivity extends BaseActivity {
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         Intent intent = getIntent();
-        String titleName = intent.getStringExtra("name");
-        int i = titleName.indexOf("|");
-        title.setText( titleName.substring(0,i));
-        Glide.with(mContext).load(titleName.substring(i+1,titleName.length())).into(tImg);
-        tName.setText( titleName.substring(0,i));
+        title.setText(intent.getStringExtra("name"));
+        tName.setText(intent.getStringExtra("name"));
+        if(tName.getText().toString().equals("btc")){
+            address_text.setText("1QGDMGUWDTYDcMFufuAHAzx3gZLWKWGVhD");
+        }
     }
 
     /**

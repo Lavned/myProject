@@ -32,11 +32,15 @@
                 android:id="@+id/fri_money"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/cash20bg"
                 android:layout_height="wrap_content"
                 android:text="0000"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
                 android:gravity="center"
-                android:textColor="@color/one_bg"
+                android:textColor="@color/white"
                 android:textSize="13sp"/>
+
         </LinearLayout>
 
 </LinearLayout>

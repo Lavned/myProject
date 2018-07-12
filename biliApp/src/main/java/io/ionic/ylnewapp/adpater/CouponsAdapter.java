@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,9 +80,10 @@ public class CouponsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((ViewHolder) holder).use.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferenceUtils.setPrefString(mContext,"coumoney",mData.get(position).getAmount()+"");
-                PreferenceUtils.setPrefString(mContext,"couid",mData.get(position).getPacketid()+"");
                 if(CouponsActivity.type ==1 || CouponsActivity.type == 2){
+                    PreferenceUtils.setPrefString(mContext,"coumoney",mData.get(position).getAmount()+"");
+                    Log.i("-----cun",PreferenceUtils.getPrefString(mContext,"coumoney",""));
+                    PreferenceUtils.setPrefString(mContext,"couid",mData.get(position).getPacketid()+"");
                     CouponsActivity.activity.finish();
                 }else {
                     Message msg = new Message();

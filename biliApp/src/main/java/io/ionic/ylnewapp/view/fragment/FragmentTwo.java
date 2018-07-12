@@ -1,8 +1,11 @@
 package io.ionic.ylnewapp.view.fragment;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jaeger.library.StatusBarUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.x;
@@ -44,13 +48,14 @@ public class FragmentTwo extends BaseFragment{
 
 
 
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-    private ViewPagerAdapter mAdapter;
+    public static TabLayout mTabLayout;
+    public static ViewPager mViewPager;
+     ViewPagerAdapter mAdapter;
     private List<Fragment> mFragments;
 
     private List<String > mTabTitles;
     FragmentTwo fragment;
+    boolean isClck ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,12 +66,7 @@ public class FragmentTwo extends BaseFragment{
         fragment = this;
         initTab();
         return view;
-
-
     }
-
-
-
 
     /**
      * 视图是否已经对用户可见，系统的方法
@@ -81,7 +81,68 @@ public class FragmentTwo extends BaseFragment{
         }
     }
 
+    //用来更新
+    public static class MyHandler extends Handler {
+        private Context context;
 
+        public MyHandler(Context context) {
+            this.context = context;
+        }
+
+        // 子类必须重写此方法,接受数据
+        @Override
+        public void handleMessage(Message msg) {
+            try{
+//                if(msg.arg1 ==1){
+//                    mViewPager.setCurrentItem(3,false);
+//                    mTabLayout.getTabAt(3).select();
+//                }
+                switch (msg.what){
+                    case 0:
+                        mViewPager.setCurrentItem(0,false);
+                        mTabLayout.getTabAt(0).select();
+                        break;
+                    case 1:
+                        mViewPager.setCurrentItem(1,false);
+                        mTabLayout.getTabAt(1).select();
+                        break;
+                    case 2:
+                        mViewPager.setCurrentItem(2,false);
+                        mTabLayout.getTabAt(2).select();
+                        break;
+                    case 3:
+                        mViewPager.setCurrentItem(3,false);
+                        mTabLayout.getTabAt(3).select();
+                        break;
+                    case 4:
+                        mViewPager.setCurrentItem(4,false);
+                        mTabLayout.getTabAt(4).select();
+                        break;
+                    case 5:
+                        mViewPager.setCurrentItem(5,false);
+                        mTabLayout.getTabAt(5).select();
+                        break;
+                    case 6:
+                        mViewPager.setCurrentItem(6,false);
+                        mTabLayout.getTabAt(6).select();
+                        break;
+                    case 7:
+                        mViewPager.setCurrentItem(7,false);
+                        mTabLayout.getTabAt(7).select();
+                        break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PreferenceUtils.setPrefString(getActivity(),"test","");
+    }
 
     //初始化Tab
     private void initTab() {
@@ -110,6 +171,7 @@ public class FragmentTwo extends BaseFragment{
         mTabLayout.setBackgroundColor(Color.parseColor("#ffffff"));
         mTabLayout.setTabTextColors(Color.parseColor("#333333"), Color.parseColor("#FEA620"));
         mTabLayout.removeAllTabs();
+
         mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(0)));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(1)));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(2)));
@@ -193,5 +255,19 @@ public class FragmentTwo extends BaseFragment{
             return PagerAdapter.POSITION_NONE;
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+    }
+
 
 }

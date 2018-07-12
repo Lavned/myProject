@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +16,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
@@ -37,7 +35,6 @@ import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.wallet.SelectCurrency;
-import io.ionic.ylnewapp.view.activity.wallet.WalletAdAddActivity;
 import io.ionic.ylnewapp.view.activity.wallet.WalletDetailActivity;
 import io.ionic.ylnewapp.view.activity.wallet.WalletManaActivity;
 import io.ionic.ylnewapp.view.base.BaseFragment;
@@ -56,18 +53,18 @@ public class FragmentWal extends BaseFragment {
 
     Context mContext;
     List<MyCoinsBean.BodyBean> mData;
-    SlidingMenu mSlidingMenu;//侧滑菜单
+//    SlidingMenu mSlidingMenu;//侧滑菜单
 
 
     @Event(type = View.OnClickListener.class,value = {R.id.wallet_ed,R.id.add_biz})
     private void click(View v){
         switch (v.getId()){
             case R.id.wallet_ed :
-                if(mSlidingMenu == null){
-                    initSlide();
-                }else {
-                    mSlidingMenu.toggle();
-                }
+//                if(mSlidingMenu == null){
+//                    initSlide();
+//                }else {
+//                    mSlidingMenu.toggle();
+//                }
                 break;
             case R.id.add_biz:
                 startActivity(new Intent(mContext,SelectCurrency.class));
@@ -93,19 +90,19 @@ public class FragmentWal extends BaseFragment {
     }
 
 
-    /**
-     * 初始化侧滑菜单
-     */
-    private void initSlide() {
-        mSlidingMenu = new SlidingMenu(getActivity());
-        mSlidingMenu.setMode(SlidingMenu.RIGHT);     //设置从左弹出/滑出SlidingMenu
-//        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);   //设置占满屏幕
-        mSlidingMenu.attachToActivity(getActivity(),SlidingMenu.SLIDING_CONTENT);    //绑定到哪一个Activity对象
-        mSlidingMenu.setMenu(getshowView());                   //设置弹出的SlidingMenu的布局文件
-        mSlidingMenu.setBehindOffsetRes(R.dimen.sliding_menu_offset);       //
-        mSlidingMenu.toggle(true);
-//
-    }
+//    /**
+//     * 初始化侧滑菜单
+//     */
+//    private void initSlide() {
+//        mSlidingMenu = new SlidingMenu(getActivity());
+//        mSlidingMenu.setMode(SlidingMenu.RIGHT);     //设置从左弹出/滑出SlidingMenu
+////        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);   //设置占满屏幕
+//        mSlidingMenu.attachToActivity(getActivity(),SlidingMenu.SLIDING_CONTENT);    //绑定到哪一个Activity对象
+//        mSlidingMenu.setMenu(getshowView());                   //设置弹出的SlidingMenu的布局文件
+//        mSlidingMenu.setBehindOffsetRes(R.dimen.sliding_menu_offset);       //
+//        mSlidingMenu.toggle(true);
+////
+//    }
 
     /**
      * 右侧菜单弹出式事件
@@ -172,14 +169,6 @@ public class FragmentWal extends BaseFragment {
                 });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(lvWallet!=null){
-            loadData();
-        }
-    }
-
     /**
      * 内部适配器
      */
@@ -238,5 +227,20 @@ public class FragmentWal extends BaseFragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(lvWallet!=null){
+            loadData();
+        }
+        MobclickAgent.onResume(getActivity());
+    }
 
 }

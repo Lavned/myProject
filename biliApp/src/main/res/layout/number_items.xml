@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/lin_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@mipmap/me_zc_bg1_2x"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:text="总计"/>
+
+        <TextView
+            android:id="@+id/num_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/jiji"
+                android:layout_width="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="20dp"
+                android:background="@color/white"/>
+            <TextView
+                android:layout_toRightOf="@id/jiji"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textSize="13sp"
+                android:text="BTC"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:id="@+id/num_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textSize="13sp"
+                android:text="000"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/num_mount"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/me_zc_line_2x"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="转入"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/whitebg"
+                android:layout_marginRight="20dp"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/num_text"
+                android:id="@+id/num_in"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="转出"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bluebg"
+                android:layout_marginRight="20dp"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/num_out"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/lv_empty"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/lv_empty"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_below="@id/iii"
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lv_num"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

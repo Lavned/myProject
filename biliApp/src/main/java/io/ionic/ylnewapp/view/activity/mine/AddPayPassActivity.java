@@ -121,8 +121,10 @@ public class AddPayPassActivity extends BaseActivity {
                         try {
                             jsonObject = new JSONObject(data);
                             T.showShort(jsonObject.getString("msg"));
-                            if(jsonObject.getInt("status") == 200)
+                            if(jsonObject.getInt("status") == 200){
+                                PreferenceUtils.setPrefString(mContext,"hasPay","true");
                                 finish();
+                            }
                             else if(jsonObject.getInt("status") == 401)
                                 ActivityUtils.toLogin(AddPayPassActivity.this,0);
                         } catch (JSONException e) {

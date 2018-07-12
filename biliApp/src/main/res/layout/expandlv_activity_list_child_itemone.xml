@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/whitebg"
+    android:layout_margin="10dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="15dp"
+    android:paddingTop="5dp" >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:background="@drawable/red10bg"
+        android:textColor="@color/white"
+        android:layout_marginRight="10dp"
+        android:text="充值"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingVertical="10dp"
+        android:background="@drawable/green10bg"
+        android:gravity="center"
+        android:text="提现"/>
+
+
+</LinearLayout>

@@ -57,13 +57,23 @@
                 android:src="@mipmap/notifaction"
                 android:layout_marginRight="10dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center_horizontal"
+                android:textColor="@color/main"
+                android:textSize="12sp"
+                android:text="请在有效期内及时付款，超时订单将自动取消" />
+
             <TextSwitcher
+                android:visibility="gone"
                 android:id="@+id/text_switcher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"
                 android:gravity="center_horizontal"
-                android:text="最新通知，明天放假了" />
+                android:text="请在有效期内及时付款，超时订单将自动取消" />
 
         </LinearLayout>
     </RelativeLayout>

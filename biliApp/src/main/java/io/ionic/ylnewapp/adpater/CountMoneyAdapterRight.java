@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.TotalBean;
+import io.ionic.ylnewapp.bean.order.AllOrderBean;
 
 /**
  * Created by mogojing on 2018/6/12/0012.
@@ -21,9 +22,9 @@ import io.ionic.ylnewapp.bean.TotalBean;
 public class CountMoneyAdapterRight extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private  List<TotalBean.BodyBean.OrdersBean> mData;
+    private  List<AllOrderBean.BodyBean.OrdersBean> mData;
 
-    public CountMoneyAdapterRight(Context mContext, List<TotalBean.BodyBean.OrdersBean> mData) {
+    public CountMoneyAdapterRight(Context mContext, List<AllOrderBean.BodyBean.OrdersBean> mData) {
         mLayoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mData = mData;

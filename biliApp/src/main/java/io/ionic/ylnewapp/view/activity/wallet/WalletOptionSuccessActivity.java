@@ -25,8 +25,8 @@ public class WalletOptionSuccessActivity extends BaseActivity {
     TextView tips;
     @ViewInject(R.id.one_time)
     TextView one_time;
-    @ViewInject(R.id.two_time)
-    TextView two_time;
+//    @ViewInject(R.id.two_time)
+//    TextView two_time;
     @ViewInject(R.id.succ_icon)
     ImageView succ_icon;
 
@@ -61,20 +61,20 @@ public class WalletOptionSuccessActivity extends BaseActivity {
         switch (type){
             case "1":
                 title.setText("充值申请");
-                tips.setText("充值申请已提交，等待工审核");
+//                tips.setText("充值申请已提交，等待工审核");
                 break;
             case "2" :
                 title.setText("提现申请");
-                tips.setText("提现申请已提交，等待工审核");
+                tips.setText("提现申请已提交，等待人工审核");
                 break;
             case "3" :
                 title.setText("充值申请");
-                tips.setText("充值申请已提交，等待工审核");
+                tips.setText("请通过银行官方渠道进行充值");
                 succ_icon.setImageResource(R.mipmap.cz_icon_2x);
                 break;
         }
         one_time.setText(DateUtil.getDateAndTime());
-        two_time.setText("预计到账时间："+DateUtil.getDateAndTimeLazy());
+//        two_time.setText("预计到账时间："+DateUtil.getDateAndTimeLazy());
 
     }
 

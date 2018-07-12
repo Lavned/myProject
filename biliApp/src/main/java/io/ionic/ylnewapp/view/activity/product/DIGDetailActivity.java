@@ -1,18 +1,8 @@
 package io.ionic.ylnewapp.view.activity.product;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.CommonDialog;
@@ -24,9 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
@@ -40,13 +27,9 @@ import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class DIGDetailActivity extends BaseActivity {
 
-    private int index = 0;//textview上下滚动下标
-    private Handler handler = new Handler();
-    private boolean isFlipping = false; // 是否启用预警信息轮播
-    private List<String> mWarningTextList = new ArrayList<>();
 
-    @ViewInject(R.id.text_switcher)
-    TextSwitcher mTextSwitcher;
+//    @ViewInject(R.id.text_switcher)
+//    TextSwitcher mTextSwitcher;
 
     @ViewInject(R.id.bName)
     TextView bName;
@@ -83,11 +66,7 @@ public class DIGDetailActivity extends BaseActivity {
 
     private void init() {
         StatusBarUtil.setTranslucentForImageViewInFragment(this, 0,null);
-        mWarningTextList.add("请在有效期内及时付款，超时订单将自动取消");
         setView();
-        setTextSwitcher();
-        setData();
-
     }
 
     //赋值
@@ -155,7 +134,7 @@ public class DIGDetailActivity extends BaseActivity {
                                 case "403":
                                     T.showShort(jsonObject.getString("msg"));
                                     payFragment.dismiss();
-                                    ActivityUtils.toEdPwd(DIGDetailActivity.this);
+                                    ActivityUtils.toForgetPwd(DIGDetailActivity.this);
                                     break;
                             }
                         } catch (Exception e) {
@@ -182,14 +161,13 @@ public class DIGDetailActivity extends BaseActivity {
      * 请求网络
      */
     private void newOrder() {
-        Log.i("kkkkkkk",PreferenceUtils.getPrefString(mContext,"pid","")
-                +"----"+  PreferenceUtils.getPrefString(mContext,"bnum",""));
         mBuilder.setTitle("请求中...").show();
         OkGo.<String>put(Constants.URL_BASE + "order/newOrder")//
                 .tag(this)
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .params("pid",PreferenceUtils.getPrefString(mContext,"pid",""))
                 .params("payAmount",PreferenceUtils.getPrefString(mContext,"bnum",""))
+                .params("key",PreferenceUtils.getPrefString(mContext,"bz",""))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -197,10 +175,16 @@ public class DIGDetailActivity extends BaseActivity {
                         try {
                             jsonObject= new JSONObject(response.body());
                             T.showShort(jsonObject.getString("msg"));
-                            if(jsonObject.getString("status").equals("401"))
-                                ActivityUtils.toLogin(DIGDetailActivity.this,0);
-                            if(jsonObject.getString("status").equals("200")){
-                                 nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(DIGDetailActivity.this,0);
+                                    break;
+                                case "402":
+                                    ActivityUtils.noB(DIGDetailActivity.this,PreferenceUtils.getPrefString(mContext,"bz",""));
+                                    break;
+                                case "200":
+                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -227,7 +211,7 @@ public class DIGDetailActivity extends BaseActivity {
      * 支付
      */
     private void nowPay(String id) {
-        OkGo.<String>post(Constants.URL_BASE + "order/payOrder")//
+        OkGo.<String>post(Constants.URL_BASE + "coins/pay")//
                 .tag(this)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .params("orderid", id)
@@ -259,98 +243,14 @@ public class DIGDetailActivity extends BaseActivity {
 
     }
 
-
-
-
-    /**
-     * 跑马灯
-     */
-    private void setTextSwitcher() {
-        mTextSwitcher.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_in_bottom));
-        mTextSwitcher.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_out_top));
-        mTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                TextView textView = new TextView(mContext);
-                textView.setSingleLine();
-                textView.setTextSize(12);//字号
-                textView.setTextColor(getColor(R.color.main));
-                textView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-                textView.setSingleLine();
-                textView.setText("请在有效期内及时付款，超时订单将自动取消");
-                textView.setGravity(Gravity.CENTER);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                params.gravity = Gravity.CENTER;
-                textView.setLayoutParams(params);
-                textView.setPadding(25, 0, 25, 0);
-                return textView;
-            }
-        });
-    }
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            if (!isFlipping) {
-                return;
-            }
-            index++;
-            mTextSwitcher.setText(mWarningTextList.get(index % mWarningTextList.size()));
-            if (index == mWarningTextList.size()) {
-                index = 0;
-            }
-            startFlipping();
-        }
-    };
-
-    //开启信息轮播
-    public void startFlipping() {
-        if (mWarningTextList.size() > 0) {
-            handler.removeCallbacks(runnable);
-            isFlipping = true;
-            handler.postDelayed(runnable, 3000);
-        }
-    }
-
-    //关闭信息轮播
-    public void stopFlipping() {
-        if (mWarningTextList.size() > 0) {
-            isFlipping = false;
-            handler.removeCallbacks(runnable);
-        }
-    }
-
-    //设置数据
-    private void setData() {
-        if (mWarningTextList.size() == 0) {
-            mTextSwitcher.setText(mWarningTextList.get(0));
-            index = 0;
-        }
-        if (mWarningTextList.size() > 0) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mTextSwitcher.setText(mWarningTextList.get(0));
-                    index = 0;
-                }
-            }, 1000);
-            mTextSwitcher.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_in_bottom));
-            mTextSwitcher.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_out_top));
-            startFlipping();
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        startFlipping();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        stopFlipping();
     }
 
 

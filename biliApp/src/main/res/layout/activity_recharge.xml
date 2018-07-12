@@ -194,7 +194,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="充值金额"
+            android:text="充值数量"
             android:paddingVertical="10dp"
             android:layout_centerVertical="true"
             android:textColor="@color/black33"

@@ -121,14 +121,15 @@
             android:textSize="12sp" />
 
 
-        <Button
+        <TextView
             android:id="@+id/bank_get_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="获取验证码"
-            android:background="@null"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="8dp"
             android:textColor="@drawable/textckmain"
             android:textSize="12sp" />
     </RelativeLayout>

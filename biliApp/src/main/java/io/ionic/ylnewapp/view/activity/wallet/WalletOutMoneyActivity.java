@@ -227,11 +227,8 @@ public class WalletOutMoneyActivity extends BaseActivity {
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         Intent intent = getIntent();
-        String titleName = intent.getStringExtra("name");
-        int i = titleName.indexOf("|");
-        title.setText( titleName.substring(0,i));
-        tName.setText( titleName.substring(0,i));
-        Glide.with(mContext).load(titleName.substring(i+1,titleName.length())).into(tImg);
+        title.setText(intent.getStringExtra("name"));
+        tName.setText(intent.getStringExtra("name"));
     }
 
 

@@ -37,8 +37,6 @@
             android:paddingRight="5dp"
             android:layout_centerVertical="true"
             android:background="@null"
-            android:maxLength="20"
-            android:inputType="number"
             android:maxLines="1"
             android:paddingVertical="10dp"
             android:hint="请输入钱包名称" />
@@ -121,16 +119,18 @@
             android:textSize="12sp" />
 
 
-        <Button
+        <TextView
             android:id="@+id/get_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="获取验证码"
-            android:background="@null"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="8dp"
             android:textColor="@drawable/textckmain"
             android:textSize="12sp" />
+
     </RelativeLayout>
 
     <Button

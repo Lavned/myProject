@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
@@ -60,7 +60,7 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginLeft="45dp"
             android:id="@+id/order_items_lv"
             android:divider="@null"
@@ -77,21 +77,22 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="55dp"
             android:textColor="@color/black_1"/>
+        <TextView
+            android:id="@+id/order_enddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="到期时间：2018-12-12"
+            android:textSize="12sp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="55dp"
+            android:textColor="@color/black_1"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/order_enddate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="到期时间：2018-12-12"
-                android:textSize="12sp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="55dp"
-                android:textColor="@color/black_1"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -127,7 +128,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/line" />
 
-            <GridView
+            <io.ionic.ylnewapp.custom.MyGridView
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"
                 android:scrollbars="none"
@@ -141,7 +142,7 @@
                 android:layout_gravity="right"
                 android:numColumns="1"
                 android:stretchMode="columnWidth"
-                tools:ignore="RtlCompat"></GridView>
+                tools:ignore="RtlCompat"></io.ionic.ylnewapp.custom.MyGridView>
 
         </LinearLayout>
 

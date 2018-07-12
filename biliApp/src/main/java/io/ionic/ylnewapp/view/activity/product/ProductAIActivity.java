@@ -3,13 +3,16 @@ package io.ionic.ylnewapp.view.activity.product;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -19,42 +22,101 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
+import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
+
+import static io.ionic.ylnewapp.constants.Constants.URL_BASE2;
 
 public class ProductAIActivity extends BaseActivity {
 
     @ViewInject(R.id.webview)
     WebView myWebView;
+    @ViewInject(R.id.backto)
+    TextView backto;
 
     public  static Activity activity;
 
     @Event(type = View.OnClickListener.class,value = R.id.button)
     private void click(View view){
-        startActivity(new Intent(ProductAIActivity.this,OtherDetailActivity.class));
+        if(PreferenceUtils.getPrefString(mContext,"loginIn","").equals("")){
+            ActivityUtils.toLogin(ProductAIActivity.this,0);
+        }else
+            startActivity(new Intent(ProductAIActivity.this,OtherDetailActivity.class));
+
     }
+
+    String type,pid ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_ai);
         activity = this;
-//        ImmersionBar.with(this).init();
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
-      loadView();
+        init();
+        backto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
-    private void loadView() {
-        myWebView.loadUrl("http://192.168.123.10/ai.html");
-        //加载本地中的html
-        //myWebView.loadUrl("file:///android_asset/www/test2.html");
-        //加上下面这段代码可以使网页中的链接不以浏览器的方式打开
-        myWebView.setWebViewClient(new WebViewClient());
-        //得到webview设置
-        WebSettings webSettings = myWebView.getSettings();
-        //允许使用javascript
-        webSettings.setJavaScriptEnabled(true);
+    private void init() {
+        pid = PreferenceUtils.getPrefString(mContext,"pid","");
+        type = PreferenceUtils.getPrefString(mContext,"KEY","");
+        switch (type){
+            case "AI":
+                loadView(URL_BASE2+"aiDetail?pid="+pid+"&type="+type);
+                break;
+            case "ETF":
+                loadView(URL_BASE2+"etfDetail?pid="+pid+"&type="+type);
+                break;
+            case "OTC":
+                loadView(URL_BASE2+"otcDetail?pid="+pid+"&type="+type);
+                break;
+            case "BTC":
+                loadView(URL_BASE2+"btcDetail?pid="+pid+"&type="+type);
+                break;
+            case "ICO":
+                loadView(URL_BASE2+"icoDetail?pid="+pid+"&type="+type);
+                break;
+        }
+    }
+
+    /**
+     * a加载网页
+     * @param url
+     */
+    private void loadView(String url) {
+        Log.i("000000000000",url);
+        myWebView.loadUrl(url);
+        //要加载的H5页面
+        myWebView.loadUrl(url);
+        WebSettings settings = myWebView.getSettings();
+        settings.setDomStorageEnabled(true);
+        settings.setJavaScriptEnabled(true);
         //将WebAppInterface于javascript绑定
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        //不读取缓存
+//        myWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+        myWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mBuilder.dismiss();
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+               mBuilder.setTitle("加载中").show();
+
+            }
+        });
     }
 
 

@@ -37,6 +37,7 @@ import io.ionic.ylnewapp.utils.DateUtil;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.product.OtherDetailActivity;
 import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
@@ -251,6 +252,7 @@ public class Tab7Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                 ((NormalHolder) holder).btnVal.setText(""+item.getBtn());
                 if(item.getBtn().equals("已锁定")) {
                     ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.lockbtn);
+                    ((NormalHolder) holder).btnVal.setEnabled(false);
                 }else{
                     ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.main_btn);
                 }
@@ -260,7 +262,8 @@ public class Tab7Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                         PreferenceUtils.setPrefString(context,"oname",item.getName());
                         PreferenceUtils.setPrefString(context,"KEY",item.getKey());
                         PreferenceUtils.setPrefString(context,"orderid",item.getOrderid());
-                        context.startActivity(new Intent(context, ProductAIActivity.class));
+                        PreferenceUtils.setPrefString(context,"moneys",item.getBtn().replace("￥",""));
+                        context.startActivity(new Intent(context, OtherDetailActivity.class));
                     }
                 });
 

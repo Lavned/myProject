@@ -68,8 +68,17 @@ public class TotalBean {
 
             private String _id;
             private String type;
+            private String key;
             private String color;
             private int count;
+
+            public String getKey() {
+                return key;
+            }
+
+            public void setKey(String key) {
+                this.key = key;
+            }
 
             public String get_id() {
                 return _id;

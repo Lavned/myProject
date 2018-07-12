@@ -33,6 +33,7 @@
         android:gravity="center"
         android:orientation="horizontal">
         <TextView
+            android:visibility="gone"
             android:id="@+id/pay_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

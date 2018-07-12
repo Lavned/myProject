@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.MarketFragAdapter3;
+import io.ionic.ylnewapp.adpater.market.MarketFragAdapter3;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;

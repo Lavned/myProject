@@ -11,15 +11,22 @@
         android:layout_height="match_parent"
         ></WebView>
 
-    <Button
+    <TextView
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:background="@mipmap/forgetpwd"
-        android:text="立即与投资"
+        android:text=""
         android:textColor="@drawable/textclick"
         android:layout_alignParentBottom="true" />
+
+
+
+    <TextView
+        android:id="@+id/backto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:textColor="@drawable/textclick" />
 
 </RelativeLayout>

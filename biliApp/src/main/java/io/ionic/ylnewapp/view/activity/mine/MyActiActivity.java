@@ -1,5 +1,6 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,7 @@ public class MyActiActivity extends BaseActivity {
 
 
     List<ActivityBean.BodyBean> mData;
+    public  static Activity activity;
 
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back})
     private void click(View v){
@@ -52,6 +54,7 @@ public class MyActiActivity extends BaseActivity {
         setContentView(R.layout.activity_notification);
         init();
         loadData();
+        activity = this;
     }
 
     /**

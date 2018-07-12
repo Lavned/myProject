@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
+import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -187,7 +188,15 @@ public class WalletManaActivity extends BaseActivity {
             holder.del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteData(mData.get(position).getId());
+                    new CommonDialog.Builder(WalletManaActivity.this)
+                            .setMessage("钱包删除无法找回，确定要删除吗").setTitle("删除提示")
+                            .setPositiveButton("确定", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    deleteData(mData.get(position).getId());
+
+                                }
+                            }, R.color.main).setNegativeButton("取消",null).show();
                 }
             });
             return convertView;

@@ -110,15 +110,17 @@ public class FriendActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         FirendBean javaBean =gson.fromJson(response.body().toString(),FirendBean.class);
-                        if(javaBean.getStatus() == 401){
+                        if(javaBean.getStatus() == 401)
                             ActivityUtils.toLogin(FriendActivity.this,0);
+                        if(javaBean.getStatus()==200){
+                            mData = javaBean.getBody().getList();
+                            count_money.setText(javaBean.getBody().getMoneys()+"");
+                            count_people.setText(javaBean.getBody().getPerson()+"");
+                            if(mData!= null){
+                                initView(mData);
+                            }
                         }
-                        mData = javaBean.getBody().getList();
-                        count_money.setText(javaBean.getBody().getMoneys()+"");
-                        count_people.setText(javaBean.getBody().getPerson()+"");
-                        if(mData!= null){
-                            initView(mData);
-                        }
+
                     }
 
                     @Override
@@ -142,6 +144,7 @@ public class FriendActivity extends BaseActivity {
         scrollView.smoothScrollTo(0,0);
         StatusBarUtil.setColor(this,getColor(R.color.colorPrimary),225);
         title.setText("邀请好友");
+        copy_text.setText("http://app.bit000.com/login?username=" + PreferenceUtils.getPrefString(mContext,"account",""));
         setTextColor();
     }
 
@@ -154,6 +157,6 @@ public class FriendActivity extends BaseActivity {
         span_4.setText(Html.fromHtml(getResources().getString(R.string.span_4)));
         span_5.setText(Html.fromHtml(getResources().getString(R.string.span_5)));
         span_6.setText(Html.fromHtml(getResources().getString(R.string.span_6)));
-        span_7.setText(Html.fromHtml(getResources().getString(R.string.span_7)));
+//        span_7.setText(Html.fromHtml(getResources().getString(R.string.span_7)));
 }
 }

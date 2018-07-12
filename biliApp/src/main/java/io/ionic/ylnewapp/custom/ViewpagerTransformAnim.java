@@ -24,6 +24,8 @@ public class ViewpagerTransformAnim implements ViewPager.PageTransformer {
 //        }
 
 
+
+
 //大小切出
     private float MIN_SCALE = 0.85f;
 

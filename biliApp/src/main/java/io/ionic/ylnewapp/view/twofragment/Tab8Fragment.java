@@ -11,7 +11,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +37,7 @@ import io.ionic.ylnewapp.utils.DateUtil;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
+import io.ionic.ylnewapp.view.activity.product.OtherDetailActivity;
 
 /**
  * Created by cmo on 16-7-21.
@@ -258,8 +256,10 @@ public class Tab8Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                     ((TBTCAdapter.NormalHolder) holder).number.setText(StringUtils.sliptStr(item.getOrderid()));
                     ((TBTCAdapter.NormalHolder) holder).day.setText(DateUtil.getYmdforJson(item.getDate()));
                     ((TBTCAdapter.NormalHolder) holder).btnVal.setText("" + item.getBtn());
-                    if (item.getBtn().equals("已锁定"))
+                    if (item.getBtn().equals("已锁定")){
                         ((TBTCAdapter.NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.lockbtn);
+                        ((NormalHolder) holder).btnVal.setEnabled(false);
+                    }
                     else{
                         ((NormalHolder) holder).btnVal.setBackgroundResource(R.mipmap.main_btn);
                     }
@@ -269,7 +269,8 @@ public class Tab8Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                             PreferenceUtils.setPrefString(context,"oname",item.getName());
                             PreferenceUtils.setPrefString(context,"KEY",item.getKey());
                             PreferenceUtils.setPrefString(context,"orderid",item.getOrderid());
-                            context.startActivity(new Intent(context, ProductAIActivity.class));
+                            PreferenceUtils.setPrefString(context,"moneys",item.getBtn().replace("￥",""));
+                            context.startActivity(new Intent(context, OtherDetailActivity.class));
                         }
                     });
                 }catch (Exception e){
@@ -367,7 +368,6 @@ public class Tab8Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
             });
             picker.show();
         }
-
 
 
         /**

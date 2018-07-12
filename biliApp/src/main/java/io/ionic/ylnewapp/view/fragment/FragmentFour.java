@@ -7,50 +7,47 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.jiangyy.easydialog.LoadingDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.adpater.FourCoinAdapter;
 import io.ionic.ylnewapp.bean.AccountBean;
-import io.ionic.ylnewapp.bean.BankBean;
 import io.ionic.ylnewapp.constants.Constants;
+import io.ionic.ylnewapp.custom.MyListView;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
-import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
-import io.ionic.ylnewapp.view.activity.mine.FriendActivity;
 import io.ionic.ylnewapp.view.activity.mine.BankListActivity;
-import io.ionic.ylnewapp.view.activity.mine.CountMoneyActivity;
+import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
 import io.ionic.ylnewapp.view.activity.mine.FeedbackActivity;
+import io.ionic.ylnewapp.view.activity.mine.HelpActivity;
 import io.ionic.ylnewapp.view.activity.mine.MoneyDetailActivity;
-import io.ionic.ylnewapp.view.activity.mine.MyActiActivity;
-import io.ionic.ylnewapp.view.activity.mine.MyOrderActivity;
+import io.ionic.ylnewapp.view.activity.mine.MyCountCoinActivity;
+import io.ionic.ylnewapp.view.activity.mine.MyCountMoneyActivity;
+import io.ionic.ylnewapp.view.activity.order.MyOrderActivity;
 import io.ionic.ylnewapp.view.activity.mine.NotificationActivity;
-import io.ionic.ylnewapp.view.activity.mine.RechargeActivity;
 import io.ionic.ylnewapp.view.activity.mine.SettingActivity;
 import io.ionic.ylnewapp.view.activity.mine.UerTificationActivity;
-import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
-import io.ionic.ylnewapp.view.activity.mine.WithdrawalActivity;
+import io.ionic.ylnewapp.view.activity.user.LoginActivity;
+import io.ionic.ylnewapp.view.activity.wallet.WalletManaActivity;
 import io.ionic.ylnewapp.view.base.BaseFragment;
-import q.rorbin.badgeview.QBadgeView;
 
 @ContentView(R.layout.fragment_four)
 public class FragmentFour extends BaseFragment {
@@ -59,25 +56,23 @@ public class FragmentFour extends BaseFragment {
 
     @ViewInject(R.id.count_money)
     TextView count;
-    @ViewInject(R.id.money)
-    TextView money;
+    @ViewInject(R.id.my_num)
+    MyListView my_num;
     @ViewInject(R.id.username)
     TextView username;
-
+    @ViewInject(R.id.unOrder)
+    TextView unOrder;
     Context context;
-    List<BankBean.BodyBean> mData = new ArrayList<>();
-    String allMoney ="0";
-    List<AccountBean.BodyBean.SizeBean> listData;
 
+    List<AccountBean.BodyBean.CoinsBean> item;//数字资产
 
     /**
      * 点击
      * @param view
      */
     @Event(type = View.OnClickListener.class,value = {R.id.user_certification,R.id.mine_notification,R.id.re_bank,R.id.re_coupons,
-            R.id.money_in,R.id.monet_out,R.id.my_order,R.id.my_setting,R.id.my_activity,R.id.text_feed
-                ,R.id.money_detail,R.id.my_friend,R.id.my_money_count,R.id.tv_type1,R.id.tv_type2,R.id.tv_type3,R.id.tv_type4
-            ,R.id.help,R.id.qq})
+            R.id.my_setting,R.id.text_feed,R.id.certification,R.id.username,R.id.my_coin_count,
+            R.id.re_wallet ,R.id.money_detail,R.id.my_money_count,R.id.help,R.id.qq,R.id.unOrder})
     private void click(View view){
         switch (view.getId()){
             case R.id.user_certification:
@@ -86,23 +81,20 @@ public class FragmentFour extends BaseFragment {
             case R.id.mine_notification :
                 startActivity(new Intent(getActivity(),NotificationActivity.class));
                 break;
+            case R.id.certification :
+                startActivity(new Intent(getActivity(),UerTificationActivity.class));
+                break;
+            case R.id.username :
+//                startActivity(new Intent(getActivity(),LoginActivity.class));
+                break;
             case R.id.re_bank :
                 startActivity(new Intent(getActivity(),BankListActivity.class));
                 break;
             case R.id.re_coupons :
                 startActivity(new Intent(getActivity(),CouponsActivity.class));
                 break;
-            case R.id.money_in :
-                getBankList(1);
-                break;
-            case R.id.monet_out :
-                getBankList(2);
-                break;
             case R.id.my_setting:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
-                break;
-            case R.id.my_activity:
-                startActivity(new Intent(getActivity(), MyActiActivity.class));
                 break;
             case R.id.text_feed :
                 startActivity(new Intent(getActivity(), FeedbackActivity.class));
@@ -110,30 +102,21 @@ public class FragmentFour extends BaseFragment {
             case R.id.money_detail:
                 startActivity(new Intent(getActivity(), MoneyDetailActivity.class));
                 break;
-            case R.id.my_friend :
-                startActivity(new Intent(getActivity(), FriendActivity.class));
+            case R.id.re_wallet :
+                startActivity(new Intent(getActivity(), WalletManaActivity.class));
                 break;
             case R.id.my_money_count :
-                Intent intent = new Intent(getActivity(), CountMoneyActivity.class);
-                intent.putExtra("money",allMoney);
-                startActivity(intent);
+                startActivity(new Intent(getActivity(),MyCountMoneyActivity.class));
                 break;
-            case R.id.my_order :
-                toOrder(5);
+            case R.id.my_coin_count:
+                if(item!=null && item.size() >0)
+                    startActivity(new Intent(getActivity(),MyCountCoinActivity.class));
                 break;
-            case R.id.tv_type1 :
-                toOrder(1);
-                break;
-            case R.id.tv_type2 :
+            case R.id.unOrder :
                 toOrder(0);
                 break;
-            case R.id.tv_type3 :
-                toOrder(2);
-                break;
-            case R.id.tv_type4 :
-                toOrder(3);
-                break;
             case R.id.help :
+                startActivity(new Intent(getActivity(),HelpActivity.class));
                 break;
             case R.id.qq:
                 String qqNum = "2852370178";
@@ -146,15 +129,6 @@ public class FragmentFour extends BaseFragment {
         }
 
     }
-
-    @ViewInject(R.id.tv_type1)
-    TextView type1;
-    @ViewInject(R.id.tv_type2)
-    TextView type2;
-    @ViewInject(R.id.tv_type3)
-    TextView type3;
-    @ViewInject(R.id.tv_type4)
-    TextView type4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -199,25 +173,6 @@ public class FragmentFour extends BaseFragment {
     }
 
 
-    /**
-     * 设置订单角标
-     */
-    private void initBage(){
-        if(listData!=null && listData.size() > 0 ){
-//            setBadge(type1,listData.get(1).getSize());
-            setBadge(type2,listData.get(0).getSize());
-            setBadge(type3,listData.get(2).getSize());
-//            setBadge(type4,listData.get(3).getSize());
-        }
-    }
-    public void setBadge(TextView tv,int size){
-        if(size > 0 ){
-            new QBadgeView(context).bindTarget(tv).setBadgeText(" ")
-                    .setBadgeGravity(Gravity.TOP | Gravity.END).
-                    setBadgeTextSize(7, true).setBadgePadding(1, true);
-        }
-
-    }
 
 
     /**
@@ -232,19 +187,17 @@ public class FragmentFour extends BaseFragment {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         AccountBean javaBean =gson.fromJson(response.body().toString(),AccountBean.class);
-                        if(javaBean.getStatus() == 401){
+                        if(javaBean.getStatus() == 401)
                             ActivityUtils.toLogin(getActivity(),1);
-                        }
                         if(javaBean.getBody()!=null){
-                            count.setText(javaBean.getBody().getCount()+"");
-                            allMoney = javaBean.getBody().getCount()+"";
-                            money.setText(javaBean.getBody().getQianbao()+"");
+                            count.setText("总资产"+javaBean.getBody().getCount()+"");
                             username.setText(javaBean.getBody().getUsername()+"");
-                            PreferenceUtils.setPrefString(getActivity(),"money",javaBean.getBody().getQianbao()+"");
-                            listData = javaBean.getBody().getSize();
-                            initBage();
+                            item = javaBean.getBody().getCoins();
+                            initCoinList(item);
+                            if(javaBean.getBody().getUnPay() ==1){
+                                unOrder.setVisibility(View.VISIBLE);
+                            }
                         }
-
                     }
 
                     @Override
@@ -254,57 +207,25 @@ public class FragmentFour extends BaseFragment {
                     }
 
                 });
+    }
+
+    /**
+     * 初始化我的数字资产
+     * @param item
+     */
+    private void initCoinList(List<AccountBean.BodyBean.CoinsBean> item) {
+        FourCoinAdapter adapter = new FourCoinAdapter(getActivity(),item);
+        my_num.setAdapter(adapter);
     }
 
 
 
     /**
-     * 判断银行卡
+     * 检测是否安装QQ
+     * @param context
+     * @param packageName
+     * @return
      */
-    LoadingDialog.Builder mBuilder;
-    private void getBankList(final int type) {
-        mBuilder =  new LoadingDialog.Builder(getActivity());
-        mBuilder.setTitle("正在加载银行卡信息").show();
-        OkGo.<String>get(Constants.URL_BASE + "user/bank" )
-                .tag(this)
-                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(getActivity(),"token",""))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        BankBean javaBean =gson.fromJson(response.body().toString(),BankBean.class);
-                        if(javaBean.getStatus() == 401){
-                            ActivityUtils.toLogin(getActivity(),1);
-                        }else if(javaBean.getStatus() == 500){
-                            T.showShort("服务异常");
-                        }
-                        mData = javaBean.getBody();
-                        if(mData!=null && mData.size() > 0){
-                            if(type == 1)
-                                startActivity(new Intent(getActivity(), RechargeActivity.class));
-                            else
-                                startActivity(new Intent(getActivity(), WithdrawalActivity.class));
-                        }else {
-                            T.showShort("请先绑定银行卡");
-                        }
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        T.showNetworkError(getActivity());
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        mBuilder.dismiss();
-                    }
-                });
-    }
-
-
-
     public boolean checkApkExist(Context context, String packageName) {
         if (packageName == null || "".equals(packageName))
             return false;
@@ -315,6 +236,19 @@ public class FragmentFour extends BaseFragment {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
     }
 
 }

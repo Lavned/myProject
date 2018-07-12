@@ -3,7 +3,7 @@
     <item>
         <bitmap
             android:id="@+id/bitmap_splash"
-            android:src="@drawable/h_home">
+            android:src="@mipmap/bilibili">
         </bitmap>
     </item>
     <!--item-->

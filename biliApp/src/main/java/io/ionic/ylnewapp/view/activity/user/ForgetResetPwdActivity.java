@@ -16,6 +16,7 @@ import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
+import io.ionic.ylnewapp.utils.MD5Util;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
@@ -66,8 +67,8 @@ public class ForgetResetPwdActivity extends BaseActivity {
         OkGo.<String>post(Constants.URL_BASE + "user/forgetPwd")//
                 .tag(this)
                 .params("username", PreferenceUtils.getPrefString(ForgetResetPwdActivity.this,"username",""))
-                .params("password", pwd.getText().toString().trim())
-                .params("passwordConfirm", repwd.getText().toString().trim())
+                .params("password", MD5Util.encrypt(pwd.getText().toString().trim()))
+                .params("passwordConfirm", MD5Util.encrypt(repwd.getText().toString().trim()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -99,6 +100,14 @@ public class ForgetResetPwdActivity extends BaseActivity {
     boolean checkEmpty(){
         if(pwd.getText().toString().trim().equals("")){
             T.showShort("密码不可为空");
+            return false;
+        }
+        if(pwd.getText().toString().trim().length() < 6){
+            T.showShort("密码不能小于6位");
+            return false;
+        }
+        if(repwd.getText().toString().trim().length() < 6){
+            T.showShort("密码不能小于6位");
             return false;
         }
         if(repwd.getText().toString().trim().equals("")){

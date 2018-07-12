@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.MarketFragAdapter3;
+import io.ionic.ylnewapp.adpater.market.MarketFragAdapter3;
 
 /**
  * Created by mogojing on 2018/6/12/0012.

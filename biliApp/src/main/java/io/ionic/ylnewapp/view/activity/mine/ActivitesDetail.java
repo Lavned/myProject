@@ -116,6 +116,7 @@ public class ActivitesDetail extends BaseActivity {
                 if(mData.get(position).isStatu() ==true){
                     startActivity(new Intent(mContext,CouponsActivity.class));
                     finish();
+                    MyActiActivity.activity.finish();
                 }else {
                     getCounps(mData.get(position).getType()+"");
                 }

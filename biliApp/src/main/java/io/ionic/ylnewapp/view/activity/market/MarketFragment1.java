@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -30,7 +31,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.MarketFragAdapter1;
+import io.ionic.ylnewapp.adpater.market.MarketFragAdapter1;
 import io.ionic.ylnewapp.bean.market.MarketBean;
 import io.ionic.ylnewapp.bean.market.ToMarketBean;
 import io.ionic.ylnewapp.constants.Constants;
@@ -51,6 +52,9 @@ public class MarketFragment1 extends Fragment {
     @ViewInject(R.id.lv_mk_fragment)
     ListView lvData;
 
+    @ViewInject(R.id.lin_add)
+    LinearLayout lin_add;
+
     private boolean mIsDeleteModel = false; // 当前listView是否处于删除模式 ,默认是正常显示模式.
     MarketFragAdapter1 adapter;
     List<ToMarketBean.BodyBean> mData;
@@ -67,6 +71,7 @@ public class MarketFragment1 extends Fragment {
                 }
                 break;
             case R.id.add_bz:
+                startActivity(new Intent(getActivity(),MarketSearchActivity.class));
                 break;
         }
     }
@@ -74,10 +79,10 @@ public class MarketFragment1 extends Fragment {
     /**
      * socket对象声明
      */
-    public static Socket mSocket;
+    public static Socket mSockets;
     {
         try {
-            mSocket = IO.socket(MARKRT_CHOOSE);
+            mSockets = IO.socket(MARKRT_CHOOSE);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -87,8 +92,8 @@ public class MarketFragment1 extends Fragment {
      * 初始化socket
      */
     private void initSockte() {
-        mSocket.on("choose", choose);
-        mSocket.connect();
+        mSockets.on("choose", choose);
+        mSockets.connect();
     }
 
 
@@ -122,7 +127,7 @@ public class MarketFragment1 extends Fragment {
                             ActivityUtils.toLogin(getActivity(),1);
                         else if(javaBean.getStatus() ==200){
                             mData = javaBean.getBody();
-                            mSocket.emit("init", gson.toJson(javaBean.getBody()));
+                            mSockets.emit("init", gson.toJson(javaBean.getBody()));
                         }
                     }
 
@@ -167,8 +172,10 @@ public class MarketFragment1 extends Fragment {
                     JSONArray data = null;
                     if(args[0] instanceof String){
                         data = (JSONArray) args[1];
+                        Log.i("-----",data.toString());
                     }else {
                         data = (JSONArray) args[0];
+                        Log.i("-----222",data.toString());
                     }
                     if(data!=null){
                         Gson gson = new Gson();
@@ -180,19 +187,23 @@ public class MarketFragment1 extends Fragment {
                 }
             });
         }
-
-
     };
 
     //数据初始化
     private void initList(List<MarketBean> MyData) {
+        if(mData.size() == 0 ){
+            lin_add.setVisibility(View.VISIBLE);
+        }
         adapter = new MarketFragAdapter1(getActivity(),MyData,mData);
         adapter.notifyDataSetChanged();
         lvData.setAdapter(adapter);
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(),ZxSzDetailActivity.class));
+                Intent intent = new Intent(getActivity(),ZxSzDetailActivity.class);
+                intent.putExtra("name",mData.get(position).getCurrencyPair()
+                        +"|"+mData.get(position).getExchangeName());
+                startActivity(intent);
             }
         });
     }
@@ -216,9 +227,9 @@ public class MarketFragment1 extends Fragment {
         if(adapter!=null){
             hideDeleteModel();
         }
-        if(mSocket!=null){
-            mSocket.disconnect();
-            mSocket.off("choose", choose);
+        if(mSockets!=null){
+            mSockets.disconnect();
+            mSockets.off("choose", choose);
         }
     }
 }

@@ -22,32 +22,57 @@ public  class DateUtil {
 
 
 
+    //不知道了
     public static String getDTofSystem(String json){
         SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");//这个是你要转成后的时间的格式
         String sd = sdf.format(new Date(Long.parseLong(String.valueOf(json))));   // 时间戳转换成时间
         return sd;
     }
 
+    //根据时间戳传时间
+    public static String getYMDofSystem(){
+        String json = System.currentTimeMillis()+"";
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//这个是你要转成后的时间的格式
+        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(json))));   // 时间戳转换成时间
+        return sd;
+    }
+    //日期后延
+    public static String getDateAndTimeofMouth() {
+        Date date = new Date();//取时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date); //需要将date数据转移到Calender对象中操作
+        calendar.add(calendar.HOUR_OF_DAY, -6);//把日期往后增加n天.正数往后推,负数往前移动
+        date = calendar.getTime();   //这个时间就是日期往后推一天的结果
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateNowStr = sdf.format(date);
+        return dateNowStr;
+    }
+
+
+
+    //格式化的年月日
     public static String getDateAndTime(){
         Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:activity_bit_asses");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateNowStr = sdf.format(d);
         System.out.println("格式化后的日期：" + dateNowStr);
         return dateNowStr;
     }
 
 
+    //日期后延
     public static String getDateAndTimeLazy() {
         Date date = new Date();//取时间
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date); //需要将date数据转移到Calender对象中操作
         calendar.add(calendar.DATE, 2);//把日期往后增加n天.正数往后推,负数往前移动
         date = calendar.getTime();   //这个时间就是日期往后推一天的结果
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:activity_bit_asses");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateNowStr = sdf.format(date);
         return dateNowStr;
     }
 
+    //修改后台时间参数
     public static int vyear, vmonth, vday;
     public static void getTime() {
         long time = System.currentTimeMillis();//long now = android.os.SystemClock.uptimeMillis();

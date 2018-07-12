@@ -1,14 +1,19 @@
 package io.ionic.ylnewapp.view.main;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,13 +23,20 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.jaeger.library.StatusBarUtil;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyViewPager;
+import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
@@ -32,26 +44,20 @@ import io.ionic.ylnewapp.view.fragment.FragmentFour;
 import io.ionic.ylnewapp.view.fragment.FragmentOne;
 import io.ionic.ylnewapp.view.fragment.FragmentThree;
 import io.ionic.ylnewapp.view.fragment.FragmentTwo;
+import util.UpdateAppUtils;
 
 
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
 
     private long mExitTime;//退出计时
-
-
     @ViewInject(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
 //    @ViewInject(R.id.vp_home)
     public static MyViewPager mVpHome;
-
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private boolean isFullScreen = false;
-
-
     Intent intent;
-    String name = "";
-    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +66,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         mVpHome = findViewById(R.id.vp_home);
         initFragment();
         initNavigatoinBar();
+        checkUpdate();//更新
     }
 
-
-
-//    @Subscribe(threadMode = ThreadMode.MAIN )
-//    public void Event(MessageEvent messageEvent) {
-//        name = messageEvent.getMessage();
-//        mVpHome.setCurrentItem(Integer.parseInt(messageEvent.getMessage()),false);
-//    }
 
 
     //fragment重写
@@ -93,11 +93,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                         }
                         StatusBarUtil.setColor(MainActivity.this, Color.parseColor("#ffffff"), 225);//
                         break;
-//                    case 3:
-//                        isFullScreen = true;
-//                        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0,null);
-//                        break;
-                    case 4:
+                    case 3:
                         isFullScreen = true;
                         StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0,null);
                         break;
@@ -133,8 +129,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             }
         });
     }
-
-
 
 
     //底部导航栏
@@ -184,6 +178,107 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     }
 
 
+    /**
+     * 检测更新
+      */
+    String name;
+    String apk;
+    int v;
+    private void checkUpdate() {
+        OkGo.<String>get(Constants.URL_BASE + "home/version")
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        JSONObject gson = null;
+                        try {
+                            gson = new JSONObject(response.body());
+                            JSONObject item = gson.getJSONObject("body").getJSONObject("android");
+                            v = item.getInt("code");
+                            name = item.getString("name");
+                            apk = item.getString("apk");
+                            if(v > Integer.parseInt(ActivityUtils.getVersion(mContext)) ){
+                                checkAndUpdate();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+                });
+    }
+
+
+    /**
+     * 7.0权限检测
+     */
+    private void checkAndUpdate() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            update();
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                update();
+            } else {//申请权限
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
+    }
+//
+//
+    //基本更新
+    private void update() {
+//            UpdateAppUtils.from(this)
+//                .serverVersionCode(v)
+//                .apkPath(apk)
+//                .isForce(true)
+//                .updateInfo("1.修复若干bug\n2.美化部分页面")
+//                .showNotification(true)
+//                .update();
+            UpdateAppUtils.from(this)
+                    .serverVersionCode(v)
+                    .apkPath(apk)
+                    .updateInfo("1.修复若干bug\n2.美化部分页面")
+                    .downloadBy(UpdateAppUtils.DOWNLOAD_BY_BROWSER)
+                    .isForce(true)
+                    .update();
+
+    }
+
+    //权限请求结果
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case 1:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    update();
+                } else {
+//                    new ConfirmDialog(this, new Callback() {
+//                        @Override
+//                        public void callback(int position) {
+//                            if (position==1){
+//                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                                intent.setData(Uri.parse("package:" + getPackageName())); // 根据包名打开对应的设置界面
+//                                startActivity(intent);
+//                            }
+//                        }
+//                    }).setContent("暂无读写SD卡权限\n是否前往设置？").show();
+                }
+                break;
+        }
+
+    }
+
+
+    //跳转到其他的fragment页面
     public interface Fragment2Fragment{
         public void gotoFragment(MyViewPager viewPager);
     }
@@ -213,14 +308,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             if (fragment.getView() != null) fragment.getView().setPadding(0, getStatusBarHeight(this), 0, 0);
         }
     }
-
+    // 获得状态栏高度
     private static int getStatusBarHeight(Context context) {
-        // 获得状态栏高度
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
     }
 
 
+    //销毁
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -243,7 +338,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     }
 
 
-
     //用来更新
     public static class NOHandler extends Handler {
         private Context context;
@@ -257,8 +351,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         public void handleMessage(Message msg) {
             try{
                 if(msg.what ==1){
-                    mVpHome.setCurrentItem(1);
+                    mVpHome.setCurrentItem(1,false);
                     PreferenceUtils.setPrefString(context,"test","test");
+
+                    Message message = new Message();
+                    message.what =3;
+                    FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(context);
+                    myHandler.sendMessage(message);
+                }
+                if(msg.what ==2){
+                    mVpHome.setCurrentItem(1,false);
                 }
             }catch (Exception e){
                 e.printStackTrace();

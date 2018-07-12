@@ -28,6 +28,7 @@ import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyDialog;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
+import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
@@ -48,6 +49,9 @@ public class UerTificationActivity extends BaseActivity {
     EditText userWx;//
     @ViewInject(R.id.user_qq)
     EditText userQq;//
+
+
+    String cardId ="";
 
     @Event(type = View.OnClickListener.class,value ={ R.id.tv_back,R.id.btn_sumbit})
     private void click(View v){
@@ -98,10 +102,11 @@ public class UerTificationActivity extends BaseActivity {
     }
 
     void initView(GetMeBean javaBean){
-        if(!javaBean.getBody().getName().equals("")){
+        if(!javaBean.getBody().getName().isEmpty()){
             userName.setText(javaBean.getBody().getName()+"");
             userName.setEnabled(false);
-            userIDcard.setText(javaBean.getBody().getIdcard()+"");
+            userIDcard.setText(StringUtils.sliptStr(javaBean.getBody().getIdcard())+"");
+            cardId = javaBean.getBody().getIdcard();
             userIDcard.setEnabled(false);
             userZfb.setText(javaBean.getBody().getZhifuPay()+"");
             userEmail.setText(javaBean.getBody().getEmail()+"");
@@ -115,6 +120,9 @@ public class UerTificationActivity extends BaseActivity {
      * 提交实名信息
      */
     private void tificationData() {
+        if(cardId.isEmpty()){
+            cardId = userIDcard.getText().toString().trim();
+        }
         OkGo.<String>put(Constants.URL_BASE + "user/verify")//
                 .tag(this)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
@@ -123,7 +131,7 @@ public class UerTificationActivity extends BaseActivity {
                 .params("email",getView(userEmail))
                 .params("qq", getView(userQq))
                 .params("weixin", getView(userWx))
-                .params("idcard", getView(userIDcard))
+                .params("idcard", cardId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

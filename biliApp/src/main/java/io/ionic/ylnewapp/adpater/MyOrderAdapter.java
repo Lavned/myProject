@@ -1,5 +1,6 @@
 package io.ionic.ylnewapp.adpater;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jiangyy.easydialog.InputDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +95,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((ViewHolder) holder).order_btn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    T.showShort("kk"+parent.getAdapter().getItem(position));
                     switch (parent.getAdapter().getItem(position)+""){
                         case "1" :
                             OrderUtils.payOrder(mContext,item.getOrderid());
@@ -100,11 +102,22 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             break;
                         case "2" :
 //                            holder.tv.setText("取消订单");
-                            T.showShort("订单很快就更新了");
+                            OrderUtils.delOrder(mContext,item.getOrderid());
+                            notifyDataSetChanged();
                             break;
                         case "3" :
 //                            holder.tv.setText("我要挂单");
-                            OrderUtils.putOrder(mContext,item.getOrderid());
+                            new InputDialog.Builder((Activity) mContext)
+                                        .setTitle("挂单")
+                                .setHint("请输入挂单金额")
+                                .setLines(1)
+                                .setPositiveButton("确定", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        T.showShort(view.getTag().toString());
+                                        OrderUtils.putOrder(mContext,item.getOrderid(),view.getTag().toString());
+                                    }
+                                },R.color.main).setNegativeButton("取消", null).show();
                             break;
                         case "4" :
 //                            holder.tv.setText("修改挂单");

@@ -76,7 +76,7 @@ public class GetMeBean {
         private boolean is_admin;
         private String zhifuPay;
         private String zijinPay;
-        private int qianbao;
+        private String qianbao;
         private String email;
         private String weixin;
         private String qq;
@@ -212,11 +212,11 @@ public class GetMeBean {
             this.zijinPay = zijinPay;
         }
 
-        public int getQianbao() {
+        public String getQianbao() {
             return qianbao;
         }
 
-        public void setQianbao(int qianbao) {
+        public void setQianbao(String qianbao) {
             this.qianbao = qianbao;
         }
 

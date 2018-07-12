@@ -130,6 +130,18 @@ public class EdLoginPassActivity extends BaseActivity {
             T.showShort("请再次输入密码");
             return false;
         }
+        if(ActivityUtils.getView(pass_old_pass).length() < 6){
+            T.showShort("密码不能少于6位大于16位");
+            return false;
+        }
+        if(ActivityUtils.getView(pass_one).length() < 6){
+            T.showShort("密码不能少于6位大于16位");
+            return false;
+        }
+        if(ActivityUtils.getView(pass_confim).length() < 6){
+            T.showShort("密码不能少于6位大于16位");
+            return false;
+        }
         else{
             return true;
         }

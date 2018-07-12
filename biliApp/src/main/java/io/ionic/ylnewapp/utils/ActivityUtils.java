@@ -3,6 +3,8 @@ package io.ionic.ylnewapp.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +21,9 @@ import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.view.activity.mine.AddPayPassActivity;
 import io.ionic.ylnewapp.view.activity.mine.ForgetPayActivity;
 import io.ionic.ylnewapp.view.activity.mine.EdPayPassActivity;
+import io.ionic.ylnewapp.view.activity.mine.RechargeActivity;
 import io.ionic.ylnewapp.view.activity.user.LoginActivity;
+import io.ionic.ylnewapp.view.activity.wallet.WalletAddMoneyActivity;
 
 /**
  * Created by mogojing on 2018/5/18/0018.
@@ -35,8 +39,13 @@ public class ActivityUtils {
         }
     }
 
+    /**
+     * tiaozhuandaodenglu
+     * @param mContext
+     * @param status
+     */
     public static void toLogin(final Activity mContext,final int status){
-        T.showShort("登录状态已失效，请重新登录");
+            T.showShort("登录状态过期，请重新登录");
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -49,6 +58,10 @@ public class ActivityUtils {
         }, 1500);
     }
 
+    /**
+     * 跳转到忘记密码
+     * @param mContext
+     */
     public static void toForgetPwd(final Activity mContext){
         new Timer().schedule(new TimerTask() {
             @Override
@@ -60,11 +73,15 @@ public class ActivityUtils {
         }, 300);
     }
 
+    /**
+     * 跳转到修改密码
+     * @param mContext
+     */
     public static void toEdPwd(final Activity mContext){
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                mContext.startActivity(new Intent(mContext, EdPayPassActivity.class));
+                mContext.startActivity(new Intent(mContext, ForgetPayActivity.class));
                 mContext.finish();
 
             }
@@ -72,6 +89,10 @@ public class ActivityUtils {
     }
 
 
+    /**
+     * 设置支付密码
+     * @param mContext
+     */
     public static  void  hasPay(final Activity mContext){
             new CommonDialog.Builder(mContext)
                     .setMessage("请设置支付密码").setTitle("提示")
@@ -82,6 +103,59 @@ public class ActivityUtils {
                             mContext.finish();
                         }
                     }, R.color.main).setNegativeButton("取消",null).show();
+    }
+
+
+    /**
+     * 充钱
+     * @param mContext
+     */
+    public static  void  noMoney(final Activity mContext){
+        new CommonDialog.Builder(mContext)
+                .setMessage("当前账户余额不足，请充值后再进行支付！").setTitle("余额不足提醒")
+                .setPositiveButton("前往充值", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mContext.startActivity(new Intent(mContext,RechargeActivity.class));
+                        mContext.finish();
+                    }
+                }, R.color.main).setNegativeButton("取消",null).show();
+    }
+
+    /**
+     * 充币
+     * @param mContext
+     */
+    public static  void  noB(final Activity mContext,final String name){
+        new CommonDialog.Builder(mContext)
+                .setMessage("当前账户余额不足，请充值后再进行支付！").setTitle("余额不足提醒")
+                .setPositiveButton("前往充值", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext,WalletAddMoneyActivity.class);
+                        intent.putExtra("name",name);
+                        mContext.startActivity(intent);
+                        mContext.finish();
+                    }
+                }, R.color.main).setNegativeButton("取消",null).show();
+    }
+
+
+
+    /**
+     * 获取版本号
+     * @return 当前应用的版本号
+     */
+    public static String getVersion(Context context) {
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            int version = info.versionCode;
+            return  version+"" ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     /**

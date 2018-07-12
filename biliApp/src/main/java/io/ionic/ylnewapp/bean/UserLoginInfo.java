@@ -92,7 +92,7 @@ public class UserLoginInfo {
         private boolean is_admin;
         private String zhifuPay;
         private String zijinPay;
-        private int qianbao;
+        private Double qianbao;
         private String email;
         private String weixin;
         private String qq;
@@ -212,11 +212,11 @@ public class UserLoginInfo {
             this.zijinPay = zijinPay;
         }
 
-        public int getQianbao() {
+        public Double getQianbao() {
             return qianbao;
         }
 
-        public void setQianbao(int qianbao) {
+        public void setQianbao(Double qianbao) {
             this.qianbao = qianbao;
         }
 

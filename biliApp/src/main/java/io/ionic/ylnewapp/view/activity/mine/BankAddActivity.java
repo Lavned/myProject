@@ -1,9 +1,12 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import java.util.List;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.PhoneUtil;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
@@ -40,6 +44,10 @@ public class BankAddActivity extends BaseActivity {
     EditText bankKhh;
     @ViewInject(R.id.ebank_code)
     EditText bankCode;
+    @ViewInject(R.id.bank_get_code)
+    TextView bank_get_code;
+
+    TimeCount timer;
 
 
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.add_btn,R.id.bank_get_code})
@@ -62,6 +70,7 @@ public class BankAddActivity extends BaseActivity {
                 addBank();
                 break;
             case R.id.bank_get_code:
+                timer.start();
                 getCode();
                 break;
         }
@@ -74,6 +83,7 @@ public class BankAddActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bank_add);
         init();
+        timer = new TimeCount(60000, 1000);
     }
 
     /**
@@ -140,6 +150,30 @@ public class BankAddActivity extends BaseActivity {
                         T.showNetworkError(mContext);
                     }
                 });
+    }
+
+
+    //倒计时定时器
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            bank_get_code.setBackgroundColor(Color.parseColor("#666666"));
+            bank_get_code.setClickable(false);
+            bank_get_code.setText("("+millisUntilFinished / 1000 +") 秒后可重新发送");
+        }
+
+        @Override
+        public void onFinish() {
+            bank_get_code.setText("重新获取验证码");
+            bank_get_code.setClickable(true);
+            bank_get_code.setBackgroundColor(Color.parseColor("#FEA620"));
+
+        }
     }
 
 }

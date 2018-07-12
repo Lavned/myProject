@@ -28,7 +28,9 @@ import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.CurrencyLvAdapter;
 import io.ionic.ylnewapp.adpater.CurrencyNameAdapater;
 import io.ionic.ylnewapp.adpater.market.MarketSearchLvAdapter;
+import io.ionic.ylnewapp.adpater.market.TagNameAdapater;
 import io.ionic.ylnewapp.bean.CoinBean;
+import io.ionic.ylnewapp.bean.market.SeachGrid;
 import io.ionic.ylnewapp.bean.market.SearchBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
@@ -46,10 +48,12 @@ public class MarketSearchActivity extends BaseActivity {
     ListView searchLv;
     @ViewInject(R.id.ed_currency)
     EditText ed_currency;
+    @ViewInject(R.id.em_tip)
+    TextView em_tip;
 
-    CurrencyNameAdapater adapter;
+    TagNameAdapater adapter;
     MarketSearchLvAdapter lvAdapte;
-    List<String> dataList;
+    List<SeachGrid.DataBean> dataList;
 
     List<SearchBean.DataBean>mData;
     String keyName ="";
@@ -63,6 +67,8 @@ public class MarketSearchActivity extends BaseActivity {
                 break;
             case R.id.del:
                 ed_currency.setText("");
+                keyName = "test";
+                loadList();
                 break;
         }
     }
@@ -71,9 +77,9 @@ public class MarketSearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_currency_search);
+        setContentView(R.layout.activity_market_search);
         init();
-        initGrid();
+        loadTag();
     }
 
     /**
@@ -83,6 +89,7 @@ public class MarketSearchActivity extends BaseActivity {
         if(mData != null & mData.size() == 0)  {
             T.showShort("暂无数据");
         }
+        em_tip.setVisibility(View.GONE);
         lvAdapte=new MarketSearchLvAdapter(mContext, mData);
         lvAdapte.notifyDataSetChanged();
         searchLv.setAdapter(lvAdapte);
@@ -94,30 +101,6 @@ public class MarketSearchActivity extends BaseActivity {
         });
     }
 
-    /**
-     * 初始化View
-     */
-    private void initGrid() {
-        dataList = new ArrayList<>();
-        dataList.add("BTC");
-        dataList.add("ETH");
-        dataList.add("ADA");
-        dataList.add("EOS");
-        dataList.add("NEO");
-        dataList.add("VEN");
-        dataList.add("ETC");
-        dataList.add("OKB");
-        dataList.add("REP");
-        dataList.add("BTC");
-        adapter=new CurrencyNameAdapater(mContext, dataList);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                addCoinMarkrt(dataList.get(position),dataList.get(position));
-            }
-        });
-    }
 
     /**
      * 初始化
@@ -140,13 +123,63 @@ public class MarketSearchActivity extends BaseActivity {
     }
 
 
-
-    private void loadList() {
-        mBuilder.setTitle("请稍候...").show();
-        OkGo.<String>get(Constants.MARKRT_URL_BASE + "marketData/marketValues?currencyPair=" + keyName )
+    /**
+     * j加载热门标签
+     */
+    private void loadTag() {
+        OkGo.<String>get(Constants.MARKRT_URL_BASEHTTP + "marketData/tags" )
                 .tag(this)
                 .cacheTime(1000)
-//                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        SeachGrid javaBean =gson.fromJson(response.body().toString(),SeachGrid.class);
+                        if(javaBean.isSuccess() == true){
+                            dataList = javaBean.getData();
+                            if(dataList!= null){
+                                initGrid(dataList);
+                            }
+                        }else
+                            T.showShort(javaBean.getMessage()+"");
+
+                    }
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+
+                });
+    }
+
+    /**
+     * 初始化View
+     */
+    private void initGrid(final List<SeachGrid.DataBean> dataList) {
+        adapter=new TagNameAdapater(mContext, dataList);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ed_currency.setFocusable(true);
+                ed_currency.setFocusableInTouchMode(true);
+                ed_currency.setText(dataList.get(position).getValue());
+                keyName = dataList.get(position).getValue();
+                loadList();
+            }
+        });
+    }
+
+
+    /**
+     * list数据
+     */
+    private void loadList() {
+        mBuilder.setTitle("请稍候...").show();
+        OkGo.<String>get(Constants.MARKRT_URL_BASEHTTP + "marketData/marketValues?currencyPair=" + keyName )
+                .tag(this)
+                .cacheTime(1000)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

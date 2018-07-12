@@ -1,8 +1,11 @@
 package io.ionic.ylnewapp.view.activity.wallet;
 
+import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +41,9 @@ public class WalletAdAddActivity extends BaseActivity {
     @ViewInject(R.id.walletcode)
     EditText walletcode;
 
+    @ViewInject(R.id.get_code)
+    TextView get_code;
+    TimeCount timer;
 
 
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.add_btn,R.id.get_code})
@@ -60,6 +66,7 @@ public class WalletAdAddActivity extends BaseActivity {
                 addWallet();
                 break;
             case R.id.get_code:
+                timer.start();
                 getCode();
                 break;
         }
@@ -124,6 +131,7 @@ public class WalletAdAddActivity extends BaseActivity {
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         title.setText("添加钱包地址");
+        timer = new TimeCount(60000, 1000);
     }
 
     //获取验证码
@@ -148,6 +156,30 @@ public class WalletAdAddActivity extends BaseActivity {
                         T.showShort(response.toString());
                     }
                 });
+    }
+
+
+    //倒计时定时器
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            get_code.setBackgroundColor(Color.parseColor("#666666"));
+            get_code.setClickable(false);
+            get_code.setText("("+millisUntilFinished / 1000 +") 秒后可重新发送");
+        }
+
+        @Override
+        public void onFinish() {
+            get_code.setText("重新获取验证码");
+            get_code.setClickable(true);
+            get_code.setBackgroundColor(Color.parseColor("#FEA620"));
+
+        }
     }
 
 }

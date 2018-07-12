@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.LoadingDialog;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.x;
 
@@ -19,8 +20,7 @@ import io.ionic.ylnewapp.R;
  * Created by hah on 2018/5/3 0003.
  */
 
-public class BaseActivity extends AppCompatActivity
-{
+public class BaseActivity extends AppCompatActivity {
 
 
     public Context mContext;
@@ -40,6 +40,19 @@ public class BaseActivity extends AppCompatActivity
         {
             ((BLApplication) getApplication()).addActivity(this);
         }
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     protected void setStatusBar() {

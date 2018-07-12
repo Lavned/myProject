@@ -25,13 +25,14 @@
         android:id="@+id/tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="充值申请已提交，等待工审核"
+        android:text="请通过您的数字钱包进行充值"
         android:textColor="@color/black33"
         android:textSize="13sp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         />
     <TextView
+        android:visibility="gone"
         android:id="@+id/one_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,11 +46,11 @@
         android:id="@+id/two_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="预计到账时间：18-10-10"
+        android:text="如未支付订单将于30分钟自动关闭"
         android:textColor="@color/black_6"
         android:textSize="12sp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         />
     <Button
         android:id="@+id/finish_yes"
@@ -58,7 +59,7 @@
         android:background="@mipmap/forgetpwd"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="完成"
+        android:text="去完成"
         android:textSize="18sp"
         android:layout_marginTop="70dp"
         android:textColor="@drawable/textclick"/>

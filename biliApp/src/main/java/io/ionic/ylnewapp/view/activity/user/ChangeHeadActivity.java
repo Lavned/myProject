@@ -32,7 +32,7 @@ import java.io.FileOutputStream;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.custom.PhotoPopupWindow;
-import io.ionic.ylnewapp.utils.OSSUtils;
+//import io.ionic.ylnewapp.utils.OSSUtils;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class ChangeHeadActivity extends BaseActivity {
@@ -143,7 +143,7 @@ public class ChangeHeadActivity extends BaseActivity {
                     bitmap = BitmapFactory.decodeFile(mImageUri.getEncodedPath());
                     Log.i("----------",mImageUri.getEncodedPath());
                     main_icon.setImageBitmap(bitmap);
-                    OSSUtils.upload(context,mImageUri.getEncodedPath());
+//                    OSSUtils.upload(context,mImageUri.getEncodedPath());
                     break;
                 // 相册选取
                 case REQUEST_IMAGE_GET:

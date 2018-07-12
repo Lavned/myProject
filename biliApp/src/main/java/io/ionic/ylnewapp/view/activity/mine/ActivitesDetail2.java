@@ -1,7 +1,10 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,16 +25,18 @@ import io.ionic.ylnewapp.adpater.ActivityDetailAdapter2;
 import io.ionic.ylnewapp.bean.ActivitiesDetailBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.custom.MyListView;
+import io.ionic.ylnewapp.custom.NewListView;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
+import io.ionic.ylnewapp.view.main.MainActivity;
 
 public class ActivitesDetail2 extends BaseActivity {
 
 
-    @ViewInject(R.id.lvs)
-    MyListView lvs;
+    @ViewInject(R.id.lvss)
+    NewListView lvs;
     @ViewInject(R.id.tv_title)
     TextView title;
 
@@ -40,7 +45,7 @@ public class ActivitesDetail2 extends BaseActivity {
     List<ActivitiesDetailBean.BodyBean> mData;
 
 
-    @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.getBncn})
+    @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.getBncn})//,
     private void click(View v){
         switch (v.getId()){
             case R.id.tv_back:
@@ -62,7 +67,7 @@ public class ActivitesDetail2 extends BaseActivity {
     }
 
     private void init() {
-        title.setText("领取优惠券");
+        title.setText("领取BNCN");
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
     }
 
@@ -113,6 +118,17 @@ public class ActivitesDetail2 extends BaseActivity {
         }
         adapter = new ActivityDetailAdapter2(mContext,data);
         lvs.setAdapter(adapter);
+        lvs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Message msg = new Message();
+                msg.what =2;
+                MainActivity.NOHandler myHandler = new MainActivity.NOHandler(mContext);
+                myHandler.sendMessage(msg);
+                finish();
+                MyActiActivity.activity.finish();
+            }
+        });
     }
 
     //领取优惠券

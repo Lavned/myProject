@@ -51,6 +51,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

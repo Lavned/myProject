@@ -45,7 +45,7 @@
                 android:singleLine="true"
                 android:drawableLeft="@mipmap/f_search2x"
                 android:drawablePadding="8dp"
-                android:hint="搜索币种"/>
+                android:hint="搜索"/>
 
 
             <ImageView
@@ -81,13 +81,14 @@
     <GridView
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:numColumns="6"
         android:verticalSpacing="5dp"
         android:layout_marginHorizontal="15dp"
         android:horizontalSpacing="5dp"
         android:columnWidth="120dp"
         android:stretchMode="columnWidth"
+        android:paddingBottom="10dp"
         android:gravity="center"  ></GridView>
 
     <View
@@ -100,6 +101,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/search_lv"></ListView>
+
+    <TextView
+        android:id="@+id/em_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textSize="12sp"
+        android:textColor="@color/black_1"
+        android:text="暂无币种，请搜索添加"/>
 
 
 </LinearLayout>

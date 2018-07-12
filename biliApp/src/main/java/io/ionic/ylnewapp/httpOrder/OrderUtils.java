@@ -9,6 +9,7 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.ionic.ylnewapp.bean.CommRespBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
@@ -27,6 +28,31 @@ public class OrderUtils {
                 .tag(activity)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(activity,"token",""))
                 .params("orderid", orderid)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String data = response.body();//这个就是返回来的结果
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            T.showShort(jsonObject.getString("msg"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(activity);
+                    }
+                });
+    }
+
+    //取消
+    public  static  void delOrder(final Context activity , String orderid){
+        OkGo.<String>delete(Constants.URL_BASE + "order/order?orderid=" + orderid)//
+                .tag(activity)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(activity,"token",""))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -75,11 +101,12 @@ public class OrderUtils {
     }
 
     //挂单
-    public  static  void putOrder(final Context activity , String orderid){
+    public  static  void putOrder(final Context activity , String orderid,String putAmount){
         OkGo.<String>post(Constants.URL_BASE + "order/putOrder")//
                 .tag(activity)//
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(activity,"token",""))
                 .params("orderid", orderid)
+                .params("putAmount",putAmount)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -123,6 +150,7 @@ public class OrderUtils {
                         super.onError(response);
                         T.showNetworkError(activity);
                     }
+
                 });
     }
 

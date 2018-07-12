@@ -68,7 +68,7 @@ public class WithdrawalActivity extends BaseActivity {
             case R.id.sub_btn:
                 if(checkEmpty()){
                     if(Double.parseDouble(ActivityUtils.getView(paymoney)) > Double.parseDouble(money) ){
-                        T.showShort("充值金额不能大于剩余金额");
+                        T.showShort("提现金额不能大于剩余金额");
                     }else if(PreferenceUtils.getPrefString(mContext,"hasPay","").equals("true"))
                         checkAuth();
                     else
@@ -100,8 +100,8 @@ public class WithdrawalActivity extends BaseActivity {
     private void init() {
         title.setText("提现");
         money = PreferenceUtils.getPrefString(mContext,"money","");
-        moneyAll.setText(money);
-        getMoney.setText(money);
+        moneyAll.setText("¥"+PreferenceUtils.getPrefString(mContext,"moneyall",""));
+        getMoney.setText("¥"+money);
     }
 
 
@@ -259,7 +259,7 @@ public class WithdrawalActivity extends BaseActivity {
      */
     public boolean checkEmpty() {
         if (ActivityUtils.getView(paymoney).equals("")) {
-            T.showShort("充值金额不可为空");
+            T.showShort("提现数量不可为空");
             return false;
         }
         if (text1.getText().toString().trim().equals("")) {

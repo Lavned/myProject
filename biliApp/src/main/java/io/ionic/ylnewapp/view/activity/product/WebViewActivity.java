@@ -1,13 +1,16 @@
 package io.ionic.ylnewapp.view.activity.product;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 
@@ -28,7 +31,6 @@ public class WebViewActivity extends BaseActivity {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
         Intent intent = getIntent();
 //        chooseWeb(intent.getStringExtra("url"));
-        Log.i("-----------",intent.getStringExtra("url")+"oo");
         loadView(intent.getStringExtra("url"));
     }
 
@@ -66,7 +68,7 @@ public class WebViewActivity extends BaseActivity {
         //允许使用javascript
         webSettings.setJavaScriptEnabled(true);
         //将WebAppInterface于javascript绑定
-//        myWebView.addJavascriptInterface(new ProductAIActivity.WebAppInterface(this), "Android");
+        myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
     }
 
 
@@ -77,6 +79,22 @@ public class WebViewActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    public class WebAppInterface {
+        Context mContext;
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        /** Show a toast from the web page */
+        @JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

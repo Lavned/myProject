@@ -217,11 +217,11 @@ public class Enable_Refresh_Activity extends BaseActivity {
         List<Entry> entries = new ArrayList<>();
 
         int addCount = 0;
-        for (int i = loadEndPos ; i < loadEndPos + loadCount && i < entrySet.getEntryList().size() ; i++) {
+//        for (int i = loadEndPos ; i < loadEndPos + loadCount && i < entrySet.getEntryList().size() ; i++) {
             addCount++;
-
-            entries.add(entrySet.getEntryList().get(i));
-        }
+        Entry jjs= new Entry(1000.10f,8000.10f,5000.10f,9000.10f,0,"");
+            entries.add(jjs);
+//        }
         loadEndPos += addCount;
 
         return entries;

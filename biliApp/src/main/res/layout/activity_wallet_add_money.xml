@@ -113,6 +113,7 @@
         <ImageView
             android:id="@+id/title_icon"
             android:layout_width="20dp"
+            android:visibility="gone"
             android:src="@mipmap/qb_logo1_2x"
             android:layout_alignParentRight="true"
             android:layout_marginRight="50dp"
@@ -140,7 +141,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="充值金额"
+            android:text="充值数量"
             android:paddingVertical="10dp"
             android:layout_centerVertical="true"
             android:textColor="@color/black33"
@@ -151,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"
-            android:hint="请输入充值金额0.00"
+            android:hint="请输入充值数量0.00"
             android:background="@null"
             android:inputType="numberDecimal"
             android:textColor="@color/main"

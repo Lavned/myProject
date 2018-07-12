@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/num_re"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_height="30dp">
@@ -34,11 +36,53 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="40dp"
+            android:layout_toLeftOf="@id/more"
             android:textColor="@color/black33"
             android:text="1000"/>
 
+        <CheckedTextView
+            android:id="@+id/more"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:textSize="13sp"
+            android:padding="10dp"
+            android:background="@drawable/icon_border_disabled"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black33"/>
+
+
     </RelativeLayout>
-</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lv_lin"
+        android:visibility="gone"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/jjjj"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:text="jjjjj"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/jjjj2"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:text="jjjjjjjjjjjjjj"
+            android:layout_height="wrap_content" />
+
+        <io.ionic.ylnewapp.custom.NewListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv"></io.ionic.ylnewapp.custom.NewListView>
+    </LinearLayout>
+
+</LinearLayout>

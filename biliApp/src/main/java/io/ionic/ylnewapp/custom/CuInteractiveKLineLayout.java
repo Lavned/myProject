@@ -45,20 +45,6 @@ public class CuInteractiveKLineLayout extends FrameLayout implements View.OnClic
     private KLineHandler kLineHandler;
     private KLineRender kLineRender;
 
-//    private StockMACDIndex macdIndex;
-//    private StockRSIIndex rsiIndex;
-//    private StockKDJIndex kdjIndex;
-//    private StockBOLLIndex bollIndex;
-//
-//    private int stockMarkerViewHeight;
-//    private int stockIndexTabHeight;
-//    private RectF currentRect;
-//
-//    private RadioGroup But_Group;
-//    private RadioButton MACD_But;
-//    private RadioButton RSI_But;
-//    private RadioButton KDJ_But;
-//    private RadioButton BOLL_But;
 
     public CuInteractiveKLineLayout(Context context) {
         this(context, null);
@@ -70,22 +56,14 @@ public class CuInteractiveKLineLayout extends FrameLayout implements View.OnClic
 
     public CuInteractiveKLineLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         this.context = context;
-//
-//        stockMarkerViewHeight = context.getResources().getDimensionPixelOffset(R.dimen.stock_marker_view_height);
-//        stockIndexViewHeight = context.getResources().getDimensionPixelOffset(R.dimen.stock_index_view_height);
-//        stockIndexTabHeight = context.getResources().getDimensionPixelOffset(R.dimen.stock_index_tab_height);
-
         initUI(context, attrs, defStyleAttr);
     }
 
     private void initUI(Context context, AttributeSet attrs, int defStyleAttr) {
         kLineView = new InteractiveKLineView(context);
         kLineRender = (KLineRender) kLineView.getRender();
-
         kLineRender.setSizeColor(ViewUtils.getSizeColor(context, attrs, defStyleAttr));
-
         kLineView.setKLineHandler(new KLineHandler() {
             @Override
             public void onLeftRefresh() {
@@ -131,59 +109,6 @@ public class CuInteractiveKLineLayout extends FrameLayout implements View.OnClic
                 }
             }
         });
-
-//        // 成交量
-//        StockKLineVolumeIndex kLineVolumeIndex = new StockKLineVolumeIndex(stockIndexViewHeight);
-//        kLineVolumeIndex.addDrawing(new KLineVolumeDrawing());
-//        kLineVolumeIndex.addDrawing(new KLineVolumeHighlightDrawing());
-//        kLineRender.addStockIndex(kLineVolumeIndex);
-
-//        // MACD
-//        HighlightDrawing macdHighlightDrawing = new HighlightDrawing();
-//        macdHighlightDrawing.addMarkerView(new YAxisTextMarkerView(stockMarkerViewHeight));
-//
-//        macdIndex = new StockMACDIndex(stockIndexViewHeight);
-//        macdIndex.addDrawing(new MACDDrawing());
-//        macdIndex.addDrawing(new StockIndexYLabelDrawing());
-//        macdIndex.addDrawing(macdHighlightDrawing);
-//        macdIndex.setPaddingTop(stockIndexTabHeight);
-//        kLineRender.addStockIndex(macdIndex);
-//
-//        // RSI
-//        HighlightDrawing rsiHighlightDrawing = new HighlightDrawing();
-//        rsiHighlightDrawing.addMarkerView(new YAxisTextMarkerView(stockMarkerViewHeight));
-//
-//        rsiIndex = new StockRSIIndex(stockIndexViewHeight);
-//        rsiIndex.addDrawing(new RSIDrawing());
-//        rsiIndex.addDrawing(new StockIndexYLabelDrawing());
-//        rsiIndex.addDrawing(rsiHighlightDrawing);
-//        rsiIndex.setPaddingTop(stockIndexTabHeight);
-//        kLineRender.addStockIndex(rsiIndex);
-//
-//        // KDJ
-//        HighlightDrawing kdjHighlightDrawing = new HighlightDrawing();
-//        kdjHighlightDrawing.addMarkerView(new YAxisTextMarkerView(stockMarkerViewHeight));
-//
-//        kdjIndex = new StockKDJIndex(stockIndexViewHeight);
-//        kdjIndex.addDrawing(new KDJDrawing());
-//        kdjIndex.addDrawing(new StockIndexYLabelDrawing());
-//        kdjIndex.addDrawing(kdjHighlightDrawing);
-//        kdjIndex.setPaddingTop(stockIndexTabHeight);
-//        kLineRender.addStockIndex(kdjIndex);
-//
-//        // BOLL
-//        HighlightDrawing bollHighlightDrawing = new HighlightDrawing();
-//        bollHighlightDrawing.addMarkerView(new YAxisTextMarkerView(stockMarkerViewHeight));
-//
-//        bollIndex = new StockBOLLIndex(stockIndexViewHeight);
-//        bollIndex.addDrawing(new BOLLDrawing());
-//        bollIndex.addDrawing(new StockIndexYLabelDrawing());
-//        bollIndex.addDrawing(bollHighlightDrawing);
-//        bollIndex.setPaddingTop(stockIndexTabHeight);
-//        kLineRender.addStockIndex(bollIndex);
-//
-//        kLineRender.addMarkerView(new YAxisTextMarkerView(stockMarkerViewHeight));
-//        kLineRender.addMarkerView(new XAxisTextMarkerView(stockMarkerViewHeight));
 
         addView(kLineView);
     }

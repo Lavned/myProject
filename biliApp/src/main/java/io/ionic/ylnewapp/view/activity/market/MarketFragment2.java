@@ -26,7 +26,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.MarketFragAdapter2;
+import io.ionic.ylnewapp.adpater.market.MarketFragAdapter2;
 import io.ionic.ylnewapp.bean.market.MarketBean;
 
 import static io.ionic.ylnewapp.constants.Constants.MARKRT_SZ;
@@ -54,14 +54,17 @@ public class MarketFragment2 extends Fragment {
         return view;
     }
     //数据初始化
-    private void initView(List<MarketBean> marketBean) {
+    private void initView(final List<MarketBean> marketBean) {
         adapter = new MarketFragAdapter2(getContext(),marketBean);
         adapter.notifyDataSetChanged();
         lvData.setAdapter(adapter);
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(),ZxSzDetailActivity.class));
+                Intent intent = new Intent(getActivity(),ZxSzDetailActivity.class);
+                intent.putExtra("name",marketBean.get(position).getCurrencyPair()
+                        +"|"+marketBean.get(position).getExchange());
+                startActivity(intent);
             }
         });
     }
@@ -70,7 +73,7 @@ public class MarketFragment2 extends Fragment {
     /**
      * 声明
      */
-    private Socket mSocket;
+    public static Socket mSocket;
     {
         try {
             mSocket = IO.socket(MARKRT_SZ);

@@ -29,4 +29,6 @@ public class MyListView extends ListView {
         int measureSpec1 = MeasureSpec.makeMeasureSpec(570, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, measureSpec1);
     }
+
+
 }

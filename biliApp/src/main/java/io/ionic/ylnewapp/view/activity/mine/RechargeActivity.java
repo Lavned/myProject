@@ -229,7 +229,7 @@ public class RechargeActivity extends BaseActivity {
      */
     public boolean checkEmpty() {
         if (ActivityUtils.getView(paymoney).equals("")) {
-            T.showShort("充值金额不可为空");
+            T.showShort("充值数量不可为空");
             return false;
         }
         if (PreferenceUtils.getPrefString(mContext,"id","").equals("")) {

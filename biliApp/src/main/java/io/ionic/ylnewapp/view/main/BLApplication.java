@@ -16,6 +16,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import org.xutils.x;
 
@@ -62,9 +64,18 @@ public class BLApplication extends Application {
 //        x.Ext.setDebug(true);//是否输出Debug日志
 //        CrashHandler crashHandler = CrashHandler.getInstance();
 //        crashHandler.init(getApplicationContext());
+        /**
+         * 初始化common库
+         * 参数1:上下文，必须的参数，不能为空
+         * 参数2:友盟 app key，非必须参数，如果Manifest文件中已配置app key，该参数可以传空，则使用Manifest中配置的app key，否则该参数必须传入
+         * 参数3:友盟 channel，非必须参数，如果Manifest文件中已配置channel，该参数可以传空，则使用Manifest中配置的channel，否则该参数必须传入，channel命名请详见channel渠道命名规范
+         * 参数4:设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机
+         * 参数5:Push推送业务的secret，需要集成Push功能时必须传入Push的secret，否则传空
+         */
+        //如果AndroidManifest.xml清单配置中没有设置appkey和channel，则可以在这里设置
+        //UMConfigure.init(this, "58edcfeb310c93091c000be2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "1fe6a20054bcef865eeb0991ee84525b");
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE,"");
     }
-
-
 
 
 
@@ -99,16 +110,16 @@ public class BLApplication extends Application {
 
         //https相关设置，以下几种方案根据需要自己设置
         //方法一：信任所有证书,不安全有风险
-        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
+//        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
         //方法二：自定义信任规则，校验服务端证书
-        HttpsUtils.SSLParams sslParams2 = HttpsUtils.getSslSocketFactory(new SafeTrustManager());
+//        HttpsUtils.SSLParams sslParams2 = HttpsUtils.getSslSocketFactory(new SafeTrustManager());
         //方法三：使用预埋证书，校验服务端证书（自签名证书）
         //HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("srca.cer"));
         //方法四：使用bks证书和密码管理客户端证书（双向认证），使用预埋证书，校验服务端证书（自签名证书）
         //HttpsUtils.SSLParams sslParams4 = HttpsUtils.getSslSocketFactory(getAssets().open("xxx.bks"), "123456", getAssets().open("yyy.cer"));
-        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
+//        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
         //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
-        builder.hostnameVerifier(new SafeHostnameVerifier());
+//        builder.hostnameVerifier(new SafeHostnameVerifier());
 
         // 其他统一的配置
         // 详细说明看GitHub文档：https://github.com/jeasonlzy/
@@ -125,44 +136,43 @@ public class BLApplication extends Application {
      * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
      * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
      * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     * 重要的事情说三遍，以下代码不要直接使用
      */
-    private class SafeTrustManager implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            try {
-                for (X509Certificate certificate : chain) {
-                    certificate.checkValidity(); //检查证书是否过期，签名是否通过等
-                }
-            } catch (Exception e) {
-                throw new CertificateException(e);
-            }
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
-
-    /**
-     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     * 重要的事情说三遍，以下代码不要直接使用
-     */
-    private class SafeHostnameVerifier implements HostnameVerifier {
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            //验证主机名是否匹配
-            //return hostname.equals("server.jeasonlzy.com");
-            return true;
-        }
-    }
+//    private class SafeTrustManager implements X509TrustManager {
+//        @Override
+//        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//        }
+//
+//        @Override
+//        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//            try {
+//                for (X509Certificate certificate : chain) {
+//                    certificate.checkValidity(); //检查证书是否过期，签名是否通过等
+//                }
+//            } catch (Exception e) {
+//                throw new CertificateException(e);
+//            }
+//        }
+//
+//        @Override
+//        public X509Certificate[] getAcceptedIssuers() {
+//            return new X509Certificate[0];
+//        }
+//    }
+//
+//    /**
+//     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
+//     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
+//     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
+//     * 重要的事情说三遍，以下代码不要直接使用
+//     */
+//    private class SafeHostnameVerifier implements HostnameVerifier {
+//        @Override
+//        public boolean verify(String hostname, SSLSession session) {
+//            //验证主机名是否匹配
+//            //return hostname.equals("server.jeasonlzy.com");
+//            return true;
+//        }
+//    }
 
 
 

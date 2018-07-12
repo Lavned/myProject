@@ -54,10 +54,28 @@ public class ZxDetailBean {
         private String currencyPair;
         private BigDecimal open;
         private BigDecimal close;
-        private BigDecimal lowest;
-        private BigDecimal highest;
+        private BigDecimal change;
+        private BigDecimal changeValue;
         private long timestamp;
         private long intervalDate;
+        private BigDecimal lowest;
+        private BigDecimal highest;
+
+        public void setChange(BigDecimal change) {
+            this.change = change;
+        }
+
+        public void setChangeValue(BigDecimal changeValue) {
+            this.changeValue = changeValue;
+        }
+
+        public BigDecimal getChange() {
+            return change;
+        }
+
+        public BigDecimal getChangeValue() {
+            return changeValue;
+        }
 
         public String getExchange() {
             return exchange;
