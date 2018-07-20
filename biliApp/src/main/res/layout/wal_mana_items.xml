@@ -9,17 +9,41 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/whitebg">
-        <ImageView
-            android:id="@+id/wal_del"
+        <LinearLayout
+            android:id="@+id/defaultLin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/qb_icon12_2x"
-            android:padding="10dp"
-            android:layout_marginRight="10dp"
+            android:gravity="center"
             android:layout_alignParentRight="true"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/cb_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="5dp"
+                android:button="@drawable/choosepay"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/setDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设为默认"
+                android:textColor="@color/main"
+                android:textSize="11sp" />
+            <ImageView
+                android:id="@+id/wal_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/qb_icon12_2x"
+                android:padding="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                />
+        </LinearLayout>
+
         <View
-            android:layout_below="@id/wal_del"
+            android:layout_below="@id/defaultLin"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/line"/>

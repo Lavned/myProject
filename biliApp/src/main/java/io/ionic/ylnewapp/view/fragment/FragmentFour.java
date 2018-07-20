@@ -113,12 +113,14 @@ public class FragmentFour extends BaseFragment {
                     startActivity(new Intent(getActivity(),MyCountCoinActivity.class));
                 break;
             case R.id.unOrder :
+                MobclickAgent.onEvent(getActivity(), "Unpaid");
                 toOrder(0);
                 break;
             case R.id.help :
                 startActivity(new Intent(getActivity(),HelpActivity.class));
                 break;
             case R.id.qq:
+                MobclickAgent.onEvent(getActivity(), "Service");
                 String qqNum = "2852370178";
                 if (checkApkExist(getActivity(), "com.tencent.mobileqq")){
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin="+qqNum+"&version=1")));

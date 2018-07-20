@@ -21,6 +21,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 import com.wordplat.ikvstockchart.KLineHandler;
 import com.wordplat.ikvstockchart.compat.PerformenceAnalyser;
 import com.wordplat.ikvstockchart.entry.Entry;
@@ -136,6 +137,7 @@ public class ZxSzDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_zx_sz_detail);
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
         init();
+        MobclickAgent.onEvent(mContext, "Pricedetail");
     }
 
     /**

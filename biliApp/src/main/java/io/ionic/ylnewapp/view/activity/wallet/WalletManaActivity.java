@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,6 +20,7 @@ import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +28,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -50,6 +55,10 @@ public class WalletManaActivity extends BaseActivity {
 
     List<AddressBean.BodyBean> mData;
     WalletAdapter adapter;
+
+    int[] imgs = {R.mipmap.qb_head_icon2_2x, R.mipmap.qb_head_icon3_2x, R.mipmap.qb_head_icon4_2x, R.mipmap.qb_head_icon5_2x,
+            R.mipmap.qb_head_icon6_2x,R.mipmap.qb_head_icon7_2x};
+
 
     @Event(type = View.OnClickListener.class,value = {R.id.tv_back,R.id.textView3})
     private void click(View v){
@@ -78,6 +87,7 @@ public class WalletManaActivity extends BaseActivity {
     private void init() {
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         title.setText("钱包地址管理");
+        MobclickAgent.onEvent(mContext, "Wallet");
         textView3.setVisibility(View.VISIBLE);
         textView3.setImageResource(R.mipmap.qb_icon10_2x);
         mData = new ArrayList();
@@ -91,7 +101,10 @@ public class WalletManaActivity extends BaseActivity {
     }
 
 
-
+    /**
+     * chushihuaview
+     * @param mData
+     */
     private void initView(List<AddressBean.BodyBean> mData) {
         if(mData.size() ==0) {
             T.showShort("暂无数据");
@@ -137,8 +150,7 @@ public class WalletManaActivity extends BaseActivity {
                 });
     }
 
-
-
+    HashMap<Integer, Boolean> states = new HashMap<Integer, Boolean>();  //在这里要做判断保证只有一个RadioButton被选中
     /**
      * 内部适配器
      */
@@ -170,21 +182,31 @@ public class WalletManaActivity extends BaseActivity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
+            final ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = mLayoutInflater.inflate(R.layout.wal_mana_items, parent, false);
+                holder.name = convertView.findViewById(R.id.item_name);
+                holder.name.setText(mData.get(position).getType()+"");
+                holder.address = convertView.findViewById(R.id.item_address);
+                holder.address.setText(mData.get(position).getAddress());
+                holder.icon = convertView.findViewById(R.id.item_icon);
+                holder.del = convertView.findViewById(R.id.wal_del);
+                holder.chDefault = convertView.findViewById(R.id.cb_default);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.name = convertView.findViewById(R.id.item_name);
-            holder.name.setText(mData.get(position).getType()+"");
-            holder.address = convertView.findViewById(R.id.item_address);
-            holder.address.setText(mData.get(position).getAddress());
-            holder.icon = convertView.findViewById(R.id.item_icon);
-            holder.del = convertView.findViewById(R.id.wal_del);
-            setHead(holder.icon );
+            setHead(holder.icon,position);
+            if(mData.get(position).getDefult()){
+                for (int i = 0; i < getCount(); i++) {  //把所有的按钮的状态设置为没选中
+                    states.put(i, false);
+                }
+                //然后设置点击的那个按钮设置状态为选中
+                states.put(position, true);    //这样所有的条目中只有一个被选中！
+            }else {
+//                holder.chDefault.setChecked(false);
+            }
             holder.del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -194,11 +216,30 @@ public class WalletManaActivity extends BaseActivity {
                                 @Override
                                 public void onClick(View view) {
                                     deleteData(mData.get(position).getId());
-
                                 }
                             }, R.color.main).setNegativeButton("取消",null).show();
                 }
             });
+            holder.chDefault.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new CommonDialog.Builder(WalletManaActivity.this)
+                            .setMessage("确定将改地址设置为默认地址吗？").setTitle("提示")
+                            .setPositiveButton("确定", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    setDefault(mData.get(position).getId());
+                                }
+                            }, R.color.main).setNegativeButton("取消",null).show();
+                }
+            });
+            //上面是点击后设置状态，但是也是需要设置显示样式,通过判断状态设置显示的样式
+            if (states.get((Integer) position) == null || states.get((Integer) position) == false) {  //true说明没有被选中
+                holder.chDefault.setChecked(false);
+            } else {
+                holder.chDefault.setChecked(true);
+            }
+
             return convertView;
         }
 
@@ -208,15 +249,51 @@ public class WalletManaActivity extends BaseActivity {
             private ImageView icon;
             private TextView address;
             private ImageView del;
+            private RadioButton chDefault;
         }
+
+
+        /**
+         * 设置默认
+         */
+        private void setDefault(String id) {
+            OkGo.<String>post(Constants.URL_BASE + "user/address" )
+                    .tag(this)
+                    .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                    .params("id",id)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body());
+                                T.showShort(jsonObject.getString("msg"));
+                                if(jsonObject.getString("status").equals("200"))
+                                    getList();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            T.showShort(response.toString());
+                        }
+                    });
+        }
+
     }
 
-    private void setHead(ImageView icon) {
-        int[] imgs = {R.mipmap.qb_head_icon2_2x, R.mipmap.qb_head_icon3_2x, R.mipmap.qb_head_icon4_2x, R.mipmap.qb_head_icon5_2x,
-                R.mipmap.qb_head_icon6_2x,R.mipmap.qb_head_icon7_2x};
-        Random random = new Random();
-        int num =  random.nextInt(6) +0;
-        icon.setImageResource(imgs[num]);
+    /**
+     * 随机头像
+     * @param icon
+     * @param i
+     */
+    private void setHead(ImageView icon,int i) {
+        if(i > 6){
+            i = 0;
+        }
+        icon.setImageResource(imgs[i]);
     }
 
 

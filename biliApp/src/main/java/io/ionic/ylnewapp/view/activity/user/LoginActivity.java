@@ -81,10 +81,7 @@ public class LoginActivity extends BaseActivity {
     private void click(View view){
         switch (view.getId()){
             case R.id.btn_login :
-                HashMap<String,String> map = new HashMap<String,String>();
-                map.put("button","1");
-                map.put("click","1");
-                MobclickAgent.onEvent(mContext, "login", map);
+                MobclickAgent.onEvent(mContext, "Login");
                 if(account.getText().toString().trim().equals("")){
                     T.showShort("用户名不可为空");
                     return;
@@ -113,6 +110,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_register:
                 showLogin(2);
+                MobclickAgent.onEvent(mContext, "Singup");
                 break;
             case R.id.getCode:
                 if(!reAccount.getText().toString().trim().equals("")){

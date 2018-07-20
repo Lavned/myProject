@@ -43,6 +43,16 @@ public class AddressBean {
         private String type;
         private String address;
 
+        private Boolean defult;
+
+        public Boolean getDefult() {
+            return defult;
+        }
+
+        public void setDefult(Boolean defult) {
+            this.defult = defult;
+        }
+
         public String getId() {
             return id;
         }

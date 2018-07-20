@@ -20,6 +20,7 @@ import com.jiangyy.easydialog.LoadingDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
 import org.xutils.view.annotation.ContentView;
@@ -204,6 +205,7 @@ public class MarketFragment1 extends Fragment {
                 intent.putExtra("name",mData.get(position).getCurrencyPair()
                         +"|"+mData.get(position).getExchangeName());
                 startActivity(intent);
+                MobclickAgent.onEvent(getActivity(), "Pricedetail");
             }
         });
     }

@@ -13,6 +13,7 @@ import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,6 +86,7 @@ public class WithdrawalActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdrawal);
         init();
+        MobclickAgent.onEvent(mContext, "Withdraw2");
     }
 
 

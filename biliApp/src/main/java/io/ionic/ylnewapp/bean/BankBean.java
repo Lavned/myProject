@@ -45,6 +45,15 @@ public class BankBean {
         private String name;
         private String count;
         private List<String> url;
+        private Boolean defult;
+
+        public Boolean getDefult() {
+            return defult;
+        }
+
+        public void setDefult(Boolean defult) {
+            this.defult = defult;
+        }
 
         public String getId() {
             return id;

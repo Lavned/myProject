@@ -22,6 +22,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -87,6 +88,7 @@ public class MyCountCoinActivity extends BaseActivity {
     }
 
     private void init() {
+        MobclickAgent.onEvent(mContext, "Balance2");
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
         title.setText("我的数字资产");
 //        initRefreshLayout();

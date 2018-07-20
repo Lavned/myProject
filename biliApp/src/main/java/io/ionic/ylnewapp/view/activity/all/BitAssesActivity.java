@@ -38,7 +38,8 @@ public class BitAssesActivity extends BaseActivity {
         setContentView(R.layout.activity_bit_asses);
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
         mBuilder.setTitle("加载中...").show();
-        loadView(Constants.URL_BASE2 +"main/newPeople");
+//        loadView(Constants.URL_BASE2 +"main/newPeople");
+        loadView("http://192.168.123.10/#/main/receive?username=17858968657");
     }
 
 
@@ -48,7 +49,6 @@ public class BitAssesActivity extends BaseActivity {
      * @param url
      */
     private void loadView(String url) {
-        Log.i("000000000000",url);
         myWebView.loadUrl(url);
         //要加载的H5页面
         myWebView.loadUrl(url);

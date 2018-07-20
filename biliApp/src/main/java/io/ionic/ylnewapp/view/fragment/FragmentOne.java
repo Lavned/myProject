@@ -34,6 +34,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.umeng.analytics.MobclickAgent;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -44,7 +48,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.adpater.GlideImageLoader;
 import io.ionic.ylnewapp.adpater.HotAdapter;
+import io.ionic.ylnewapp.bean.BannerBean;
 import io.ionic.ylnewapp.bean.HomeBean;
 import io.ionic.ylnewapp.bean.NotifiBean;
 import io.ionic.ylnewapp.constants.Constants;
@@ -54,6 +60,7 @@ import io.ionic.ylnewapp.custom.NewListView;
 import io.ionic.ylnewapp.custom.ViewpagerTransformAnim;
 import io.ionic.ylnewapp.custom.customViewpagerView;
 import io.ionic.ylnewapp.utils.T;
+import io.ionic.ylnewapp.view.activity.all.BannerDeatilActivity;
 import io.ionic.ylnewapp.view.activity.all.BitAssesActivity;
 import io.ionic.ylnewapp.view.activity.kline.Enable_Refresh_Activity;
 import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
@@ -101,22 +108,31 @@ public class FragmentOne extends BaseFragment {
     NewListView oneLv;
     HotAdapter adapter;
 
+    @ViewInject(R.id.banner)
+    Banner banner;
+    List<BannerBean.MsgBean> bannerData;
+
     @Event(type = View.OnClickListener.class ,value = {R.id.hm_one,R.id.hm_two,R.id.hm_three,R.id.hm_four,R.id.text_switch})
     private void click(View view){
         switch (view.getId()){
             case R.id.hm_one :
+                MobclickAgent.onEvent(getActivity(), "Homepagetab1");
                 startActivity(new Intent(getActivity(),BitAssesActivity.class));
                 break;
             case R.id.hm_two :
+                MobclickAgent.onEvent(getActivity(), "Homepagetab2");
                 startActivity(new Intent(getActivity(),CouponsActivity.class));
                 break;
             case R.id.hm_three :
+                MobclickAgent.onEvent(getActivity(), "Homepagetab3");
                 startActivity(new Intent(getActivity(),MyActiActivity.class));
                 break;
             case R.id.hm_four :
+                MobclickAgent.onEvent(getActivity(), "Homepagetab4");
                 startActivity(new Intent(getActivity(),FriendActivity.class));
                 break;
             case R.id.text_switch :
+                MobclickAgent.onEvent(getActivity(), "Message");
                 startActivity(new Intent(getActivity(),NotificationActivity.class));
                 break;
         }
@@ -143,9 +159,74 @@ public class FragmentOne extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = x.view().inject(this, inflater, container);
         scrollView.smoothScrollTo(0,0);
+        getTopBanner();
         getHomeData();
         getNotifiData();
         return view;//fragment注解;
+    }
+
+    /**
+     * 获取banner数据
+     */
+    private void getTopBanner() {
+        OkGo.<String>get(Constants.URL_BASE + "home/banner?type=mbili")//
+                .tag(this)//
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        BannerBean date = gson.fromJson(response.body(),BannerBean.class);
+                        bannerData = date.getMsg();
+                        if(bannerData!=null && bannerData.size() > 0){
+                            initBanner(bannerData);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(getActivity());
+                    }
+
+        });
+    }
+
+    /**
+     * 初始化banner
+     */
+    private void initBanner(final List<BannerBean.MsgBean> imageList) {
+        List<String> imgList = new ArrayList<>();
+        for (int i =0 ;i < bannerData.size();i++){
+            imgList.add(bannerData.get(i).getImgUrl());
+        }
+        List<String> images = imgList;
+//        Integer[] images={R.mipmap.me_zc_bg1_2x,R.mipmap.me_zc_bg2_2x,R.mipmap.me_zc_bg3_2x};
+        //设置banner样式
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(images);
+        //设置banner动画效果
+//        banner.setBannerAnimation(Transformer.ZoomOutSlide);
+        //设置标题集合（当banner样式有显示title时）
+//        banner.setBannerTitles(titles);
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(true);
+        //设置轮播时间
+        banner.setDelayTime(1500);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent = new Intent(getActivity(), BannerDeatilActivity.class);
+                intent.putExtra("url",bannerData.get(position).getHref());
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -162,6 +243,18 @@ public class FragmentOne extends BaseFragment {
         setData();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        //开始轮播
+        banner.startAutoPlay();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        //结束轮播
+        banner.stopAutoPlay();
+    }
 
     /**
      * 获取通知列表
@@ -218,6 +311,7 @@ public class FragmentOne extends BaseFragment {
     }
 
     private void  toTwo(List<HomeBean.BodyBean.PushBean>PUSHData,int position){
+        MobclickAgent.onEvent(getActivity(), "Recommend");
         int num = 0;
         switch (PUSHData.get(position).getKey()){
             case "DIG":
@@ -262,6 +356,7 @@ public class FragmentOne extends BaseFragment {
         oneLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MobclickAgent.onEvent(getActivity(), "Hot");
                 int num = 0;
                 switch (hotData.get(position).getKey()){
                     case "DIG":
@@ -442,8 +537,10 @@ public class FragmentOne extends BaseFragment {
                 @Override
                 public void run() {
                     for (int i =0; i < mWarningTextList.size();i++){
-                        mTextSwitcher.setText(mWarningTextList.get(i));
-                        index =i;
+                        if(mTextSwitcher!=null && mWarningTextList!=null) {
+                            mTextSwitcher.setText(mWarningTextList.get(i));
+                            index = i;
+                        }
                     }
 
                 }

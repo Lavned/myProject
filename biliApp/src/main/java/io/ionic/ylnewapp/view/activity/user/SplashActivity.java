@@ -24,7 +24,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        ImmersionBar.with(this).init();
+        ImmersionBar.with(this).transparentNavigationBar().init();
         if(PreferenceUtils.getPrefString(mContext,"firstStatus","").equals("isShow")){
 //            if(PreferenceUtils.getPrefString(mContext,"login","").equals("login")){
                 intentClass(1); //主页面

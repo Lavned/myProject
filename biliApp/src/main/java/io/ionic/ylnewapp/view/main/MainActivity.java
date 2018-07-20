@@ -67,6 +67,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         initFragment();
         initNavigatoinBar();
         checkUpdate();//更新
+//
+        if(PreferenceUtils.getPrefString(mContext,"item","").equals("1")) {
+            Message msg = new Message();
+            NOHandler myHandler = new NOHandler(mContext);
+            msg.arg1 = 1;
+            myHandler.sendMessage(msg);
+        }
     }
 
 
@@ -361,6 +368,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 }
                 if(msg.what ==2){
                     mVpHome.setCurrentItem(1,false);
+                }
+                if(msg.arg1 == 1){
+                    mVpHome.setCurrentItem(1,false);
+                    PreferenceUtils.setPrefString(context,"item","");
                 }
             }catch (Exception e){
                 e.printStackTrace();

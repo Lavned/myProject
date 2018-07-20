@@ -19,10 +19,12 @@ import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.util.ConvertUtils;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.view.activity.mine.AddPayPassActivity;
+import io.ionic.ylnewapp.view.activity.mine.BankAddActivity;
 import io.ionic.ylnewapp.view.activity.mine.ForgetPayActivity;
 import io.ionic.ylnewapp.view.activity.mine.EdPayPassActivity;
 import io.ionic.ylnewapp.view.activity.mine.RechargeActivity;
 import io.ionic.ylnewapp.view.activity.user.LoginActivity;
+import io.ionic.ylnewapp.view.activity.wallet.WalletAdAddActivity;
 import io.ionic.ylnewapp.view.activity.wallet.WalletAddMoneyActivity;
 
 /**
@@ -140,6 +142,40 @@ public class ActivityUtils {
                 }, R.color.main).setNegativeButton("取消",null).show();
     }
 
+
+
+
+
+    /**
+     * 绑定银行卡
+     * @param mContext
+     */
+    public static  void  noCard(final Activity mContext){
+        new CommonDialog.Builder(mContext)
+                .setMessage("当前账户没有绑定银行卡，请先去绑定再进行支付！").setTitle("银行卡绑定提醒")
+                .setPositiveButton("前往绑定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mContext.startActivity(new Intent(mContext,BankAddActivity.class));
+                        mContext.finish();
+                    }
+                }, R.color.main).setNegativeButton("取消",null).show();
+    }
+    /**
+     * 绑定钱包
+     * @param mContext
+     */
+    public static  void  noWallet(final Activity mContext){
+        new CommonDialog.Builder(mContext)
+                .setMessage("当前账户没有绑定钱包，请先去绑定再进行支付！").setTitle("钱包绑定提醒")
+                .setPositiveButton("前往绑定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mContext.startActivity(new Intent(mContext,WalletAdAddActivity.class));
+                        mContext.finish();
+                    }
+                }, R.color.main).setNegativeButton("取消",null).show();
+    }
 
 
     /**

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.CommonDialog;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -67,6 +68,7 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         init();
+        MobclickAgent.onEvent(mContext, "Setting");
         verison.setText("V" + getVersion());
     }
 

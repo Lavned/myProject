@@ -25,6 +25,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
@@ -76,6 +77,7 @@ public class FragmentTwo extends BaseFragment{
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
 //            initTab();
+
         }else {
 
         }
@@ -185,32 +187,41 @@ public class FragmentTwo extends BaseFragment{
             if(mViewPager.getAdapter() == null)
                 mViewPager.setAdapter(mAdapter);
             mTabLayout.setupWithViewPager(mViewPager);
+        yMEvent(mTabTitles.get(0),0);
 
+        mTabLayout.setTabsFromPagerAdapter(mAdapter);
 
-//        mTabLayout.setTabsFromPagerAdapter(mAdapter);
-//
-//        //设置Tab监听
-//        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                mViewPager.setCurrentItem(tab.getPosition());
-//                Log.e("TAG", "Selected Tab Index为：" + tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//                Log.e("TAG", "Unselected Tab Index为：" + tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//                Log.e("TAG", "Reselected Tab Index为：" + tab.getPosition());
-//            }
-//        });
+        //设置Tab监听
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                yMEvent(mTabTitles.get(tab.getPosition()),tab.getPosition());
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Log.e("TAG", "Unselected Tab Index为：" + tab.getPosition());
+            }
 
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Log.e("TAG", "Reselected Tab Index为：" + tab.getPosition());
+            }
+        });
     }
 
+
+    /**
+     * youmengtongji
+     * @param key
+     * @param i
+     */
+    private void yMEvent(String key,int i){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("key"+key,"1");
+//        Log.i("----------",i+"==="+"Financetab"+i+"````" +(i+1) );
+        MobclickAgent.onEvent(getActivity(), "Financetab"+(i+1), map);
+    }
 
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -268,6 +279,5 @@ public class FragmentTwo extends BaseFragment{
         super.onResume();
         MobclickAgent.onResume(getActivity());
     }
-
 
 }

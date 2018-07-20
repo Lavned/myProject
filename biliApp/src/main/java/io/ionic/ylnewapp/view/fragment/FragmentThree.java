@@ -18,6 +18,8 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.HashMap;
+
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.view.base.BaseFragment;
 import io.ionic.ylnewapp.view.activity.market.MarketFragment1;
@@ -58,6 +60,7 @@ public class FragmentThree extends BaseFragment {
                 setSelectText(text_1);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction().replace(R.id.container, new MarketFragment1()).commit();
+                MobclickAgent.onEvent(getActivity(), "Pricetab1");
                 break;
             case R.id.text_2:
                 clearbg();
@@ -65,6 +68,7 @@ public class FragmentThree extends BaseFragment {
                 setSelectText(text_2);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction().replace(R.id.container, new MarketFragment2()).commit();
+                MobclickAgent.onEvent(getActivity(), "Pricetab2");
                 break;
             case R.id.textView3:
                 startActivity(new Intent(getActivity(), MarketSearchActivity.class));
@@ -99,6 +103,18 @@ public class FragmentThree extends BaseFragment {
 
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(!isVisibleToUser){
+        }else {
+//            HashMap<String,String> map = new HashMap<String,String>();
+//            map.put("button11","1");
+//            map.put("click11","1");
+//            MobclickAgent.onEvent(getActivity(), "fragment", map);
+        }
+    }
 
 
     /**

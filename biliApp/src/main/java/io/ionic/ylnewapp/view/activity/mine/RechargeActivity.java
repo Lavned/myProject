@@ -16,6 +16,7 @@ import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,7 @@ public class RechargeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
         title.setText("充值");
+        MobclickAgent.onEvent(mContext, "Recharge2");
     }
 
 

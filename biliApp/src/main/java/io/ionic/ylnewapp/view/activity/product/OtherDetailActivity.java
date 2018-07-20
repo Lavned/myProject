@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,61 +36,69 @@ public class OtherDetailActivity extends BaseActivity {
 
 
 
-    @ViewInject(R.id.tz_number)
-    EditText editText;
-    @ViewInject(R.id.tz_rate)
-    TextView rate;
-    @ViewInject(R.id.tz_week)
-    TextView week;
+    @ViewInject(R.id.moneyNum)
+    EditText moneyNum; //投资金额
+    @ViewInject(R.id.tv_title)
+    TextView title_name; //标题
+    @ViewInject(R.id.btname)
+    TextView btname; //投资项目名称
+    @ViewInject(R.id.balance)
+    TextView balance;  //余额显示
 
     @ViewInject(R.id.cb_agreed)
-    CheckBox cbAgreed;
-//    @ViewInject(R.id.cb_card)
-//    CheckBox cbCard;
+    CheckBox cbAgreed;//同意阅读协议
+    @ViewInject(R.id.cb_card)
+    CheckBox cbCard;
     @ViewInject(R.id.cb_money)
     CheckBox cbMoney;
-    @ViewInject(R.id.title_name)
-    TextView title_name;
+    //三个协议
     @ViewInject(R.id.ag_1)
     TextView ag1;
     @ViewInject(R.id.ag_2)
     TextView ag2;
     @ViewInject(R.id.ag_3)
     TextView ag3;
-    @ViewInject(R.id.hb)
-    RelativeLayout hb;
+    //优惠券
+    @ViewInject(R.id.coupons)
+    LinearLayout coupons;
     @ViewInject(R.id.hb_tip)
     TextView hbTip;
 
-
-
     String url ="";
-//    int payType =1;
-    PayFragment payFragment = new PayFragment();
+    String balanceNum ="";
+    String cardNum="";
 
-    @Event(type = View.OnClickListener.class,value = {R.id.pay_btn,R.id.cb_money,R.id.cb_card,R.id.cb_agreed,R.id.back_3
-                    ,R.id.hb,R.id.ag_1,R.id.ag_2,R.id.ag_3})
+    @Event(type = View.OnClickListener.class,value = {R.id.pay_btn,R.id.cb_money,R.id.cb_card,R.id.cb_agreed,R.id.tv_back
+                    ,R.id.coupons,R.id.ag_1,R.id.ag_2,R.id.ag_3})
     private void click(View v){
         switch (v.getId()){
             case R.id.pay_btn :
-                if(editText.getText().toString().trim().equals(""))
+                if(moneyNum.getText().toString().trim().equals(""))
                     T.showShort("起购金额必须大于1000");
                 else {
-                    if(PreferenceUtils.getPrefString(mContext,"hasPay","").equals("true"))
-                        checkAuth();
-                    else
-                        ActivityUtils.hasPay(OtherDetailActivity.this);
+                    if (Double.parseDouble(moneyNum.getText().toString().trim()) > Double.parseDouble(balanceNum)) {
+                        balance.setText("(您的余额为" + balanceNum + "，不足于支付)");
+                    }else{
+                        if(cbMoney.isChecked()) { //余额支付
+                            selectHttp(1);//余额足够直接下单
+                        }else //银行卡下单不支付
+                            selectHttp(2);
+                    }
                 }
                 break;
             case R.id.cb_card :
                 cbMoney.setChecked(false);
-//                cbCard.setChecked(true);
-//                payType = 0;
+                cbCard.setChecked(true);
+                myMoneyCard();
                 break;
-            case R.id.back_3:
+            case R.id.cb_money :
+                cbMoney.setChecked(true);
+                cbCard.setChecked(false);
+                break;
+            case R.id.tv_back:
                 finish();
                 break;
-            case R.id.hb:
+            case R.id.coupons:
                 startCoupons();
                 break;
             case R.id.ag_1:
@@ -117,69 +126,35 @@ public class OtherDetailActivity extends BaseActivity {
      * 初始化
      */
     private void init() {
-        StatusBarUtil.setTranslucentForImageViewInFragment(this, 0,null);
+        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
+        title_name.setText("订单详情");
+        myMoneyBalance();
     }
 
-    /**
-     * 用户权限检测
-     */
-    private void checkAuth() {
-        payFragment.show(getSupportFragmentManager(), "pay");
-        payFragment.setPaySuccessCallBack(new PayPwdView.InputCallBack() {
-            @Override
-            public void onInputFinish(String result) {
-                userAuth(result);
-            }
-        });
-    }
 
     /**
-     * 用户鉴权
+     * 检测我的余额
      */
-    private void userAuth(String payPwd) {
-        mBuilder.setTitle("请稍候...").show();
-        OkGo.<String>post(Constants.URL_BASE + "user/authPay")//
-                .tag(this)//
+    public void myMoneyBalance(){
+        OkGo.<String>get(Constants.URL_BASE + "order/enough")//查询我的余额
+                .tag(this)
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
-                .params("payPwd", MD5Util.encrypt(payPwd))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String data = response.body();//这个就是返回来的结果
+                        JSONObject jsonObject ;
                         try {
-                            JSONObject jsonObject = new JSONObject(data);
+                            jsonObject= new JSONObject(response.body());
                             switch (jsonObject.getString("status")){
                                 case "401":
                                     ActivityUtils.toLogin(OtherDetailActivity.this,0);
                                     break;
                                 case "200":
-                                    payFragment.dismiss();
-                                    selectHttp();
-                                    break;
-                                case "400":
-                                    payFragment.dismiss();
-                                    new CommonDialog.Builder(OtherDetailActivity.this)
-                                            .setMessage(jsonObject.getString("msg")).setTitle("提示")
-                                            .setPositiveButton("重试", new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    payFragment.show(getSupportFragmentManager(), "pay");
-                                                }
-                                            }, R.color.main).setNegativeButton("忘记密码", new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            payFragment.dismiss();
-                                            ActivityUtils.toForgetPwd(OtherDetailActivity.this);
-                                        }
-                                    },R.color.main).show();
-                                    break;
-                                case "403":
-                                    T.showShort(jsonObject.getString("msg"));
-                                    payFragment.dismiss();
-                                    ActivityUtils.toEdPwd(OtherDetailActivity.this);
+                                    balanceNum = jsonObject.getString("body");
+                                    balance.setText("(您的余额为"+balanceNum+")");
                                     break;
                             }
-                        } catch (Exception e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -189,32 +164,99 @@ public class OtherDetailActivity extends BaseActivity {
                         super.onError(response);
                         T.showNetworkError(mContext);
                     }
+                });
+    }
+
+    /**
+     * 检测我的余额银行卡
+     */
+    public void myMoneyCard(){
+        OkGo.<String>get(Constants.URL_BASE + "user/bank?type=defult")//查询我的银行卡
+                .tag(this)
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        JSONObject jsonObject ;
+                        try {
+                            jsonObject= new JSONObject(response.body());
+                            switch (jsonObject.getString("status")){
+                                case "401":
+                                    ActivityUtils.toLogin(OtherDetailActivity.this,0);
+                                    break;
+                                case "200":
+                                    if(jsonObject.toString().contains("count"))
+                                        cardNum = jsonObject.getJSONObject("body").getString("count");
+                                    else
+                                        ActivityUtils.noCard(OtherDetailActivity.this);
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        mBuilder.dismiss();
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
                     }
                 });
+    }
+
+
+
+    /**
+     * 钱包支付界面
+     */
+    private void startPayCard(String orderid) {
+        Intent intent = new Intent(mContext,CardPaySuccessActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("orderId",orderid);
+        bundle.putString("cardId",cardNum);
+        bundle.putString("money",moneyNum.getText().toString());
+        intent.putExtras(bundle);
+        startActivity(intent);
+        if(ProductAIActivity.activity!=null)
+        ProductAIActivity.activity.finish();
+        finish();
+    }
+
+
+    /**
+     * 余额卡支付界面
+     */
+    private void startPayBalance(String orderid) {
+        Intent intent = new Intent(mContext,BalancePayActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("orderId",orderid);
+        bundle.putString("type","other");
+        bundle.putString("orderName",PreferenceUtils.getPrefString(mContext,"btname",""));
+        bundle.putString("orderMoney",moneyNum.getText().toString());
+        intent.putExtras(bundle);
+        startActivity(intent);
+        if(ProductAIActivity.activity!=null)
+        ProductAIActivity.activity.finish();
+        finish();
     }
 
 
     /**
      *  TETF 和TBTC 还有其他的子界面是不一样的
      */
-    private void selectHttp(){
+    private void selectHttp(int type){
         switch (PreferenceUtils.getPrefString(mContext,"KEY","")){
             case "TETF":
-                newOrder();
+                newOrder(type);
                 break;
             case "TBTC" :
-                newOrder();
+                newOrder(type);
                 break;
             case "OTC" :
-                newOrderOtc();
+                newOrderOtc(type);
                 break;
             default:
-                newOrderOther();
+                newOrderOther(type);
                 break;
         }
     }
@@ -222,7 +264,7 @@ public class OtherDetailActivity extends BaseActivity {
     /**
      * 下单
      */
-    private void newOrder() {
+    private void newOrder(final int type) {
         mBuilder.setTitle("请求中...").show();
         OkGo.<String>put(Constants.URL_BASE + "order/newOrder")//
                 .tag(this)//
@@ -243,7 +285,10 @@ public class OtherDetailActivity extends BaseActivity {
                                     ActivityUtils.noMoney(OtherDetailActivity.this);
                                     break;
                                 case "200":
-                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    if(type ==1)
+                                        startPayBalance(jsonObject.getJSONObject("body").getString("orderid"));
+                                    else
+                                        startPayCard(jsonObject.getJSONObject("body").getString("orderid"));
                                     break;
                             }
                         } catch (JSONException e) {
@@ -271,13 +316,13 @@ public class OtherDetailActivity extends BaseActivity {
     /**
      *  非TBTC与TETF的下单
      */
-    private void newOrderOther() {
+    private void newOrderOther(final  int type) {
         mBuilder.setTitle("请求中...").show();
         OkGo.<String>put(Constants.URL_BASE + "order/newOrder")//
                 .tag(this)
                 .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
                 .params("pid",PreferenceUtils.getPrefString(mContext,"pid",""))
-                .params("payAmount",editText.getText().toString().trim())
+                .params("payAmount",moneyNum.getText().toString().trim())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -293,7 +338,10 @@ public class OtherDetailActivity extends BaseActivity {
                                     ActivityUtils.noMoney(OtherDetailActivity.this);
                                     break;
                                 case "200":
-                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    if(type ==1)
+                                        startPayBalance(jsonObject.getJSONObject("body").getString("orderid"));
+                                    else
+                                        startPayCard(jsonObject.getJSONObject("body").getString("orderid"));
                                     break;
                             }
                         } catch (JSONException e) {
@@ -320,16 +368,16 @@ public class OtherDetailActivity extends BaseActivity {
     /**
      * otc的下单
      */
-    private void newOrderOtc() {
+    private void newOrderOtc(final  int type) {
         String packet =PreferenceUtils.getPrefString(mContext,"couid","");
         mBuilder.setTitle("请求中...").show();
         HttpParams params = new HttpParams();
         if(packet.equals("")){//不携带红包参数
             params.put("pid",PreferenceUtils.getPrefString(mContext,"pid",""));
-            params.put("payAmount",editText.getText().toString().trim());
+            params.put("payAmount",moneyNum.getText().toString().trim());
         }else {
             params.put("pid",PreferenceUtils.getPrefString(mContext,"pid",""));
-            params.put("payAmount",editText.getText().toString().trim());
+            params.put("payAmount",moneyNum.getText().toString().trim());
             params.put("packetid",packet);
         }
         OkGo.<String>put(Constants.URL_BASE + "order/newOrder")//
@@ -351,7 +399,10 @@ public class OtherDetailActivity extends BaseActivity {
                                     ActivityUtils.noMoney(OtherDetailActivity.this);
                                     break;
                                 case "200":
-                                    nowPay(jsonObject.getJSONObject("body").getString("orderid"));
+                                    if(type ==1)
+                                        startPayBalance(jsonObject.getJSONObject("body").getString("orderid"));
+                                    else
+                                        startPayCard(jsonObject.getJSONObject("body").getString("orderid"));
                                     break;
                             }
                         } catch (JSONException e) {
@@ -375,41 +426,7 @@ public class OtherDetailActivity extends BaseActivity {
                 });
     }
 
-    /**
-     * 支付
-     */
-    private void nowPay(String id) {
-        OkGo.<String>post(Constants.URL_BASE + "order/payOrder")//
-                .tag(this)//
-                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
-                .params("orderid", id)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        JSONObject jsonObject ;
-                        try {
-                            jsonObject= new JSONObject(response.body());
-                            T.showShort(jsonObject.getString("msg"));
-                            if(jsonObject.getString("status").equals("401"))
-                                ActivityUtils.toLogin(OtherDetailActivity.this,0);
-                            if(jsonObject.getString("status").equals("200")){
-                                finish();
-                                ProductAIActivity.activity.finish();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
 
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        T.showNetworkError(mContext);
-                    }
-
-                });
-
-    }
 
 
     /**
@@ -427,7 +444,7 @@ public class OtherDetailActivity extends BaseActivity {
             intent.putExtra("type",type);
             startActivity(intent);
         }else {
-            hb.setEnabled(false);
+            coupons.setEnabled(false);
             hbTip.setVisibility(View.VISIBLE);
         }
     }
@@ -454,9 +471,7 @@ public class OtherDetailActivity extends BaseActivity {
      * 控件数据赋值
      */
     private void setView() {
-        title_name.setText(PreferenceUtils.getPrefString(mContext,"oname",""));
-        week.setText(PreferenceUtils.getPrefString(mContext,"oweek",""));
-        rate.setText(PreferenceUtils.getPrefString(mContext,"orate",""));
+        btname.setText(PreferenceUtils.getPrefString(mContext,"oname",""));
         switch (PreferenceUtils.getPrefString(mContext,"KEY","")){
             case "AI":
                 ag3.setText("《智能投顾招募说明》");
@@ -467,7 +482,7 @@ public class OtherDetailActivity extends BaseActivity {
                 url = Constants.WbUrl.webeEthAgreement;
                 break;
             case "OTC":
-                hb.setVisibility(View.VISIBLE);
+                coupons.setVisibility(View.VISIBLE);
                 ag3.setVisibility(View.GONE);
                 String money = PreferenceUtils.getPrefString(mContext,"coumoney","");
                 if(!money.equals("")){
@@ -484,13 +499,13 @@ public class OtherDetailActivity extends BaseActivity {
                 url = Constants.WbUrl.webIcoProtocol;
                 break;
             case "TETF":
-                editText.setText(PreferenceUtils.getPrefString(mContext,"moneys",""));
-                editText.setEnabled(false);
+                moneyNum.setText(PreferenceUtils.getPrefString(mContext,"moneys",""));
+                moneyNum.setEnabled(false);
                 ag3.setVisibility(View.GONE);
                 break;
             case "TBTC":
-                editText.setText(PreferenceUtils.getPrefString(mContext,"moneys",""));
-                editText.setEnabled(false);
+                moneyNum.setText(PreferenceUtils.getPrefString(mContext,"moneys",""));
+                moneyNum.setEnabled(false);
                 ag3.setVisibility(View.GONE);
                 break;
         }
@@ -516,4 +531,120 @@ public class OtherDetailActivity extends BaseActivity {
         PreferenceUtils.setPrefString(mContext, "couid", "");
         super.onDestroy();
     }
+
+
+
+
+//    /**
+//     * 用户权限检测
+//     */
+//    private void checkAuth() {
+//        payFragment.show(getSupportFragmentManager(), "pay");
+//        payFragment.setPaySuccessCallBack(new PayPwdView.InputCallBack() {
+//            @Override
+//            public void onInputFinish(String result) {
+//                userAuth(result);
+//            }
+//        });
+//    }
+
+//    /**
+//     * 用户鉴权
+//     */
+//    private void userAuth(String payPwd) {
+//        mBuilder.setTitle("请稍候...").show();
+//        OkGo.<String>post(Constants.URL_BASE + "user/authPay")//
+//                .tag(this)//
+//                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+//                .params("payPwd", MD5Util.encrypt(payPwd))
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        String data = response.body();//这个就是返回来的结果
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(data);
+//                            switch (jsonObject.getString("status")){
+//                                case "401":
+//                                    ActivityUtils.toLogin(OtherDetailActivity.this,0);
+//                                    break;
+//                                case "200":
+//                                    payFragment.dismiss();
+//                                    break;
+//                                case "400":
+//                                    payFragment.dismiss();
+//                                    new CommonDialog.Builder(OtherDetailActivity.this)
+//                                            .setMessage(jsonObject.getString("msg")).setTitle("提示")
+//                                            .setPositiveButton("重试", new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View view) {
+//                                                    payFragment.show(getSupportFragmentManager(), "pay");
+//                                                }
+//                                            }, R.color.main).setNegativeButton("忘记密码", new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            payFragment.dismiss();
+//                                            ActivityUtils.toForgetPwd(OtherDetailActivity.this);
+//                                        }
+//                                    },R.color.main).show();
+//                                    break;
+//                                case "403":
+//                                    T.showShort(jsonObject.getString("msg"));
+//                                    payFragment.dismiss();
+//                                    ActivityUtils.toEdPwd(OtherDetailActivity.this);
+//                                    break;
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Response<String> response) {
+//                        super.onError(response);
+//                        T.showNetworkError(mContext);
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        super.onFinish();
+//                        mBuilder.dismiss();
+//                    }
+//                });
+//    }
+    /**
+     * 支付
+     */
+//    private void nowPay(String id) {
+//        OkGo.<String>post(Constants.URL_BASE + "order/payOrder")//
+//                .tag(this)//
+//                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(mContext,"token",""))
+//                .params("orderid", id)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        JSONObject jsonObject ;
+//                        try {
+//                            jsonObject= new JSONObject(response.body());
+//                            T.showShort(jsonObject.getString("msg"));
+//                            if(jsonObject.getString("status").equals("401"))
+//                                ActivityUtils.toLogin(OtherDetailActivity.this,0);
+//                            if(jsonObject.getString("status").equals("200")){
+//                                finish();
+//                                ProductAIActivity.activity.finish();
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Response<String> response) {
+//                        super.onError(response);
+//                        T.showNetworkError(mContext);
+//                    }
+//
+//                });
+//
+//    }
+
 }

@@ -17,9 +17,12 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.jaeger.library.StatusBarUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.HashMap;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.ActivityUtils;
@@ -70,20 +73,37 @@ public class ProductAIActivity extends BaseActivity {
         switch (type){
             case "AI":
                 loadView(URL_BASE2+"aiDetail?pid="+pid+"&type="+type);
+                yMEvent(type,pid);
                 break;
             case "ETF":
                 loadView(URL_BASE2+"etfDetail?pid="+pid+"&type="+type);
+                yMEvent(type,pid);
                 break;
             case "OTC":
                 loadView(URL_BASE2+"otcDetail?pid="+pid+"&type="+type);
+                yMEvent(type,pid);
                 break;
             case "BTC":
                 loadView(URL_BASE2+"btcDetail?pid="+pid+"&type="+type);
+                yMEvent(type,pid);
                 break;
             case "ICO":
                 loadView(URL_BASE2+"icoDetail?pid="+pid+"&type="+type);
+                yMEvent(type,pid);
                 break;
         }
+    }
+
+
+    /**
+     * 有梦统计
+     * @param key
+     */
+    public static void yMEvent(String key,String id){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("key"+key,"1");
+        map.put("id"+id,"1");
+        MobclickAgent.onEvent(activity, "Detailpage", map);
     }
 
     /**
@@ -91,7 +111,6 @@ public class ProductAIActivity extends BaseActivity {
      * @param url
      */
     private void loadView(String url) {
-        Log.i("000000000000",url);
         myWebView.loadUrl(url);
         //要加载的H5页面
         myWebView.loadUrl(url);

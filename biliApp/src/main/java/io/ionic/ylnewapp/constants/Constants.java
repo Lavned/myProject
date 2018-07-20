@@ -6,8 +6,8 @@ package io.ionic.ylnewapp.constants;
 
 public class Constants {
 
-    public final static String URL_BASE = "http://www.bit000.com:5000/"; //发布环境
-//    public final static String URL_BASE = "http://192.168.123.210:5000/"; //本地测试环境
+//    public final static String URL_BASE = "http://www.bit000.com:5000/"; //发布环境
+    public final static String URL_BASE = "http://192.168.123.210:5000/"; //本地测试环境
 //        public final static String URL_BASE = "http://47.52.246.112:80/"; //线上测试环境
 
 //    public final static String URL_BASE2 = "http://192.168.123.10/#/"; //网页环境

@@ -14,6 +14,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +73,7 @@ public class UerTificationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uer_tification);
         init();
+        MobclickAgent.onEvent(mContext, "Authentication");
     }
 
 

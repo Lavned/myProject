@@ -82,7 +82,6 @@ public class CouponsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             public void onClick(View v) {
                 if(CouponsActivity.type ==1 || CouponsActivity.type == 2){
                     PreferenceUtils.setPrefString(mContext,"coumoney",mData.get(position).getAmount()+"");
-                    Log.i("-----cun",PreferenceUtils.getPrefString(mContext,"coumoney",""));
                     PreferenceUtils.setPrefString(mContext,"couid",mData.get(position).getPacketid()+"");
                     CouponsActivity.activity.finish();
                 }else {

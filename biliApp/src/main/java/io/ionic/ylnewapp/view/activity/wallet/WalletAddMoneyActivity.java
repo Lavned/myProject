@@ -16,6 +16,7 @@ import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -240,6 +241,7 @@ public class WalletAddMoneyActivity extends BaseActivity {
         if(tName.getText().toString().equals("btc")){
             address_text.setText("1QGDMGUWDTYDcMFufuAHAzx3gZLWKWGVhD");
         }
+        MobclickAgent.onEvent(mContext, "Recharge1");
     }
 
     /**

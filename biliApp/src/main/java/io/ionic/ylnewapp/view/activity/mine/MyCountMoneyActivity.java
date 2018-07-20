@@ -31,6 +31,7 @@ import com.jiangyy.easydialog.LoadingDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -104,6 +105,7 @@ public class MyCountMoneyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_count_money);
         loadData();
+        MobclickAgent.onEvent(mContext, "Balance1");
     }
 
 

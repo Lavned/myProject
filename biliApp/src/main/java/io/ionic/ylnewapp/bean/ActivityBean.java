@@ -35,10 +35,12 @@ public class ActivityBean {
 
     public static class BodyBean {
         /**
-         * url : ["https://bncn.oss-cn-beijing.aliyuncs.com/bili/bncn%402x.png","https://bncn.oss-cn-beijing.aliyuncs.com/bili/bncn%403x.png"]
+         * url : ["https://bncn.oss-cn-beijing.aliyuncs.com/bili/bncn%402x.png",
+         * "https://bncn.oss-cn-beijing.aliyuncs.com/bili/bncn%403x.png"]
          * title : 领取优惠券
          * id : packet
          * date : 2018-6-1
+         * httprul :""
          */
 
         private String title;

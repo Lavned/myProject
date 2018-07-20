@@ -21,6 +21,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +30,7 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
@@ -94,7 +96,6 @@ public class ProductsDIGActivity extends BaseActivity {
     @Event(type = View.OnClickListener.class,value = {R.id.toggle1,R.id.toggle2,R.id.toggle3
     ,R.id.Betf,R.id.Bbtc,R.id.bbncn,R.id.back_1,R.id.sumbit_btn})
     private void Click(View v){
-        closeView();
         switch (v.getId()){
             case R.id.sumbit_btn:
                 if(!number.getText().toString().trim().equals("")){
@@ -112,12 +113,15 @@ public class ProductsDIGActivity extends BaseActivity {
             case R.id.back_1:
                 finish();
             case R.id.toggle1:
+                closeView();
                 showtext1.setVisibility(View.VISIBLE);
                 break;
             case R.id.toggle2:
+                closeView();
                 showtext2.setVisibility(View.VISIBLE);
                 break;
             case R.id.toggle3:
+                closeView();
                 showtext3.setVisibility(View.VISIBLE);
                 break;
             case R.id.Betf:
@@ -173,10 +177,25 @@ public class ProductsDIGActivity extends BaseActivity {
         getData();
     }
 
+
+    /**
+     * 有梦统计
+     * @param key
+     */
+    public static void yMEvent(String key,String id){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("key"+key,"1");
+        map.put("id"+id,"1");
+        MobclickAgent.onEvent(activity, "Detailpage", map);
+    }
+
     private void initView() {
         setView();
     }
 
+    /**
+     * shezhishuju
+     */
     private void setView(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -188,6 +207,7 @@ public class ProductsDIGActivity extends BaseActivity {
         PreferenceUtils.setPrefString(mContext,"bz","ETH");
         PreferenceUtils.setPrefString(mContext,"brate",bundle.getString("rate"));
         PreferenceUtils.setPrefString(mContext,"btname",bundle.getString("name"));
+        yMEvent(bundle.getString("name"),bundle.getString("pid"));
     }
 
 

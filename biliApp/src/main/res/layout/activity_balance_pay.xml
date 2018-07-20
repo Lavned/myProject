@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/top_layout" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/balance_pay_bg"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black33"
+            android:textSize="13sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="请在20分钟内完成支付，否则该订单将被取消"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="5dp">
+
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/black_1"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="41dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单编号：" />
+
+            <TextView
+                android:id="@+id/orderNum"
+                android:textSize="12sp"
+                android:textColor="@color/black_1"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20180707" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="5dp">
+
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/black_1"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="41dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="交易金额：" />
+
+            <TextView
+                android:id="@+id/orderMoney"
+                android:textSize="12sp"
+                android:textColor="@color/black_1"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="5dp">
+
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/black_1"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="41dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="购买产品：" />
+
+            <TextView
+                android:id="@+id/orderName"
+                android:textSize="12sp"
+                android:textColor="@color/black_1"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20180707" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/clickPay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@mipmap/forgetpwd"
+        android:text="马上支付"
+        android:textColor="@drawable/textclick"
+        android:textSize="18sp" />
+
+
+
+</LinearLayout>
