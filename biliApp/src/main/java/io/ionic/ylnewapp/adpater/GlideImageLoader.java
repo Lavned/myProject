@@ -25,7 +25,7 @@ public class GlideImageLoader extends ImageLoader {
          */
 
         //Glide 加载图片简单用法
-        Glide.with(context).load(path).into(imageView);
+        Glide.with(context).load(path).placeholder(R.mipmap.zw).into(imageView);
         //用fresco加载图片简单用法，记得要写下面的createImageView方法
 //        Uri uri = Uri.parse((String) path);
 //        imageView.setImageURI(uri);

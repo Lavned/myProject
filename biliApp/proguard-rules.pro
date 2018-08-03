@@ -34,3 +34,14 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+#-dontshrink
+#-dontoptimize
+#-dontwarn com.google.android.maps.**
+#-dontwarn android.webkit.WebView
+#-dontwarn com.umeng.**
+#-dontwarn com.tencent.weibo.sdk.**
+#-dontwarn com.facebook.**
+#-keep public class javax.**
+#-keep public class android.webkit.**
+#-dontwarn android.support.v4.**

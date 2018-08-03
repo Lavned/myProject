@@ -71,7 +71,11 @@ public class BalancePayActivity extends BaseActivity {
         Bundle bundle =intent.getExtras();
         payType = bundle.getString("type");
         orderId = bundle.getString("orderId");
-        orderMoney.setText(bundle.getString("orderMoney")+"");
+        if (payType.equals("other"))
+            orderMoney.setText(bundle.getString("orderMoney"));
+        else
+            orderMoney.setText(bundle.getString("orderMoney")+PreferenceUtils.getPrefString(mContext,"bz",""));
+
         orderNum.setText(orderId+"");
         orderName.setText(bundle.getString("orderName"));
     }
@@ -232,7 +236,8 @@ public class BalancePayActivity extends BaseActivity {
                                 ActivityUtils.toLogin(BalancePayActivity.this,0);
                             if(jsonObject.getString("status").equals("200")){
                                 finish();
-                                ProductAIActivity.activity.finish();
+                                if(ProductAIActivity.activity!=null)
+                                    ProductAIActivity.activity.finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

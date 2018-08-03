@@ -66,12 +66,15 @@ public class DIGDetailActivity extends BaseActivity {
                 break;
             case R.id.dig_pay:
                 if(cb_money.isChecked()) {
-                    if (noPay) //余额不够
-                        ActivityUtils.noB(DIGDetailActivity.this,PreferenceUtils.getPrefString(mContext,"bz",""));
-                    else
+                    if (noPay) {//余额不够
+                        cb_money.setChecked(false);
+                        cb_money.setEnabled(false);
+                    } else
                         newOrder(1);//余额足够，直接下单
-                }else
+                }else if(cb_wallet.isChecked())
                     newOrder(2); //使用钱包，只下单不支付
+                else
+                    T.showShort("请选择支付方式");
                 break;
         }
     }
@@ -96,7 +99,7 @@ public class DIGDetailActivity extends BaseActivity {
         title.setText("订单详情");
         type = PreferenceUtils.getPrefString(mContext,"bz","");
         num = PreferenceUtils.getPrefString(mContext,"bnum","");
-        bNum.setHint("该项目起投金额为"+num+type);
+        bNum.setHint(""+num+type);
         bNum.setEnabled(false);
         btname.setText(PreferenceUtils.getPrefString(mContext,"btname",""));
         myMoneySelect(type.toUpperCase());
@@ -163,6 +166,8 @@ public class DIGDetailActivity extends BaseActivity {
                                     String balanceNum = jsonObject.getString("body");
                                     if(Double.parseDouble(balanceNum) < Double.parseDouble(num)) {
                                         balance.setText("(您的余额为" + balanceNum + "，不足于支付)");
+                                        cb_money.setChecked(false);
+                                        cb_money.setEnabled(false);
                                         noPay = true;
                                     }
                                     else

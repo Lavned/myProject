@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/UpdateAppUtils/UpdateAppUtils.iml" filepath="$PROJECT_DIR$/UpdateAppUtils/UpdateAppUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appUpdate/appUpdate.iml" filepath="$PROJECT_DIR$/appUpdate/appUpdate.iml" />
       <module fileurl="file://$PROJECT_DIR$/biliApp/biliApp.iml" filepath="$PROJECT_DIR$/biliApp/biliApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/hcProject.iml" filepath="$PROJECT_DIR$/hcProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidelibrary/slidelibrary.iml" filepath="$PROJECT_DIR$/slidelibrary/slidelibrary.iml" />

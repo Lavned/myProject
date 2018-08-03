@@ -64,22 +64,74 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".view.main.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="tonative"
                     android:scheme="myapp" />
             </intent-filter>
         </activity>
 
+
+
+
+        <!--友盟分享新浪配置-->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="false"
+            >
+        </activity>
+        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            >
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:launchMode="singleTask"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <!--友盟分享微信配置-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--友盟分享QQ配置-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+
+        <!--其他Activity-->
         <activity
             android:name=".view.activity.user.LoginActivity"
             android:launchMode="singleTop"
@@ -132,7 +184,18 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.mine.CouponsActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="tonative"
+                    android:scheme="coupons" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.activity.mine.RechargeActivity"
             android:launchMode="singleTop" />
@@ -188,12 +251,6 @@
             android:name=".view.activity.mine.MyActiActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.mine.ActivitesDetail"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".view.activity.mine.ActivitesDetail2"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".view.activity.mine.EdLoginPassActivity"
             android:launchMode="singleTop" />
         <activity
@@ -224,7 +281,6 @@
         <activity
             android:name=".view.activity.all.BitAssesActivity"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".view.activity.mine.MyCountMoneyActivity"
             android:launchMode="singleTop" />
@@ -237,13 +293,25 @@
         <activity
             android:name=".view.activity.user.GuideActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".view.activity.mine.HelpActivity"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".view.activity.all.BannerDeatilActivity" />
-        <activity android:name=".view.activity.product.CardPaySuccessActivity" />
-        <activity android:name=".view.activity.product.WalletPaySuccessActivity" />
-        <activity android:name=".view.activity.product.BalancePayActivity"></activity>
+        <activity
+            android:name=".view.activity.mine.HelpActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.all.BannerDeatilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.product.CardPaySuccessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.product.WalletPaySuccessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.product.BalancePayActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.mine.MyActivityDetailActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.activity.all.MyTest"></activity>
     </application>
 
 </manifest>

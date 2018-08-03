@@ -219,7 +219,6 @@ public class FragmentTwo extends BaseFragment{
     private void yMEvent(String key,int i){
         HashMap<String,String> map = new HashMap<>();
         map.put("key"+key,"1");
-//        Log.i("----------",i+"==="+"Financetab"+i+"````" +(i+1) );
         MobclickAgent.onEvent(getActivity(), "Financetab"+(i+1), map);
     }
 

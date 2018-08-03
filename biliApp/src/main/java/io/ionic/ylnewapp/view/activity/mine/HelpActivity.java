@@ -46,32 +46,20 @@ public class HelpActivity extends BaseActivity {
         StatusBarUtil.setColor(this,getColor(R.color.colorPrimary),225);
         mBuilder.setTitle("加载中...").show();
 
-        String url ="http://192.168.123.10/#/main/receive?username=17858968657";
-//        String url ="http://192.168.123.148:8080/v/index.html";
-        loadView(url);
-//        myWebView.loadUrl(url);
-//        finshs.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//        MobclickAgent.onEvent(mContext, "Help");
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        if(Intent.ACTION_VIEW.equals(action)){
-            Uri uri = intent.getData();
-            if(uri != null){
-                String id = uri.getQueryParameter("id");
-                Toast.makeText(this,id,Toast.LENGTH_LONG).show();
+        loadView(webeHelp);
+        finshs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
-        }
+        });
+        MobclickAgent.onEvent(mContext, "Help");
 
     }
 
 
     /**
-     * a加载网页
+     * 加载网页
      * @param url
      */
     private void loadView(String url) {
@@ -86,19 +74,20 @@ public class HelpActivity extends BaseActivity {
 //        myWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         myWebView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-                String scheme = Uri.parse(url).getScheme();//还需要判断host
-                if (TextUtils.equals("myapp", scheme)) {
-                    PreferenceUtils.setPrefString(mContext,"item","1");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-                return false;
-            }
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//
+//                String scheme = Uri.parse(url).getScheme();//还需要判断host
+//                if (TextUtils.equals("myapp", scheme)) {
+//                    PreferenceUtils.setPrefString(mContext,"item","1");
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//
+//                    startActivity(intent);
+//                    finish();
+//                    return true;
+//                }
+//                return false;
+//            }
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);

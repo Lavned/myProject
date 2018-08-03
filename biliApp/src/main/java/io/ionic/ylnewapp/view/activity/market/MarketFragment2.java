@@ -89,6 +89,7 @@ public class MarketFragment2 extends Fragment {
         mBuilder.setTitle("请稍候").show();
         mSocket.on("marketValue", onNewMessage);
         mSocket.connect();
+        Log.i("--------",mSocket.connected()+"");
     }
 
     /**

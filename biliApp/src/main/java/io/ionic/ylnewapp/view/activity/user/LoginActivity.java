@@ -317,7 +317,7 @@ public class LoginActivity extends BaseActivity {
                         String data = response.body();//
                         Gson gson = new Gson();
                         UserLoginInfo userLoginInfoResp =gson.fromJson(data.toString(),UserLoginInfo.class);
-                        hasPay();
+                        hasPay(account.getText().toString());
                         T.showShort(userLoginInfoResp.getMsg());
                         if(userLoginInfoResp.getStatus() == 200){
                             saveUserLoginInfo(userLoginInfoResp);
@@ -359,10 +359,10 @@ public class LoginActivity extends BaseActivity {
     /**
      * 获取用户信息
      */
-    private void hasPay() {
+    private void hasPay(String name) {
         OkGo.<String>post(Constants.URL_BASE + "user/hasPay")
                 .tag(this)
-                .params("username", PreferenceUtils.getPrefString(mContext, "account", ""))
+                .params("username", name)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

@@ -18,6 +18,7 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import org.xutils.x;
 
@@ -74,7 +75,29 @@ public class BLApplication extends Application {
          */
         //如果AndroidManifest.xml清单配置中没有设置appkey和channel，则可以在这里设置
         //UMConfigure.init(this, "58edcfeb310c93091c000be2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "1fe6a20054bcef865eeb0991ee84525b");
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE,"");
+//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE,"");
+        UMConfigure.init(this,"5b47285ef43e4873bd000066","pugongying",UMConfigure.DEVICE_TYPE_PHONE,"");
+        /**
+         * 设置组件化的Log开关
+         * 参数: boolean 默认为false，如需查看LOG设置为true
+         */
+        UMConfigure.setLogEnabled(true);
+
+
+//        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+//        //微信 appid appsecret
+//        PlatformConfig.setSinaWeibo("3921700954","04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+//        //新浪微博 appkey appsecret
+//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+//        // QQ和Qzone appid appkey
+
+
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        //豆瓣RENREN平台目前只能在服务器端配置
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+
     }
 
 

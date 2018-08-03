@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:orientation="vertical">
 
 
@@ -78,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/bz1"
                     android:background="@drawable/gray10"
-                    android:hint="该项目起投金额为10000元     "
+                    android:hint="该项目起投金额为5000元     "
                     android:paddingLeft="8dp"
                     android:paddingRight="15dp"
                     android:paddingVertical="5dp"

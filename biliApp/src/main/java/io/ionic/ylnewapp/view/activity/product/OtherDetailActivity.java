@@ -67,6 +67,7 @@ public class OtherDetailActivity extends BaseActivity {
     String url ="";
     String balanceNum ="";
     String cardNum="";
+    int type =0;
 
     @Event(type = View.OnClickListener.class,value = {R.id.pay_btn,R.id.cb_money,R.id.cb_card,R.id.cb_agreed,R.id.tv_back
                     ,R.id.coupons,R.id.ag_1,R.id.ag_2,R.id.ag_3})
@@ -76,22 +77,29 @@ public class OtherDetailActivity extends BaseActivity {
                 if(moneyNum.getText().toString().trim().equals(""))
                     T.showShort("起购金额必须大于1000");
                 else {
-                    if (Double.parseDouble(moneyNum.getText().toString().trim()) > Double.parseDouble(balanceNum)) {
-                        balance.setText("(您的余额为" + balanceNum + "，不足于支付)");
-                    }else{
-                        if(cbMoney.isChecked()) { //余额支付
+                    if(cbMoney.isChecked()){
+                        if (Double.parseDouble(moneyNum.getText().toString().trim()) > Double.parseDouble(balanceNum)) {
+                            balance.setText("(您的余额为" + balanceNum + "，不足于支付)");
+                            cbMoney.setChecked(false);
+                            cbMoney.setEnabled(false);
+                        }else {
                             selectHttp(1);//余额足够直接下单
-                        }else //银行卡下单不支付
-                            selectHttp(2);
+                        }
+                    }else if(cbCard.isChecked())//银行卡下单不支付
+                        selectHttp(2);
+                    else {
+                        T.showShort("请选择支付方式");
                     }
                 }
                 break;
             case R.id.cb_card :
+                type=1;
                 cbMoney.setChecked(false);
                 cbCard.setChecked(true);
                 myMoneyCard();
                 break;
             case R.id.cb_money :
+                type=2;
                 cbMoney.setChecked(true);
                 cbCard.setChecked(false);
                 break;
@@ -474,6 +482,7 @@ public class OtherDetailActivity extends BaseActivity {
         btname.setText(PreferenceUtils.getPrefString(mContext,"oname",""));
         switch (PreferenceUtils.getPrefString(mContext,"KEY","")){
             case "AI":
+                moneyNum.setHint("该项目起投金额为1000元     ");
                 ag3.setText("《智能投顾招募说明》");
                 url = Constants.WbUrl.webAiInstruction;
                 break;
@@ -482,6 +491,7 @@ public class OtherDetailActivity extends BaseActivity {
                 url = Constants.WbUrl.webeEthAgreement;
                 break;
             case "OTC":
+                moneyNum.setHint("该项目起投金额为1000元     ");
                 coupons.setVisibility(View.VISIBLE);
                 ag3.setVisibility(View.GONE);
                 String money = PreferenceUtils.getPrefString(mContext,"coumoney","");
@@ -495,6 +505,7 @@ public class OtherDetailActivity extends BaseActivity {
                 url = Constants.WbUrl.webBtcRecruit;
                 break;
             case "ICO":
+                moneyNum.setHint("该项目起投金额为10000元     ");
                 ag3.setText("《ICO协议书》");
                 url = Constants.WbUrl.webIcoProtocol;
                 break;

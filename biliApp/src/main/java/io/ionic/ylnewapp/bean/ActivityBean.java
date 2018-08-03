@@ -47,6 +47,15 @@ public class ActivityBean {
         private String id;
         private String date;
         private List<String> url;
+        private String href;
+
+        public String getHref() {
+            return href;
+        }
+
+        public void setHref(String href) {
+            this.href = href;
+        }
 
         public String getTitle() {
             return title;

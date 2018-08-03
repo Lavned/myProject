@@ -8,6 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/UpdateAppUtils" />
+            <option value="$PROJECT_DIR$/appUpdate" />
             <option value="$PROJECT_DIR$/biliApp" />
             <option value="$PROJECT_DIR$/slidelibrary" />
           </set>

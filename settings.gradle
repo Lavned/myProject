@@ -1,2 +1,2 @@
-include ':biliApp', ':slidelibrary'
+include ':biliApp', ':slidelibrary', ':UpdateAppUtils', ':appUpdate'
 project(':biliApp').projectDir = new File('biliApp')

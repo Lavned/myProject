@@ -23,6 +23,8 @@ import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.MyActiviAdapter;
 import io.ionic.ylnewapp.bean.ActivityBean;
 import io.ionic.ylnewapp.constants.Constants;
+import io.ionic.ylnewapp.utils.ActivityUtils;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
@@ -97,22 +99,24 @@ public class MyActiActivity extends BaseActivity {
                 });
     }
 
+    /**
+     * 设置跳转
+     * @param mData
+     */
     private void  initView(final List<ActivityBean.BodyBean>mData){
         lv.setDividerHeight(0);
         lv.setAdapter(new MyActiviAdapter(mContext,mData));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (mData.get(position).getId()){
-                    case "bncn" :
-                        startActivity(new Intent(mContext,ActivitesDetail2.class));
-                        break;
-                    case "packet" :
-                        startActivity(new Intent(mContext,ActivitesDetail.class));
-                        break;
+                if(PreferenceUtils.getPrefString(mContext,"loginIn","").equals("")){
+                    ActivityUtils.toLogin(MyActiActivity.this,0);
+                }else {
+                    Intent intent = new Intent(mContext,MyActivityDetailActivity.class);
+                    intent.putExtra("url",mData.get(position).getHref());
+                    startActivity(intent);
                 }
             }
         });
     }
-
 }

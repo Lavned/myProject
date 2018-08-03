@@ -47,6 +47,7 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ionic.ylnewapp.BR;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.GlideImageLoader;
 import io.ionic.ylnewapp.adpater.HotAdapter;
@@ -62,6 +63,7 @@ import io.ionic.ylnewapp.custom.customViewpagerView;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.all.BannerDeatilActivity;
 import io.ionic.ylnewapp.view.activity.all.BitAssesActivity;
+import io.ionic.ylnewapp.view.activity.all.MyTest;
 import io.ionic.ylnewapp.view.activity.kline.Enable_Refresh_Activity;
 import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
 import io.ionic.ylnewapp.view.activity.mine.FriendActivity;
@@ -121,7 +123,8 @@ public class FragmentOne extends BaseFragment {
                 break;
             case R.id.hm_two :
                 MobclickAgent.onEvent(getActivity(), "Homepagetab2");
-                startActivity(new Intent(getActivity(),CouponsActivity.class));
+//                startActivity(new Intent(getActivity(),CouponsActivity.class));
+                startActivity(new Intent(getActivity(),MyTest.class));
                 break;
             case R.id.hm_three :
                 MobclickAgent.onEvent(getActivity(), "Homepagetab3");
@@ -200,7 +203,6 @@ public class FragmentOne extends BaseFragment {
             imgList.add(bannerData.get(i).getImgUrl());
         }
         List<String> images = imgList;
-//        Integer[] images={R.mipmap.me_zc_bg1_2x,R.mipmap.me_zc_bg2_2x,R.mipmap.me_zc_bg3_2x};
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
@@ -222,9 +224,44 @@ public class FragmentOne extends BaseFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Intent intent = new Intent(getActivity(), BannerDeatilActivity.class);
-                intent.putExtra("url",bannerData.get(position).getHref());
-                startActivity(intent);
+                int num = 0;
+                if(!bannerData.get(position).getSubTitle().contains("http://")){
+                    switch (bannerData.get(position).getSubTitle()){
+                        case "DIG":
+                            num = 0;
+                            break;
+                        case "AI":
+                            num = 1;
+                            break;
+                        case "ETF":
+                            num = 2;
+                            break;
+                        case "OTC":
+                            num = 3;
+                            break;
+                        case "BTC":
+                            num = 4;
+                            break;
+                        case "ICO":
+                            num = 5;
+                            break;
+                        case "TETF":
+                            num = 6;
+                            break;
+                        case "TBTC":
+                            num = 7;
+                            break;
+                    }
+                    toFragment(1);
+                    Message message = new Message();
+                    message.what= num;
+                    FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(getActivity());
+                    myHandler.sendMessage(message);
+                }else {
+                    Intent intent = new Intent(getActivity(), BannerDeatilActivity.class);
+                    intent.putExtra("url", bannerData.get(position).getSubTitle());
+                    startActivity(intent);
+                }
             }
         });
     }

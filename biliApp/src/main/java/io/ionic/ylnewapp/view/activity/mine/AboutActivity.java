@@ -1,8 +1,5 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +10,6 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class AboutActivity extends BaseActivity {

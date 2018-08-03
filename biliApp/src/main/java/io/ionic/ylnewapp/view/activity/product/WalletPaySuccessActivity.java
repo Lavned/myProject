@@ -105,7 +105,7 @@ public class WalletPaySuccessActivity extends BaseActivity {
         Bundle bundle =intent.getExtras();
         orderId = bundle.getString("orderId");
         money = bundle.getString("money");
-        orderMoney.setText(money);
+        orderMoney.setText(money +bundle.getString("type"));
         orderNum.setText(orderId);
         walletAddress.setText(bundle.getString("walletNum"));
         if(bundle.getString("type").equals("BTC"))
