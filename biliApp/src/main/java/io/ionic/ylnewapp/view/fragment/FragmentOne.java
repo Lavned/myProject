@@ -227,29 +227,32 @@ public class FragmentOne extends BaseFragment {
                 int num = 0;
                 if(!bannerData.get(position).getSubTitle().contains("http://")){
                     switch (bannerData.get(position).getSubTitle()){
-                        case "DIG":
+                        case "BET":
                             num = 0;
                             break;
-                        case "AI":
+                        case "DIG":
                             num = 1;
                             break;
-                        case "ETF":
+                        case "AI":
                             num = 2;
                             break;
-                        case "OTC":
+                        case "ETF":
                             num = 3;
                             break;
-                        case "BTC":
+                        case "OTC":
                             num = 4;
                             break;
-                        case "ICO":
+                        case "BTC":
                             num = 5;
                             break;
-                        case "TETF":
+                        case "ICO":
                             num = 6;
                             break;
-                        case "TBTC":
+                        case "TETF":
                             num = 7;
+                            break;
+                        case "TBTC":
+                            num = 8;
                             break;
                     }
                     toFragment(1);
@@ -593,6 +596,7 @@ public class FragmentOne extends BaseFragment {
         super.onPause();
         MobclickAgent.onPause(getActivity());
     }
+
 
 
     @Override

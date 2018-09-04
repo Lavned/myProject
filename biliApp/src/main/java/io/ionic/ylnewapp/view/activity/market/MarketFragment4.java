@@ -61,15 +61,15 @@ public class MarketFragment4 extends Fragment {
     //数据初始化
     private void initView() {
         initChart();
-        mData = new ArrayList<>();
-        mData.add("eee ");
-        mData.add("rrrr");
-        mData.add("eee ");
-        mData.add("rrrr");
-        mData.add("eee ");
-        mData.add("rrrr");
-        adapter = new MarketFragAdapter3(getContext(), mData);
-        gvBottom.setAdapter(adapter);
+//        mData = new ArrayList<>();
+//        mData.add("eee ");
+//        mData.add("rrrr");
+//        mData.add("eee ");
+//        mData.add("rrrr");
+//        mData.add("eee ");
+//        mData.add("rrrr");
+//        adapter = new MarketFragAdapter3(getContext(), mData);
+//        gvBottom.setAdapter(adapter);
     }
 
     private void initChart() {

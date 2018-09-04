@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
@@ -47,6 +50,7 @@ import io.ionic.ylnewapp.adpater.order.AllMyOrderAdapter;
 import io.ionic.ylnewapp.adpater.order.MyDigOrderAdapter;
 import io.ionic.ylnewapp.adpater.order.OtherListAdapter;
 import io.ionic.ylnewapp.bean.order.AllOrderBean;
+import io.ionic.ylnewapp.bean.products.ProducetDetailBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.httpOrder.OrderUtils;
 import io.ionic.ylnewapp.utils.ActivityUtils;
@@ -284,17 +288,6 @@ public class MyCountMoneyActivity extends BaseActivity {
             money_num.setText(myData.get(groupPosition).getCount()+"");
             money_name.setText(myData.get(groupPosition).getType()+"");
             money_icon.setBackgroundColor(Color.parseColor(myData.get(groupPosition).getColor()));
-//            ImageView expandedImage = convertView.findViewById(R.id.more);
-//            int resId = isExpanded ? R.mipmap.dig_top : R.mipmap.dig_down_2x;
-//            expandedImage.setImageResource(resId);
-
-//            if(mData.get(0).getList()!=null&&mData.get(0).getList().size() ==0){
-//                AllOrderBean.BodyBean.OrdersBean.ListBean listBean = new AllOrderBean.BodyBean.OrdersBean.ListBean();
-//                listBean.setName("jjj");
-//                mData.get(0).getList().add(listBean);
-//            }
-
-
             return convertView;
         }
 
@@ -378,6 +371,7 @@ public class MyCountMoneyActivity extends BaseActivity {
             holder.order_items_lv.setAdapter(myAdapter);
             gvData = item.getBtn();
             if(gvData!=null){
+                holder.allBtn.setVisibility(View.VISIBLE);
                 switch (gvData.size()){
                     case 0:
                         holder.allBtn.setVisibility(View.GONE);
@@ -392,7 +386,7 @@ public class MyCountMoneyActivity extends BaseActivity {
                         holder.order_btn.setNumColumns(3);
                         break;
                     case 4:
-                        holder.order_btn.setNumColumns(3);
+                        holder.order_btn.setNumColumns(4);
                         break;
                 }
                 btnAdapter = new OrderBtnAdapter(mContext,gvData);
@@ -439,18 +433,16 @@ public class MyCountMoneyActivity extends BaseActivity {
 //                            holder.tv.setText("赎回");
                                 OrderUtils.backOrder(mContext,item.getOrderid());
                                 break;
+                            case "8" :
+//                            holder.tv.setText("套利");
+                               transferOrder(item.getOrderid(),item.getPayAmount());
+                                break;
                         }
                     }
                 });
             }else{
                 holder.allBtn.setVisibility(View.GONE);
             }
-
-//            AllMyOrderAdapter adapter = new AllMyOrderAdapter(mContext,listData);
-//            adapter.notifyDataSetChanged();
-//            holder.lv.setAdapter(adapter);
-
-
 
             holder.selectMore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -479,7 +471,6 @@ public class MyCountMoneyActivity extends BaseActivity {
         }
 
        private class  ViewHolder{
-//            ListView lv;
             TextView selectMore;
             TextView in ;
             TextView out ;
@@ -504,6 +495,86 @@ public class MyCountMoneyActivity extends BaseActivity {
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return false;
         }
+    }
+
+    /**
+     * 套利
+     * @param orderid
+     */
+    private void transferOrder(final String orderid,final String amount) {
+        mBuilder.setTitle("加载中").show();
+        OkGo.<String>get(Constants.URL_BASE + "product/detail?pid=20170003")//
+                .tag(this)//
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        ProducetDetailBean javaBean = gson.fromJson(response.body(), ProducetDetailBean.class);
+                        if (javaBean.getStatus() == 401)
+                            ActivityUtils.toLogin(MyCountMoneyActivity.this, 0);
+                        if(javaBean.getBody() !=null){
+                            showPop(orderid,javaBean.getBody().getName()
+                                    ,javaBean.getBody().getRate(),javaBean.getBody().getWeek()
+                                    ,amount);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(mContext);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mBuilder.dismiss();
+                    }
+                });
+    }
+
+
+
+    public void showPop(final String orderId, String name, String rate, String week, String amount){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        // 通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(mContext).inflate(R.layout.transfershow, null);
+        // 设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+        //这个位置十分重要，只有位于这个位置逻辑才是正确的
+        final AlertDialog dialog = builder.show();
+        Window win = dialog.getWindow();
+        win.getDecorView().setPadding(40, 45, 0, 50);
+        WindowManager.LayoutParams lp = win.getAttributes();
+        lp.width = 850;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        win.setAttributes(lp);
+        TextView vName = view.findViewById(R.id.item1);
+        TextView vRate = view.findViewById(R.id.item2);
+        TextView vWeek = view.findViewById(R.id.item3);
+        TextView vAmount = view.findViewById(R.id.item4);
+        vName.setText("● 产品名称：" +name);
+        vRate.setText("● 年华收益率：" + rate+"%");
+        vWeek.setText("● 封闭期限：" +week +"天");
+        vAmount.setText("● 投资金额：" +amount + "元");
+
+
+
+        view.findViewById(R.id.btn_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderUtils.transferOrder(mContext,orderId);
+                //关闭对话框
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.btn_cancle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 

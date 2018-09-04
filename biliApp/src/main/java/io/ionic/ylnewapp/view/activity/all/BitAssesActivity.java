@@ -36,7 +36,7 @@ public class BitAssesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bit_asses);
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         mBuilder.setTitle("加载中...").show();
         loadView(Constants.URL_BASE2 +"main/newPeople");
 //        loadView("http://192.168.123.10/#/main/receive?username=17858968657");

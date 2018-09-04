@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
@@ -77,7 +81,7 @@ public class SettingActivity extends BaseActivity {
      */
     private void init() {
         title.setText("设置");
-        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this, mContext.getColor(R.color.colorPrimary),225);
     }
 
     /**
@@ -95,4 +99,5 @@ public class SettingActivity extends BaseActivity {
             return "";
         }
     }
+
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -139,6 +139,22 @@
     <item name="android:textSize">25sp</item>
     <item name="android:textColor">@color/black_1</item>
     <item name="android:background">@color/white</item>
+    </style>
+
+
+
+
+    //行情文字
+    <style name="main_text">
+        <item name="android:paddingVertical" tools:ignore="NewApi">10dp</item>
+        <item name="android:layout_marginHorizontal" tools:ignore="NewApi">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black_1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <!--<item name="android:textStyle">bold</item>-->
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 

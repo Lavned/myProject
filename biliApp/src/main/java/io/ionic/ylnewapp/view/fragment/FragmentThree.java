@@ -21,6 +21,7 @@ import org.xutils.x;
 import java.util.HashMap;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.view.activity.market.MarketFragment3;
 import io.ionic.ylnewapp.view.base.BaseFragment;
 import io.ionic.ylnewapp.view.activity.market.MarketFragment1;
 import io.ionic.ylnewapp.view.activity.market.MarketFragment2;
@@ -40,8 +41,8 @@ public class FragmentThree extends BaseFragment {
     TextView text_1;
     @ViewInject(R.id.text_2)
     TextView text_2;
-//    @ViewInject(R.id.text_3)
-//    TextView text_3;
+    @ViewInject(R.id.text_3)
+    TextView text_3;
 //    @ViewInject(R.id.text_4)
 //    TextView text_4;
 //    @ViewInject(R.id.text_5)
@@ -51,7 +52,7 @@ public class FragmentThree extends BaseFragment {
 
 
 
-    @Event(type = View.OnClickListener.class, value = {R.id.text_1,R.id.text_2,R.id.textView3})
+    @Event(type = View.OnClickListener.class, value = {R.id.text_1,R.id.text_2,R.id.text_3,R.id.textView3})
     private void click(View v) {
         switch (v.getId()){
             case R.id.text_1 :
@@ -72,12 +73,13 @@ public class FragmentThree extends BaseFragment {
                 break;
             case R.id.textView3:
                 startActivity(new Intent(getActivity(), MarketSearchActivity.class));
-//            case R.id.text_3 :
-//                search.setVisibility(View.GONE);
-//                setSelectText(text_3);
-//                getActivity().getSupportFragmentManager()
-//                        .beginTransaction().replace(R.id.container, new MarketFragment3()).commit();
-//                break;
+            case R.id.text_3 :
+                clearbg();
+                search.setVisibility(View.GONE);
+                setSelectText(text_3);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().replace(R.id.container, new MarketFragment3()).commit();
+                break;
 //            case R.id.text_4:
 //                search.setVisibility(View.GONE);
 //                setSelectText(text_4);
@@ -132,8 +134,8 @@ public class FragmentThree extends BaseFragment {
         text_1.setBackground(null);
         text_2.setTextColor(getActivity().getColor(R.color.black_1));
         text_2.setBackground(null);
-//        text_3.setTextColor(getActivity().getColor(R.color.black_1));
-//        text_3.setBackground(null);
+        text_3.setTextColor(getActivity().getColor(R.color.black_1));
+        text_3.setBackground(null);
 //        text_4.setTextColor(getActivity().getColor(R.color.black_1));
 //        text_4.setBackground(null);
 //        text_5.setTextColor(getActivity().getColor(R.color.black_1));

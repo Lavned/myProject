@@ -86,7 +86,7 @@ public class CouponsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     CouponsActivity.activity.finish();
                 }else {
                     Message msg = new Message();
-                    msg.what =1;
+                    msg.what = 1;
                     MainActivity.NOHandler myHandler = new MainActivity.NOHandler(mContext);
                     myHandler.sendMessage(msg);
                     CouponsActivity.activity.finish();

@@ -1,44 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="80dp">
+
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/text_one"
-            android:layout_width="wrap_content"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="全场总市值指数"
-            android:textSize="13sp"
-            android:textColor="@color/black33"/>
-        <TextView
-            android:id="@+id/text_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99909.0"
-            android:layout_marginVertical="8dp"
-            android:textSize="15sp"
-            android:textColor="@color/red"/>
+            android:layout_weight="1.5"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/leftOne"
+                android:textSize="9sp"
+                style="@style/main_text"
+                android:paddingVertical="5dp"
+                android:text="市值1# ¥8000亿"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:scaleType="fitXY"
+                android:layout_height="24dp"
+                android:layout_below="@id/leftOne"
+                android:id="@+id/leftIcon"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/qb_logo1_2x"/>
+            <TextView
+                android:id="@+id/leftTwo"
+                android:textSize="14sp"
+                android:layout_toRightOf="@id/leftIcon"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/leftOne"
+                android:layout_marginLeft="5dp"
+                android:text="BTC"/>
+            <TextView
+                android:id="@+id/leftThree"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/leftTwo"
+                android:textSize="9sp"
+                android:paddingVertical="5dp"
+                style="@style/main_text"
+                android:layout_marginHorizontal="5dp"
+                android:text="价格¥8000亿"/>
 
-        <TextView
-            android:id="@+id/text_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-19.09% -19.09%"
-            android:textSize="12sp"
-            android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/leftFour"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/leftTwo"
+                android:textSize="9sp"
+                android:paddingVertical="5dp"
+                style="@style/main_text"
+                android:textColor="@color/red"
+                android:layout_marginHorizontal="0dp"
+                android:layout_toRightOf="@id/leftThree"
+                android:text="(500%)"/>
 
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cenOne"
+                style="@style/main_text"
+                android:paddingVertical="5dp"
+                android:textSize="10sp"
+                android:textColor="@color/black33"
+                android:text="¥5400亿"/>
+            <TextView
+                android:id="@+id/cenTwo"
+                style="@style/main_text"
+                android:paddingVertical="5dp"
+                android:textSize="10sp"
+                android:textColor="@color/red"
+                android:text="-¥5400亿"/>
+            <TextView
+                android:id="@+id/cenThree"
+                style="@style/main_text"
+                android:textSize="11sp"
+                android:layout_width="70dp"
+                android:paddingVertical="5dp"
+                android:textColor="@color/white"
+                android:text="-1500亿%"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/rightOne"
+                style="@style/main_text"
+                android:layout_gravity="right"
+                android:paddingVertical="5dp"
+                android:textSize="10sp"
+                android:layout_marginHorizontal="1dp"
+                android:textColor="@color/black33"
+                android:text="¥5400亿"/>
+            <TextView
+                android:id="@+id/rightTwo"
+                android:layout_gravity="right"
+                style="@style/main_text"
+                android:paddingVertical="5dp"
+                android:layout_marginHorizontal="1dp"
+                android:textSize="10sp"
+                android:textColor="@color/red"
+                android:text="-¥5400亿"/>
+            <TextView
+                android:id="@+id/rightThree"
+                android:layout_gravity="right"
+                style="@style/main_text"
+                android:layout_marginHorizontal="0dp"
+                android:textSize="11sp"
+                android:layout_width="70dp"
+                android:paddingVertical="5dp"
+                android:textColor="@color/white"
+                android:text="-1500亿%"/>
+        </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line"/>
 
-
-
-
-</RelativeLayout>
+</LinearLayout>

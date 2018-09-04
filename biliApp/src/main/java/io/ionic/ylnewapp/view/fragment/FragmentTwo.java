@@ -31,6 +31,7 @@ import java.util.List;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.view.base.BaseFragment;
+import io.ionic.ylnewapp.view.twofragment.Tab0Fragment;
 import io.ionic.ylnewapp.view.twofragment.Tab1Fragment;
 import io.ionic.ylnewapp.view.twofragment.Tab2Fragment;
 import io.ionic.ylnewapp.view.twofragment.Tab3Fragment;
@@ -56,7 +57,6 @@ public class FragmentTwo extends BaseFragment{
 
     private List<String > mTabTitles;
     FragmentTwo fragment;
-    boolean isClck ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,6 +132,10 @@ public class FragmentTwo extends BaseFragment{
                         mViewPager.setCurrentItem(7,false);
                         mTabLayout.getTabAt(7).select();
                         break;
+                    case 8:
+                        mViewPager.setCurrentItem(8,false);
+                        mTabLayout.getTabAt(8).select();
+                        break;
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -152,6 +156,7 @@ public class FragmentTwo extends BaseFragment{
         mTabTitles = new ArrayList<>();
         mTabTitles.clear();
         mTabLayout.removeAllTabs();
+        mTabTitles.add("稳赢数字");
         mTabTitles.add("币余宝");
         mTabTitles.add("智能投顾");
         mTabTitles.add("ETF指数");
@@ -160,6 +165,7 @@ public class FragmentTwo extends BaseFragment{
         mTabTitles.add("ICO基金");
         mTabTitles.add("ETF交易");
         mTabTitles.add("BTC交易");
+        mFragments.add(new Tab0Fragment());
         mFragments.add(new Tab1Fragment());
         mFragments.add(new Tab2Fragment());
         mFragments.add(new Tab3Fragment());
@@ -182,6 +188,8 @@ public class FragmentTwo extends BaseFragment{
         mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(5)));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(6)));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(7)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles.get(8)));
+
 
             mAdapter = new ViewPagerAdapter(getChildFragmentManager());
             if(mViewPager.getAdapter() == null)

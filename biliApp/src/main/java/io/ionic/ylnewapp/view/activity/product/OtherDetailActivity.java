@@ -239,7 +239,7 @@ public class OtherDetailActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putString("orderId",orderid);
         bundle.putString("type","other");
-        bundle.putString("orderName",PreferenceUtils.getPrefString(mContext,"btname",""));
+        bundle.putString("orderName",PreferenceUtils.getPrefString(mContext,"oname",""));
         bundle.putString("orderMoney",moneyNum.getText().toString());
         intent.putExtras(bundle);
         startActivity(intent);
@@ -481,6 +481,14 @@ public class OtherDetailActivity extends BaseActivity {
     private void setView() {
         btname.setText(PreferenceUtils.getPrefString(mContext,"oname",""));
         switch (PreferenceUtils.getPrefString(mContext,"KEY","")){
+            case "BET1":
+                moneyNum.setHint("该项目起投金额为1000元     ");
+                ag3.setVisibility(View.GONE);
+                break;
+            case "BET2":
+                moneyNum.setHint("该项目起投金额为1000元     ");
+                ag3.setVisibility(View.GONE);
+                break;
             case "AI":
                 moneyNum.setHint("该项目起投金额为1000元     ");
                 ag3.setText("《智能投顾招募说明》");

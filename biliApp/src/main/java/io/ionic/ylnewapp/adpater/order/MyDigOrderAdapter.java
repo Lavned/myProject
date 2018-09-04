@@ -135,7 +135,6 @@ public class MyDigOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //                            notifyItemRemoved(position);//
 //                            notifyDataSetChanged();
                             OrderUtils.backOrder(mContext,item.getOrderid());
-                            Log.i("000000000", "----");
                             break;
                     }
                 }

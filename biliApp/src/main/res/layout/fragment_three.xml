@@ -59,14 +59,13 @@
             android:textSize="13sp" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/text_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="12dp"
-            android:text="指数"
+            android:text="资金流入"
             android:textColor="@color/black_1"
             android:textSize="13sp" />
 

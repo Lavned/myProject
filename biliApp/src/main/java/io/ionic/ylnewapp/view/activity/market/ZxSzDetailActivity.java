@@ -135,7 +135,7 @@ public class ZxSzDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zx_sz_detail);
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         init();
         MobclickAgent.onEvent(mContext, "Pricedetail");
     }

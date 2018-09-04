@@ -3,8 +3,10 @@ package io.ionic.ylnewapp.view.activity.all;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -20,6 +22,7 @@ import com.umeng.analytics.MobclickAgent;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.view.activity.mine.HelpActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
@@ -39,6 +42,14 @@ public class BannerDeatilActivity extends BaseActivity {
         init();
         Intent intent = getIntent();
         loadView(intent.getStringExtra("url"));
+        String action = intent.getAction();
+        if(Intent.ACTION_VIEW.equals(action)){
+            Uri uri = intent.getData();
+            if(uri != null){
+                String id = uri.getQueryParameter("id");
+                Toast.makeText(this,id,Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void init() {
@@ -72,6 +83,19 @@ public class BannerDeatilActivity extends BaseActivity {
 //        myWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                String scheme = Uri.parse(url).getScheme();//还需要判断host
+                if (TextUtils.equals("myapp", scheme)) {
+                    PreferenceUtils.setPrefString(mContext,"item","2");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);

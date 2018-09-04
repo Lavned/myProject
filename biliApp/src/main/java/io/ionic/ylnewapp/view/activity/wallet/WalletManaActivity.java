@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -30,7 +28,6 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.AddressBean;
@@ -150,7 +147,7 @@ public class WalletManaActivity extends BaseActivity {
                 });
     }
 
-    HashMap<Integer, Boolean> states = new HashMap<Integer, Boolean>();  //在这里要做判断保证只有一个RadioButton被选中
+    HashMap<Integer, Boolean> states = new HashMap<>();  //在这里要做判断保证只有一个RadioButton被选中
     /**
      * 内部适配器
      */
@@ -234,7 +231,7 @@ public class WalletManaActivity extends BaseActivity {
                 }
             });
             //上面是点击后设置状态，但是也是需要设置显示样式,通过判断状态设置显示的样式
-            if (states.get((Integer) position) == null || states.get((Integer) position) == false) {  //true说明没有被选中
+            if (states.get( position) == null || states.get( position) == false) {  //true说明没有被选中
                 holder.chDefault.setChecked(false);
             } else {
                 holder.chDefault.setChecked(true);
@@ -286,8 +283,6 @@ public class WalletManaActivity extends BaseActivity {
 
     /**
      * 随机头像
-     * @param icon
-     * @param i
      */
     private void setHead(ImageView icon,int i) {
         if(i > 6){

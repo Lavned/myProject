@@ -57,7 +57,7 @@ public class ProductAIActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_ai);
         activity = this;
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         init();
         backto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +71,14 @@ public class ProductAIActivity extends BaseActivity {
         pid = PreferenceUtils.getPrefString(mContext,"pid","");
         type = PreferenceUtils.getPrefString(mContext,"KEY","");
         switch (type){
+            case "BET1":
+                loadView(URL_BASE2+"winDetail?pid="+pid+"&type="+"BET");
+                yMEvent(type,pid);
+                break;
+            case "BET2":
+                loadView(URL_BASE2+"winDetail?pid="+pid+"&type="+"BET");
+                yMEvent(type,pid);
+                break;
             case "AI":
                 loadView(URL_BASE2+"aiDetail?pid="+pid+"&type="+type);
                 yMEvent(type,pid);

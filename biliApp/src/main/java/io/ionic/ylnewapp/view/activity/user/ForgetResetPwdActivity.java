@@ -44,7 +44,7 @@ public class ForgetResetPwdActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_reset);
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
     }
 
 

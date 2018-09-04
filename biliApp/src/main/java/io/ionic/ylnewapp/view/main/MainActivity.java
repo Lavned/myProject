@@ -65,7 +65,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         setContentView(R.layout.activity_main);
 
         if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.WRITE_APN_SETTINGS};
             ActivityCompat.requestPermissions(this,mPermissionList,123);
         }
 
@@ -78,6 +85,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             Message msg = new Message();
             NOHandler myHandler = new NOHandler(mContext);
             msg.arg1 = 1;
+            myHandler.sendMessage(msg);
+        }
+
+
+        if(PreferenceUtils.getPrefString(mContext,"item","").equals("2")) {
+            Message msg = new Message();
+            NOHandler myHandler = new NOHandler(mContext);
+            msg.arg1 = 2;
             myHandler.sendMessage(msg);
         }
     }
@@ -155,7 +170,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.h_home, getString(R.string.item_home)).setInactiveIconResource(R.drawable.h_home_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1)
-//                        .setBadgeItem(badgeItem))//设置提醒
                 ).addItem(new BottomNavigationItem(R.drawable.h_financial, getString(R.string.item_financial)).setInactiveIconResource(R.drawable.h_financial_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
                 .addItem(new BottomNavigationItem(R.drawable.h_market, getString(R.string.item_market)).setInactiveIconResource(R.drawable.h_market_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
 //                .addItem(new BottomNavigationItem(R.drawable.h_wallet, getString(R.string.item_wallet)).setInactiveIconResource(R.drawable.h_wallet_no).setActiveColorResource(R.color.main).setInActiveColorResource(R.color.black_1))
@@ -257,7 +271,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             UpdateAppUtils.from(this)
                     .serverVersionCode(v)
                     .apkPath(apk)
-                    .updateInfo("1.修复若干bug\n2.美化部分页面")
+                    .updateInfo("1.修复若干bug\n2.美化部分页面\n3.新增稳赢基金产品")
                     .downloadBy(UpdateAppUtils.DOWNLOAD_BY_BROWSER)
                     .isForce(true)
                     .update();
@@ -368,7 +382,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                     PreferenceUtils.setPrefString(context,"test","test");
 
                     Message message = new Message();
-                    message.what =3;
+                    message.what = 4;
                     FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(context);
                     myHandler.sendMessage(message);
                 }
@@ -376,6 +390,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                     mVpHome.setCurrentItem(1,false);
                 }
                 if(msg.arg1 == 1){
+                    mVpHome.setCurrentItem(1,false);
+                    PreferenceUtils.setPrefString(context,"item","");
+                }
+                if(msg.arg1 == 2){
                     mVpHome.setCurrentItem(1,false);
                     PreferenceUtils.setPrefString(context,"item","");
                 }

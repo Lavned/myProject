@@ -28,7 +28,7 @@ public class WebViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
         Intent intent = getIntent();
 //        chooseWeb(intent.getStringExtra("url"));
         loadView(intent.getStringExtra("url"));

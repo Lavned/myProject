@@ -89,7 +89,7 @@ public class MyCountCoinActivity extends BaseActivity {
 
     private void init() {
         MobclickAgent.onEvent(mContext, "Balance2");
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),225);
+        StatusBarUtil.setColor(this,getColor(R.color.colorPrimary),225);
         title.setText("我的数字资产");
 //        initRefreshLayout();
     }

@@ -179,4 +179,32 @@ public class OrderUtils {
                     }
                 });
     }
+
+    //赎回
+    public  static  void transferOrder(final Context activity , String orderid){
+        OkGo.<String>post(Constants.URL_BASE + "order/transfer")//
+                .tag(activity)//
+                .headers("Authorization", "Bearer " + PreferenceUtils.getPrefString(activity,"token",""))
+                .params("orderid", orderid)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String data = response.body();//这个就是返回来的结果
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            T.showShort(jsonObject.getString("msg"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.showNetworkError(activity);
+                    }
+
+                });
+    }
+
 }

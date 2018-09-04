@@ -6,15 +6,19 @@ package io.ionic.ylnewapp.constants;
 
 public class Constants {
 
-    public final static String URL_BASE = "http://www.bit000.com:5000/"; //发布环境
-//    public final static String URL_BASE = "http://192.168.123.210:5000/"; //本地测试环境
+//    public final static String URL_BASE = "http://www.bit000.com:5000/"; //发布环境
+    public final static String URL_BASE = "http://192.168.123.213:5000/"; //本地测试环境
 //        public final static String URL_BASE = "http://47.52.246.112:80/"; //线上测试环境39.104.191.49:5000
 
-//    public final static String URL_BASE2 = "http://192.168.123.10/#/"; //网页环境
-    public final static String URL_BASE2 = "http://app.bit000.com/#/"; //网页发布环境
+    public final static String URL_BASE2 = "http://192.168.123.213:8082/#/"; //网页环境
+//    public final static String URL_BASE2 = "http://app.bit000.com/#/"; //网页发布环境
 
 
-//    public final static String MARKRT_URL_BASENative = "http://192.168.123.219:8088/";
+
+
+//    public final static String MARKRT_URL_BASENative = "http://47.52.145.241:8080/";
+//
+
     /**
      * 行情相关接口
      */

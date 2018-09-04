@@ -19,5 +19,16 @@
         android:layout_alignParentTop="true"
         android:id="@+id/finshs"/>
 
+
+
+    <TextView
+        android:id="@+id/share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="13sp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:gravity="center" />
+
 </RelativeLayout>
 

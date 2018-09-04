@@ -9,12 +9,14 @@ import android.util.Log;
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.LoadingDialog;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import org.xutils.x;
 
-import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
-import io.ionic.ylnewapp.view.main.BLApplication;
 import io.ionic.ylnewapp.R;
+import io.ionic.ylnewapp.view.main.BLApplication;
+
+import static com.umeng.socialize.utils.DeviceConfig.context;
 
 /**
  * Created by hah on 2018/5/3 0003.
@@ -40,6 +42,9 @@ public class BaseActivity extends AppCompatActivity {
         {
             ((BLApplication) getApplication()).addActivity(this);
         }
+
+        PushAgent.getInstance(context).onAppStart();
+
     }
 
 
@@ -54,6 +59,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
 
     protected void setStatusBar() {
         StatusBarUtil.setColor(this,getColor(R.color.colorPrimary),225);

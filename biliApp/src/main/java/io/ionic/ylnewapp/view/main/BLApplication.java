@@ -6,36 +6,40 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.DBCookieStore;
-import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
 import com.umeng.socialize.PlatformConfig;
 
+//import org.android.agoo.huawei.HuaWeiRegister;
+//import org.android.agoo.mezu.MeizuRegister;
+//import org.android.agoo.xiaomi.MiPushRegistar;
+import org.android.agoo.huawei.HuaWeiRegister;
+import org.android.agoo.mezu.MeizuRegister;
+import org.android.agoo.xiaomi.MiPushRegistar;
 import org.xutils.x;
 
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.X509TrustManager;
-
 import io.ionic.ylnewapp.utils.T;
 import okhttp3.OkHttpClient;
+
+import static com.umeng.socialize.utils.DeviceConfig.context;
+
+//import static com.umeng.socialize.utils.DeviceConfig.context;
 
 
 /**
@@ -52,6 +56,8 @@ public class BLApplication extends Application {
     public static BLApplication getInstance() {
         return instance;
     }
+
+    PushAgent mPushAgent;
 
     @Override
     public void onCreate() {
@@ -76,28 +82,52 @@ public class BLApplication extends Application {
         //如果AndroidManifest.xml清单配置中没有设置appkey和channel，则可以在这里设置
         //UMConfigure.init(this, "58edcfeb310c93091c000be2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "1fe6a20054bcef865eeb0991ee84525b");
 //        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE,"");
-        UMConfigure.init(this,"5b47285ef43e4873bd000066","pugongying",UMConfigure.DEVICE_TYPE_PHONE,"");
+        UMConfigure.init(this,"5b47285ef43e4873bd000066","pugongying",UMConfigure.DEVICE_TYPE_PHONE,"e7a4adae5dc32e891afd5376f3791bfb");
         /**
          * 设置组件化的Log开关
          * 参数: boolean 默认为false，如需查看LOG设置为true
          */
-        UMConfigure.setLogEnabled(true);
-
-
-//        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
-//        //微信 appid appsecret
-//        PlatformConfig.setSinaWeibo("3921700954","04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
-//        //新浪微博 appkey appsecret
-//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
-//        // QQ和Qzone appid appkey
-
-
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-        //豆瓣RENREN平台目前只能在服务器端配置
+//        UMConfigure.setLogEnabled(true);
+        PlatformConfig.setWeixin("wxe9f4faf295dfea1c", "cf5741e27c610aacb04d2a597112089e");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
         PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
 
+         mPushAgent = PushAgent.getInstance(this);
+        //注册推送服务，每次调用register方法都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+
+            @Override
+            public void onSuccess(String deviceToken) {
+                //注册成功会返回device token
+                addAlias(deviceToken);
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+
+            }
+        });
+
+        MiPushRegistar.register(applicationContext, "2882303761517711462", "5181771112462");  //小米id &&  小米key
+        HuaWeiRegister.register(applicationContext);
+        MeizuRegister.register( applicationContext, "1001489", "4412f08803f54c78befb76788fa8d4d2");
+
+    }
+
+    /**
+     * 设置别名
+     *
+     * @param deviceToken
+     */
+    private void addAlias(String deviceToken) {
+        mPushAgent.setAlias(deviceToken, "userID",
+                new UTrack.ICallBack() {
+                    @Override
+                    public void onMessage(boolean isSuccess, String message) {
+                        Log.i("------",message+"chenggongle");
+                    }
+                });
     }
 
 
@@ -155,48 +185,6 @@ public class BLApplication extends Application {
                 .addCommonParams(params);                       //全局公共参数
     }
 
-    /**
-     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-     */
-//    private class SafeTrustManager implements X509TrustManager {
-//        @Override
-//        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//        }
-//
-//        @Override
-//        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//            try {
-//                for (X509Certificate certificate : chain) {
-//                    certificate.checkValidity(); //检查证书是否过期，签名是否通过等
-//                }
-//            } catch (Exception e) {
-//                throw new CertificateException(e);
-//            }
-//        }
-//
-//        @Override
-//        public X509Certificate[] getAcceptedIssuers() {
-//            return new X509Certificate[0];
-//        }
-//    }
-//
-//    /**
-//     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-//     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-//     * 这里只是我谁便写的认证规则，具体每个业务是否需要验证，以及验证规则是什么，请与服务端或者leader确定
-//     * 重要的事情说三遍，以下代码不要直接使用
-//     */
-//    private class SafeHostnameVerifier implements HostnameVerifier {
-//        @Override
-//        public boolean verify(String hostname, SSLSession session) {
-//            //验证主机名是否匹配
-//            //return hostname.equals("server.jeasonlzy.com");
-//            return true;
-//        }
-//    }
-
 
 
     private String getAppName(int pID) {
@@ -204,20 +192,14 @@ public class BLApplication extends Application {
         ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
         List l = am.getRunningAppProcesses();
         Iterator i = l.iterator();
-//		PackageManager pm = this.getPackageManager();
         while (i.hasNext()) {
             ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
             try {
                 if (info.pid == pID) {
-//					CharSequence c = pm.getApplicationLabel(pm.getApplicationInfo(info.processName, PackageManager.GET_META_DATA));
-                    // Log.d("Process", "Id: "+ info.pid +" ProcessName: "+
-                    // info.processName +"  Label: "+c.toString());
-                    // processName = c.toString();
                     processName = info.processName;
                     return processName;
                 }
             } catch (Exception e) {
-                // Log.d("Process", "Error>> :"+ e.toString());
             }
         }
         return processName;

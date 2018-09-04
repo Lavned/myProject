@@ -69,7 +69,8 @@ public class OrderBtnAdapter  extends BaseAdapter {
                 break;
             case "3" :
                 holder.tv.setText("我要挂单");
-                holder.tv.setBackgroundResource(R.mipmap.order_button_3);
+                holder.tv.setTextColor(mContext.getColor(R.color.black_1));
+                holder.tv.setBackgroundResource(R.mipmap.order_button2_2x);
                 break;
             case "4" :
                 holder.tv.setText("修改挂单");
@@ -81,11 +82,17 @@ public class OrderBtnAdapter  extends BaseAdapter {
                 break;
             case "6" :
                 holder.tv.setText("续投");
-                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                holder.tv.setTextColor(mContext.getColor(R.color.black_1));
+                holder.tv.setBackgroundResource(R.mipmap.order_button2_2x);
                 break;
             case "7" :
                 holder.tv.setText("赎回");
-                holder.tv.setBackgroundResource(R.mipmap.order_button_2x);
+                holder.tv.setTextColor(mContext.getColor(R.color.black_1));
+                holder.tv.setBackgroundResource(R.mipmap.order_button2_2x);
+                break;
+            case "8" :
+                holder.tv.setText("转套利");
+                holder.tv.setBackgroundResource(R.mipmap.order_button_3);
                 break;
         }
         return convertView;
