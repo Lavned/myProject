@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -45,7 +44,6 @@ import io.ionic.ylnewapp.view.activity.order.MyOrderActivity;
 import io.ionic.ylnewapp.view.activity.mine.NotificationActivity;
 import io.ionic.ylnewapp.view.activity.mine.SettingActivity;
 import io.ionic.ylnewapp.view.activity.mine.UerTificationActivity;
-import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 import io.ionic.ylnewapp.view.activity.wallet.WalletManaActivity;
 import io.ionic.ylnewapp.view.base.BaseFragment;
 
@@ -91,7 +89,9 @@ public class FragmentFour extends BaseFragment {
                 startActivity(new Intent(getActivity(),BankListActivity.class));
                 break;
             case R.id.re_coupons :
-                startActivity(new Intent(getActivity(),CouponsActivity.class));
+                Intent intent = new Intent(getActivity(),CouponsActivity.class);
+                intent.putExtra("type","2");
+                startActivity(intent);
                 break;
             case R.id.my_setting:
                 startActivity(new Intent(getActivity(), SettingActivity.class));

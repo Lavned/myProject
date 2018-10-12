@@ -15,7 +15,6 @@ import com.umeng.analytics.MobclickAgent;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;

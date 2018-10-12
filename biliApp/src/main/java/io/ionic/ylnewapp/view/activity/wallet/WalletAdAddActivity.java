@@ -2,12 +2,9 @@ package io.ionic.ylnewapp.view.activity.wallet;
 
 import android.graphics.Color;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
@@ -25,7 +22,6 @@ import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.mine.BankListActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class WalletAdAddActivity extends BaseActivity {

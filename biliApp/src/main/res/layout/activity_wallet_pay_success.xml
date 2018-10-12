@@ -71,7 +71,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="交易金额：" />
+                android:text="交易数量：" />
 
             <TextView
                 android:id="@+id/orderMoney"
@@ -90,6 +90,7 @@
             android:layout_height="33dp"
             android:background="@color/white"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingHorizontal="5dp">
 
             <TextView

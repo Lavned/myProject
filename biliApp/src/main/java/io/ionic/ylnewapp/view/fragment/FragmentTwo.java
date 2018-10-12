@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jaeger.library.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ContentView;
@@ -31,15 +29,15 @@ import java.util.List;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.view.base.BaseFragment;
-import io.ionic.ylnewapp.view.twofragment.Tab0Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab1Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab2Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab3Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab4Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab5Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab6Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab7Fragment;
-import io.ionic.ylnewapp.view.twofragment.Tab8Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab0Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab1Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab2Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab3Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab4Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab5Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab6Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab7Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab8Fragment;
 
 
 /**

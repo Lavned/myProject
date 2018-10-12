@@ -1,6 +1,7 @@
 package io.ionic.ylnewapp.adpater;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,8 @@ import io.ionic.ylnewapp.utils.DateUtil;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
 import io.ionic.ylnewapp.view.main.MainActivity;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by mogojing on 2018/5/30/0030.
@@ -80,20 +83,31 @@ public class CouponsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((ViewHolder) holder).use.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CouponsActivity.type ==1 || CouponsActivity.type == 2){
-                    PreferenceUtils.setPrefString(mContext,"coumoney",mData.get(position).getAmount()+"");
-                    PreferenceUtils.setPrefString(mContext,"couid",mData.get(position).getPacketid()+"");
+                if(CouponsActivity.type ==1 ){//|| CouponsActivity.type == 2
+//                    PreferenceUtils.setPrefString(mContext,"coumoney",mData.get(position).getAmount()+"");
+//                    PreferenceUtils.setPrefString(mContext,"couid",mData.get(position).getPacketid()+"");
+//                    CouponsActivity.activity.finish();
+                    Intent intent = new Intent();
+                    //把返回数据存入Intent
+                    intent.putExtra("money", mData.get(position).getAmount()+"");
+                    //设置返回数据
+                    CouponsActivity.activity.setResult(4, intent);
+                    //关闭Activity
                     CouponsActivity.activity.finish();
-                }else {
-                    Message msg = new Message();
-                    msg.what = 1;
-                    MainActivity.NOHandler myHandler = new MainActivity.NOHandler(mContext);
-                    myHandler.sendMessage(msg);
-                    CouponsActivity.activity.finish();
+                }
+                if(CouponsActivity.type1 != null) {
+                    if(CouponsActivity.type1.equals("2") ){
+                        Message msg = new Message();
+                        msg.what = 1;
+                        MainActivity.NOHandler myHandler = new MainActivity.NOHandler(mContext);
+                        myHandler.sendMessage(msg);
+                        CouponsActivity.activity.finish();
+                    }
                 }
             }
         });
     }
+
 
     @Override
     public long getItemId(int position) {

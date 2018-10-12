@@ -1,14 +1,8 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -24,11 +18,7 @@ import com.umeng.analytics.MobclickAgent;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.utils.PreferenceUtils;
-import io.ionic.ylnewapp.view.activity.product.WebViewActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
-import io.ionic.ylnewapp.view.fragment.FragmentTwo;
-import io.ionic.ylnewapp.view.main.MainActivity;
 
 import static io.ionic.ylnewapp.constants.Constants.WbUrl.webeHelp;
 

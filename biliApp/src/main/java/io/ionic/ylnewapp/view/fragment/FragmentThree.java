@@ -18,8 +18,6 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.HashMap;
-
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.view.activity.market.MarketFragment3;
 import io.ionic.ylnewapp.view.base.BaseFragment;

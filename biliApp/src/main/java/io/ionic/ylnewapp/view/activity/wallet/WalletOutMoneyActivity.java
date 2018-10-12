@@ -1,15 +1,12 @@
 package io.ionic.ylnewapp.view.activity.wallet;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
@@ -22,10 +19,7 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.List;
-
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.WalletDetailAdapater;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.MD5Util;

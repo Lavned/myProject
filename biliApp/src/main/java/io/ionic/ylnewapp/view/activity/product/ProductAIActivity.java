@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -27,7 +26,6 @@ import java.util.HashMap;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
-import io.ionic.ylnewapp.view.activity.user.LoginActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 import static io.ionic.ylnewapp.constants.Constants.URL_BASE2;

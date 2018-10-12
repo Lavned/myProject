@@ -1,4 +1,4 @@
-package io.ionic.ylnewapp.view.twofragment;
+package io.ionic.ylnewapp.view.productfragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.products.BETAdapter;
 import io.ionic.ylnewapp.adpater.products.OneMainAdapter;
-import io.ionic.ylnewapp.bean.products.BETBean;
 import io.ionic.ylnewapp.bean.products.DIGBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
@@ -32,7 +30,7 @@ import io.ionic.ylnewapp.utils.T;
 /**
  * Created by cmo on 16-7-21.
  */
-public class Tab0Fragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener{
+public class Tab1Fragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener{
 
 
     private SwipeRefreshLayout refreshLayout;
@@ -41,9 +39,9 @@ public class Tab0Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     private int lastVisibleItem = 0;
     private final int PAGE_COUNT = 10;
     private GridLayoutManager mLayoutManager;
-    private BETAdapter adapter;
+    private OneMainAdapter adapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
-    List<BETBean> betList;
+    List<DIGBean> digList;
     public LoadingDialog.Builder mBuilder ;
 
     @Override
@@ -80,17 +78,17 @@ public class Tab0Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     private void initData() {
         //加载数据
         mBuilder.setTitle("加载中...").show();
-        OkGo.<String>get(Constants.URL_BASE + "product/products?type=BET")//
+        OkGo.<String>get(Constants.URL_BASE + "product/products?type=DIG")//
                 .tag(this)//
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String data = response.body();//
                         Gson gson = new Gson();
-                        BETBean javaBean =gson.fromJson(data.toString(),BETBean.class);
-                        betList = javaBean.getBET();
-                        if(betList!=null)
-                            if(betList.size()>0){
+                        DIGBean javaBean =gson.fromJson(data.toString(),DIGBean.class);
+                        digList = javaBean.getDIG();
+                        if(digList!=null)
+                            if(digList.size()>0){
                                 initRecyclerView();
                             }
                     }
@@ -126,7 +124,7 @@ public class Tab0Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     }
 
     private void initRecyclerView() {
-        adapter = new BETAdapter(getDatas(0, PAGE_COUNT), getActivity(), getDatas(0, PAGE_COUNT).size() > 0 ? true : false);
+        adapter = new OneMainAdapter(getDatas(0, PAGE_COUNT), getActivity(), getDatas(0, PAGE_COUNT).size() > 0 ? true : false);
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -165,18 +163,18 @@ public class Tab0Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         });
     }
 
-    private List<BETBean> getDatas(final int firstIndex, final int lastIndex) {
-        List<BETBean> resList = new ArrayList<>();
+    private List<DIGBean> getDatas(final int firstIndex, final int lastIndex) {
+        List<DIGBean> resList = new ArrayList<>();
         for (int i = firstIndex; i < lastIndex; i++) {
-            if (i < betList.size()) {
-                resList.add(betList.get(i));
+            if (i < digList.size()) {
+                resList.add(digList.get(i));
             }
         }
         return resList;
     }
 
     private void updateRecyclerView(int fromIndex, int toIndex) {
-        List<BETBean> newDatas = getDatas(fromIndex, toIndex);
+        List<DIGBean> newDatas = getDatas(fromIndex, toIndex);
         if (newDatas.size() > 0) {
             adapter.updateList(newDatas, true);
         } else {

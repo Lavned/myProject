@@ -1,7 +1,6 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,7 +27,6 @@ import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
 import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
-import io.ionic.ylnewapp.view.activity.wallet.WalletOptionSuccessActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class WithdrawalActivity extends BaseActivity {

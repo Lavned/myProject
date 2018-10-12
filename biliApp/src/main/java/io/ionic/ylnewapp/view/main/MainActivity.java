@@ -44,6 +44,7 @@ import io.ionic.ylnewapp.view.fragment.FragmentFour;
 import io.ionic.ylnewapp.view.fragment.FragmentOne;
 import io.ionic.ylnewapp.view.fragment.FragmentThree;
 import io.ionic.ylnewapp.view.fragment.FragmentTwo;
+import io.ionic.ylnewapp.view.fragment.FragmentTwoNew;
 import util.UpdateAppUtils;
 
 
@@ -179,7 +180,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
         mBottomNavigationBar.setTabSelectedListener(this);
         mFragmentList.add(new FragmentOne());
-        mFragmentList.add(new FragmentTwo());
+        mFragmentList.add(new FragmentTwoNew());
         mFragmentList.add(new FragmentThree());
 //        mFragmentList.add(new FragmentWal());
         mFragmentList.add(new FragmentFour());
@@ -268,10 +269,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 //                .updateInfo("1.修复若干bug\n2.美化部分页面")
 //                .showNotification(true)
 //                .update();
+//        1：完善产品体系
+//        2：优化客户端，提升服务品质
+//        3：新增邀请奖励功能
             UpdateAppUtils.from(this)
                     .serverVersionCode(v)
                     .apkPath(apk)
-                    .updateInfo("1.修复若干bug\n2.美化部分页面\n3.新增稳赢基金产品")
+                    .updateInfo("1.完善产品体系\n2.优化客户端，提升服务品质\n3.新增邀请奖励功能")
                     .downloadBy(UpdateAppUtils.DOWNLOAD_BY_BROWSER)
                     .isForce(true)
                     .update();

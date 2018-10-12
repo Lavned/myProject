@@ -48,6 +48,7 @@ public class ActivityUtils {
      */
     public static void toLogin(final Activity mContext,final int status){
             T.showShort("登录状态过期，请重新登录");
+        PreferenceUtils.setPrefString(mContext,"token","");
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {

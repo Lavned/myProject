@@ -4,13 +4,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
@@ -31,7 +29,6 @@ import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
 import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
-import io.ionic.ylnewapp.view.activity.mine.RechargeActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class WalletAddMoneyActivity extends BaseActivity {

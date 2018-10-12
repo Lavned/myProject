@@ -12,8 +12,6 @@ import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.DateUtil;
-import io.ionic.ylnewapp.view.activity.wallet.MyWaletAddressActivity;
-import io.ionic.ylnewapp.view.activity.wallet.WalletOptionSuccessActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class WithdrawSuccessActivity extends BaseActivity {

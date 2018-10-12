@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/showImge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/spalsh"/>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/showText">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/black33"
+            android:layout_margin="10dp"
+            android:text="推荐方法"/>
+
+        <TextView
+            android:id="@+id/textDetail1"
+            android:layout_toRightOf="@id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/black33"
+            android:layout_margin="10dp"
+            android:text="推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法推荐方法"/>
+
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_below="@id/textDetail1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/black33"
+            android:layout_margin="10dp"
+            android:text="推荐规则"/>
+
+        <TextView
+            android:id="@+id/textDetail2"
+            android:layout_below="@id/textDetail1"
+            android:layout_toRightOf="@id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/black33"
+            android:layout_margin="10dp"
+            android:text="2222推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则推荐规则"/>
+
+
+        <TextView
+            android:layout_below="@id/textDetail2"
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/black33"
+            android:layout_margin="10dp"
+            android:text="奖励机制"/>
+
+        <TextView
+            android:layout_below="@id/textDetail2"
+            android:layout_toRightOf="@id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/black33"
+            android:layout_margin="10dp"
+            android:text="奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制奖励机制"/>
+
+
+
+        <LinearLayout
+            android:id="@+id/share"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:text="分享给好友"
+                android:textColor="@color/main"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

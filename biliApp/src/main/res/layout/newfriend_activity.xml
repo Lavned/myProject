@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="io.ionic.ylnewapp.view.activity.numcoin.NewFriendInvatieActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/backgrny"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            app:tabIndicatorColor="@color/main"
+            app:tabSelectedTextColor="@color/main"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="50dp"
+            android:layout_toRightOf="@id/back"
+            android:layout_height="50dp" />
+    </RelativeLayout>
+
+
+
+    <io.ionic.ylnewapp.custom.NoTouchScrollViewpager
+        android:id="@+id/view_pager"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab" />
+
+
+
+</LinearLayout>

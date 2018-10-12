@@ -24,8 +24,6 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.HashMap;
-
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.UserLoginInfo;
 import io.ionic.ylnewapp.constants.Constants;
@@ -77,7 +75,7 @@ public class LoginActivity extends BaseActivity {
     int type = 2; //为了防止登陆成功后退出APP
 
     @Event(type = View.OnClickListener.class , value = {R.id.btn_login ,R.id.tv_Login,
-            R.id.tv_register,R.id.btn_register,R.id.getCode,R.id.tv_forget_pwd_re,R.id.tv_save_pwd_re})
+            R.id.tv_register,R.id.btn_register,R.id.getCode,R.id.tv_forget_pwd_re,R.id.tv_save_pwd_re,R.id.toRe,R.id.toLo})
     private void click(View view){
         switch (view.getId()){
             case R.id.btn_login :
@@ -112,6 +110,13 @@ public class LoginActivity extends BaseActivity {
                 showLogin(2);
                 MobclickAgent.onEvent(mContext, "Singup");
                 break;
+            case R.id.toLo :
+                showLogin(1);
+                break;
+            case R.id.toRe:
+                showLogin(2);
+                MobclickAgent.onEvent(mContext, "Singup");
+                break;
             case R.id.getCode:
                 if(!reAccount.getText().toString().trim().equals("")){
                     if(!PhoneUtil.isPhoneNo(reAccount.getText().toString().trim())){
@@ -141,7 +146,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_logined);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         init();
 

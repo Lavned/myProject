@@ -1,4 +1,4 @@
-package io.ionic.ylnewapp.view.twofragment;
+package io.ionic.ylnewapp.view.productfragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,16 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.products.ICOAdapter;
-import io.ionic.ylnewapp.bean.products.ICOBean;
+import io.ionic.ylnewapp.adpater.products.AIAdapter;
+import io.ionic.ylnewapp.bean.products.AIBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
-
 
 /**
  * Created by cmo on 16-7-21.
  */
-public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener{
+public class Tab2Fragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener{
 
 
     private SwipeRefreshLayout refreshLayout;
@@ -40,9 +39,9 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     private int lastVisibleItem = 0;
     private final int PAGE_COUNT = 10;
     private GridLayoutManager mLayoutManager;
-    private ICOAdapter adapter;
+    private AIAdapter adapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
-    List<ICOBean> digList;
+    List<AIBean> digList;
 
     Activity context;
 
@@ -57,7 +56,6 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         findView(view);
         initRefreshLayout();
         context = getActivity();
-        //在oncreateview中调用这个
         if(!isViewShown){
             initData();
         }
@@ -85,15 +83,15 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
 
     private void initData() {
         //加载数据
-        OkGo.<String>get(Constants.URL_BASE + "product/products?type=ICO")//
+        OkGo.<String>get(Constants.URL_BASE + "product/products?type=AI")//
                 .tag(this)//
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String data = response.body();//
                         Gson gson = new Gson();
-                        ICOBean javaBean =gson.fromJson(data.toString(),ICOBean.class);
-                        digList = javaBean.getICO();
+                        AIBean javaBean =gson.fromJson(data.toString(),AIBean.class);
+                        digList = javaBean.getAI();
                         if(digList!=null)
                             if(digList.size()>0){
                                 initRecyclerView();
@@ -103,7 +101,7 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        T.showShort(response.message());
+                        T.showNetworkError(getActivity());
                     }
 
                 });
@@ -124,7 +122,7 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     }
 
     private void initRecyclerView() {
-        adapter = new ICOAdapter(getDatas(0, PAGE_COUNT), getActivity(), getDatas(0, PAGE_COUNT).size() > 0 ? true : false);
+        adapter = new AIAdapter(getDatas(0, PAGE_COUNT), getActivity(), getDatas(0, PAGE_COUNT).size() > 0 ? true : false);
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -163,8 +161,8 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         });
     }
 
-    private List<ICOBean> getDatas(final int firstIndex, final int lastIndex) {
-        List<ICOBean> resList = new ArrayList<>();
+    private List<AIBean> getDatas(final int firstIndex, final int lastIndex) {
+        List<AIBean> resList = new ArrayList<>();
         for (int i = firstIndex; i < lastIndex; i++) {
             if (i < digList.size()) {
                 resList.add(digList.get(i));
@@ -174,7 +172,7 @@ public class Tab6Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     }
 
     private void updateRecyclerView(int fromIndex, int toIndex) {
-        List<ICOBean> newDatas = getDatas(fromIndex, toIndex);
+        List<AIBean> newDatas = getDatas(fromIndex, toIndex);
         if (newDatas.size() > 0) {
             adapter.updateList(newDatas, true);
         } else {

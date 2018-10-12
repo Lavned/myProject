@@ -1,11 +1,8 @@
 package io.ionic.ylnewapp.view.activity.user;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,7 +11,6 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 
-import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;

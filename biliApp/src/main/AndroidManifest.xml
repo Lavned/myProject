@@ -39,26 +39,23 @@
         <!-- </provider> -->
 
 
-        <!--魅族push应用定义消息receiver声明 -->
+        <!-- 魅族push应用定义消息receiver声明 -->
         <receiver android:name=".view.activity.push.MeizuTestReceiver">
             <intent-filter>
+
                 <!-- 接收push消息 -->
                 <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
                 <!-- 接收register消息 -->
                 <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
-                <!-- 接收unregister消息-->
+                <!-- 接收unregister消息 -->
                 <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK" />
                 <!-- 兼容低版本Flyme3推送服务配置 -->
                 <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
                 <action android:name="com.meizu.c2dm.intent.RECEIVE" />
-                <category android:name="io.ionic.ylnewapp"></category>
+
+                <category android:name="io.ionic.ylnewapp" />
             </intent-filter>
         </receiver>
-
-
-
-
-
 
         <!-- 加了更新的时候换成了这个。不换会报错 -->
         <provider
@@ -108,68 +105,57 @@
             </intent-filter>
         </activity>
 
-
-
-
-        <!--友盟分享新浪配置-->
+        <!-- 友盟分享新浪配置 -->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
-            >
-        </activity>
-        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            >
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
-            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        <!--友盟分享微信配置-->
+        <!-- 友盟分享微信配置 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--友盟分享QQ配置-->
+        <!-- 友盟分享QQ配置 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-
-
-
-
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".view.activity.push.MipushTestActivity"
-            android:launchMode="singleTask"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTask" />
 
-
-
-
-
-        <!--其他Activity-->
+        <!-- 其他Activity -->
         <activity
             android:name=".view.activity.user.LoginActivity"
             android:launchMode="singleTop"
@@ -349,7 +335,20 @@
         <activity
             android:name=".view.activity.mine.MyActivityDetailActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".view.activity.all.MyTest"></activity>
+        <activity android:name=".view.activity.all.MyTest" />
+        <activity
+            android:name=".view.activity.product.NumCoinNewOrderActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.product.ProductNumCoinDetatilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.numcoin.NumberCoinInvatieActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.numcoin.NewFriendInvatieActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.activity.user.RedigestActivity"></activity>
     </application>
 
 </manifest>

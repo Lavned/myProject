@@ -3,13 +3,7 @@ package io.ionic.ylnewapp.view.activity.product;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,8 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-
-import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;

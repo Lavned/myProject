@@ -25,16 +25,9 @@
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
                     android:src="@mipmap/login_top"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="22sp"
-                    android:layout_marginTop="65dp"
-                    android:layout_centerHorizontal="true"
-                    android:text="欢迎来到币哩币哩"/>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/button_gv"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
@@ -95,7 +88,7 @@
                     android:layout_below="@+id/button_gv"
                     android:layout_width="314dp"
                     android:layout_height="400dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="160dp"
                     android:layout_centerHorizontal="true"
                     android:orientation="vertical"
                     android:background="@mipmap/l_concentbg">
@@ -215,10 +208,19 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="20dp"
                         android:text="登录"
                         android:textColor="@color/white"
                         android:background="@mipmap/main_button"/>
+
+                    <TextView
+                        android:id="@+id/toRe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/main"
+                        android:text="还没有账户？立即注册" />
 
                 </LinearLayout>
 
@@ -227,8 +229,8 @@
                     android:id="@+id/register_layout"
                     android:layout_below="@+id/button_gv"
                     android:layout_width="314dp"
-                    android:layout_height="450dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="500dp"
+                    android:layout_marginTop="160dp"
                     android:layout_centerHorizontal="true"
                     android:orientation="vertical"
                     android:background="@mipmap/l_concentbg">
@@ -436,6 +438,15 @@
                         android:text="注册"
                         android:textColor="@color/white"
                         android:background="@mipmap/main_button"/>
+
+                    <TextView
+                        android:id="@+id/toLo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/main"
+                        android:layout_marginVertical="10dp"
+                        android:text="还没有账户？立即注册" />
 
                 </LinearLayout>
 

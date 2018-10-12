@@ -68,24 +68,47 @@ public class MyTest extends BaseActivity {
                 finish();
             }
         });
-
     }
 
+//
+//                 UMImage thumb = new UMImage(MyTest.this, R.mipmap.app_logo);
+//                //分享链接
+//                UMWeb web = new UMWeb("http://cplus.club/#/main/home");
+//                web.setTitle("欢迎注册币哩币哩");//标题
+//                web.setThumb(thumb);  //缩略图
+//                web.setDescription("欢迎注册币哩币哩");//描述
+////                UMImage umImage = new UMImage(MyTest.this, R.mipmap.ic_launcher);
+//                new ShareAction(MyTest.this)
+//                        .setPlatform(SHARE_MEDIA.WEIXIN)//传入平台
+//                        .withMedia(web)//分享内容
+////                        .withMedia(umImage)
+//                        .setCallback(umShareListener)//回调监听器
+//                        .share();
+//
+//    //⑧分享的监听
+//    UMShareListener   umShareListener = new UMShareListener() {
+//        @Override
+//        public void onStart(SHARE_MEDIA share_media) {
+//            Log.e("onStart", "onStart");
+//        }
+//
+//        @Override
+//        public void onResult(SHARE_MEDIA share_media) {
+//            Log.e("onResult", "onResult");
+//        }
+//
+//        @Override
+//        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+//            Log.e("onError", "onError");
+//        }
+//
+//        @Override
+//        public void onCancel(SHARE_MEDIA share_media) {
+//            Log.e("onCancel", "onCancel");
+//        }
+//    };
+//
 
-
-
-    //分享的方法
-    public void shareMehtod() {
-
-        new ShareAction(MyTest.this)
-                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
-                //分享平台
-                .addButton("复制链接","umeng_sharebutton_custom","umeng_socialize_copyurl","复制链接")
-                // 分享面板添加自定义按钮
-                .setShareboardclickCallback(shareBoardlistener)
-                //面板点击监听器
-                .open();
-    }
 
 
 
@@ -165,79 +188,6 @@ public class MyTest extends BaseActivity {
         }
     };
 
-
-    /**
-     * 分享
-     */
-    public void shareWeb() {
-        UMWeb web = new UMWeb("http://cplus.club/#/main/home");//连接地址
-        web.setTitle("望潮计划");//标题
-        web.setDescription("望潮计划来啦");//描述
-        if (TextUtils.isEmpty("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533290641757&di=cc47b5b772557138cfac7b9997b46f89&imgtype=0&src=http%3A%2F%2Fn5.cmsfile.pg0.cn%2Fgroup1%2FM00%2FBA%2FD0%2FCgqg11gzmM-AaPOsAAPULs20lSI886.png")) {
-            web.setThumb(new UMImage(mContext, R.mipmap.ic_launcher));  //本地缩略图
-        } else {
-            web.setThumb(new UMImage(mContext,  R.mipmap.ic_launcher));  //网络缩略图
-        }
-        new ShareAction(MyTest.this)
-                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
-                .withMedia(web)
-                .addButton("umeng_sharebutton_custom","umeng_sharebutton_custom","app_logo","app_logo")
-                .setCallback(new UMShareListener() {
-                    @Override
-                    public void onStart(SHARE_MEDIA share_media) {
-
-                    }
-
-                    @Override
-                    public void onResult(final SHARE_MEDIA share_media) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, share_media + " 分享成功", Toast.LENGTH_SHORT).show();
-                                if (share_media.name().equals("WEIXIN_FAVORITE")) {
-
-                                } else {
-
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(final SHARE_MEDIA share_media, final Throwable throwable) {
-                        if (throwable != null) {
-                            Log.d("throw", "throw:" + throwable.getMessage());
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, share_media + " 分享失败", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancel(final SHARE_MEDIA share_media) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, share_media + " 分享取消", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                })
-                .open();
-        //open()是打开面板,和.setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)一起使用
-        //.share();如果是调用share方法的时候不会使用面板,,,setPlatform()一起使用
-
-        //新浪微博中图文+链接
-        /*new ShareAction(activity)
-                .setPlatform(platform)
-                .withText(description + " " + WebUrl)
-                .withMedia(new UMImage(activity,imageID))
-                .share();*/
-    }
 
 
 

@@ -32,7 +32,7 @@ import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
-import io.ionic.ylnewapp.view.twofragment.Tab8Fragment;
+import io.ionic.ylnewapp.view.productfragment.Tab8Fragment;
 
 /**
  * Created by lijianchang@yy.com on 2017/4/12.

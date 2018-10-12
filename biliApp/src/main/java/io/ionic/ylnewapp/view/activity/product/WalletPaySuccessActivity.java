@@ -30,8 +30,8 @@ public class WalletPaySuccessActivity extends BaseActivity {
     TextView title;
     @ViewInject(R.id.walletNum)
     TextView walletNum;
-    @ViewInject(R.id.walletAddress)
-    TextView walletAddress;
+//    @ViewInject(R.id.walletAddress)
+//    TextView walletAddress;
     @ViewInject(R.id.orderMoney)
     TextView orderMoney;
     @ViewInject(R.id.orderNum)
@@ -107,7 +107,7 @@ public class WalletPaySuccessActivity extends BaseActivity {
         money = bundle.getString("money");
         orderMoney.setText(money +bundle.getString("type"));
         orderNum.setText(orderId);
-        walletAddress.setText(bundle.getString("walletNum"));
+//        walletAddress.setText(bundle.getString("walletNum"));
         if(bundle.getString("type").equals("BTC"))
             walletNum.setText("1QGDMGUWDTYDcMFufuAHAzx3gZLWKWGVhD");
         else

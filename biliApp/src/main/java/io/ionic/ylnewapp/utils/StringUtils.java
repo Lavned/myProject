@@ -14,4 +14,12 @@ public class StringUtils {
         return  strVal+"****" + strVal2;
     }
 
+
+
+    public static String getPhone(String str){
+        String strVal = str.substring(0,3);
+        String strVal2 = str.substring(str.length()-4,str.length());
+        return  strVal+"****" + strVal2;
+    }
+
 }

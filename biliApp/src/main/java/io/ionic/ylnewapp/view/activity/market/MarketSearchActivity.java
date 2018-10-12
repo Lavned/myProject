@@ -21,15 +21,11 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.CurrencyLvAdapter;
-import io.ionic.ylnewapp.adpater.CurrencyNameAdapater;
 import io.ionic.ylnewapp.adpater.market.MarketSearchLvAdapter;
 import io.ionic.ylnewapp.adpater.market.TagNameAdapater;
-import io.ionic.ylnewapp.bean.CoinBean;
 import io.ionic.ylnewapp.bean.market.SeachGrid;
 import io.ionic.ylnewapp.bean.market.SearchBean;
 import io.ionic.ylnewapp.constants.Constants;

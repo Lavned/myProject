@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
-import com.jiangyy.easydialog.CommonDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpParams;
@@ -24,11 +22,8 @@ import org.xutils.view.annotation.ViewInject;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
-import io.ionic.ylnewapp.utils.MD5Util;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
-import io.ionic.ylnewapp.view.activity.custompwd.PayPwdView;
 import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 

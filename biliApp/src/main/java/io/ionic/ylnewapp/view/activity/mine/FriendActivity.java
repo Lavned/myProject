@@ -12,7 +12,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +31,6 @@ import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.all.MyTest;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class FriendActivity extends BaseActivity {

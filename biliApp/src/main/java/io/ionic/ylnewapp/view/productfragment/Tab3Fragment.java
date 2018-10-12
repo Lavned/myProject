@@ -1,4 +1,4 @@
-package io.ionic.ylnewapp.view.twofragment;
+package io.ionic.ylnewapp.view.productfragment;
 
 import android.app.Activity;
 import android.os.Bundle;

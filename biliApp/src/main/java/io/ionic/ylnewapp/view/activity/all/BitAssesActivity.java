@@ -10,13 +10,15 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.constants.Constants;
@@ -37,8 +39,19 @@ public class BitAssesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bit_asses);
         StatusBarUtil.setColor(this, getColor(R.color.colorPrimary),225);
-        mBuilder.setTitle("加载中...").show();
-        loadView(Constants.URL_BASE2 +"main/newPeople");
+
+
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.i("-------","112");
+            }
+        },1*1000,1*2000);
+
+//        mBuilder.setTitle("加载中...").show();
+//        loadView(Constants.URL_BASE2 +"main/newPeople");
 //        loadView("http://192.168.123.10/#/main/receive?username=17858968657");
     }
 

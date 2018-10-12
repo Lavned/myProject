@@ -105,6 +105,7 @@ public class CouponsActivity extends BaseActivity  implements  SwipeRefreshLayou
 
 
     public static int type = 0;
+    public static String type1 = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,8 @@ public class CouponsActivity extends BaseActivity  implements  SwipeRefreshLayou
         init();
         Intent intent = getIntent();
         if (intent!=null){
-            type = intent.getIntExtra("type",0);
+            type = 1;
+            type1 = intent.getStringExtra("type");
         }
         loadData(1);
     }

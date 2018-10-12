@@ -19,6 +19,15 @@
         android:layout_alignParentTop="true"
         android:id="@+id/finshs"/>
 
+    <TextView
+        android:layout_width="40dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/shareView"/>
+
 
 
     <TextView

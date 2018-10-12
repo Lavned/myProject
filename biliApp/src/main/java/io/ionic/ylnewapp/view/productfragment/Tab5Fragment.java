@@ -1,4 +1,4 @@
-package io.ionic.ylnewapp.view.twofragment;
+package io.ionic.ylnewapp.view.productfragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,15 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ionic.ylnewapp.R;
-import io.ionic.ylnewapp.adpater.products.OTCAdapter;
-import io.ionic.ylnewapp.bean.products.OTCBean;
+import io.ionic.ylnewapp.adpater.products.BTCAdapter;
+import io.ionic.ylnewapp.bean.products.BTCBean;
 import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.T;
 
 /**
  * Created by cmo on 16-7-21.
  */
-public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener{
+public class Tab5Fragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener{
 
 
     private SwipeRefreshLayout refreshLayout;
@@ -39,9 +39,9 @@ public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     private int lastVisibleItem = 0;
     private final int PAGE_COUNT = 10;
     private GridLayoutManager mLayoutManager;
-    private OTCAdapter adapter;
+    private BTCAdapter adapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
-    List<OTCBean> digList;
+    List<BTCBean> digList;
 
     Activity context;
 
@@ -78,21 +78,20 @@ public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         } else {
             isViewShown = false;
         }
-
     }
 
 
     private void initData() {
         //加载数据
-        OkGo.<String>get(Constants.URL_BASE + "product/products?type=OTC")//
+        OkGo.<String>get(Constants.URL_BASE + "product/products?type=BTC")//
                 .tag(this)//
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String data = response.body();//
                         Gson gson = new Gson();
-                        OTCBean javaBean =gson.fromJson(data.toString(),OTCBean.class);
-                        digList = javaBean.getOTC();
+                        BTCBean javaBean =gson.fromJson(data.toString(),BTCBean.class);
+                        digList = javaBean.getBTC();
                         if(digList!=null)
                             if(digList.size()>0){
                                 initRecyclerView();
@@ -123,7 +122,7 @@ public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     }
 
     private void initRecyclerView() {
-        adapter = new OTCAdapter(getDatas(0, PAGE_COUNT), getActivity(), getDatas(0, PAGE_COUNT).size() > 0 ? true : false);
+        adapter = new BTCAdapter(getDatas(0, PAGE_COUNT), getActivity(), getDatas(0, PAGE_COUNT).size() > 0 ? true : false);
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -162,8 +161,8 @@ public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
         });
     }
 
-    private List<OTCBean> getDatas(final int firstIndex, final int lastIndex) {
-        List<OTCBean> resList = new ArrayList<>();
+    private List<BTCBean> getDatas(final int firstIndex, final int lastIndex) {
+        List<BTCBean> resList = new ArrayList<>();
         for (int i = firstIndex; i < lastIndex; i++) {
             if (i < digList.size()) {
                 resList.add(digList.get(i));
@@ -173,7 +172,7 @@ public class Tab4Fragment extends Fragment implements  SwipeRefreshLayout.OnRefr
     }
 
     private void updateRecyclerView(int fromIndex, int toIndex) {
-        List<OTCBean> newDatas = getDatas(fromIndex, toIndex);
+        List<BTCBean> newDatas = getDatas(fromIndex, toIndex);
         if (newDatas.size() > 0) {
             adapter.updateList(newDatas, true);
         } else {

@@ -1,9 +1,5 @@
 package io.ionic.ylnewapp.view.activity.mine;
 
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.media.effect.Effect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,13 +17,9 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.List;
-
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.bean.GetMeBean;
 import io.ionic.ylnewapp.constants.Constants;
-import io.ionic.ylnewapp.custom.MyDialog;
-import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;

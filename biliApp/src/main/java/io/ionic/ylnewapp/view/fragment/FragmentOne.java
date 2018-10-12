@@ -5,38 +5,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TabHost;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.google.gson.Gson;
-import com.jiangyy.easydialog.OtherDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.umeng.analytics.MobclickAgent;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
 import org.xutils.view.annotation.ContentView;
@@ -47,7 +38,6 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.ionic.ylnewapp.BR;
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.GlideImageLoader;
 import io.ionic.ylnewapp.adpater.HotAdapter;
@@ -55,21 +45,18 @@ import io.ionic.ylnewapp.bean.BannerBean;
 import io.ionic.ylnewapp.bean.HomeBean;
 import io.ionic.ylnewapp.bean.NotifiBean;
 import io.ionic.ylnewapp.constants.Constants;
-import io.ionic.ylnewapp.custom.MyListView;
 import io.ionic.ylnewapp.custom.MyViewPager;
 import io.ionic.ylnewapp.custom.NewListView;
 import io.ionic.ylnewapp.custom.ViewpagerTransformAnim;
 import io.ionic.ylnewapp.custom.customViewpagerView;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.all.BannerDeatilActivity;
-import io.ionic.ylnewapp.view.activity.all.BitAssesActivity;
 import io.ionic.ylnewapp.view.activity.all.MyTest;
-import io.ionic.ylnewapp.view.activity.kline.Enable_Refresh_Activity;
-import io.ionic.ylnewapp.view.activity.mine.CouponsActivity;
 import io.ionic.ylnewapp.view.activity.mine.FriendActivity;
 import io.ionic.ylnewapp.view.activity.mine.MyActiActivity;
 import io.ionic.ylnewapp.view.activity.mine.NotificationActivity;
-import io.ionic.ylnewapp.view.activity.user.LoginActivity;
+import io.ionic.ylnewapp.view.activity.numcoin.NewFriendInvatieActivity;
+import io.ionic.ylnewapp.view.activity.numcoin.NumberCoinInvatieActivity;
 import io.ionic.ylnewapp.view.base.BaseFragment;
 import io.ionic.ylnewapp.view.main.MainActivity;
 
@@ -96,9 +83,7 @@ public class FragmentOne extends BaseFragment {
     @ViewInject(R.id.onescrollView)
     ScrollView scrollView;
 
-//    public List<View> views;
     private ViewPagerAdapter vpAdapter;
-
     @ViewInject(R.id.one_viewpager)
     customViewpagerView one_viewpager;
 
@@ -119,11 +104,11 @@ public class FragmentOne extends BaseFragment {
         switch (view.getId()){
             case R.id.hm_one :
                 MobclickAgent.onEvent(getActivity(), "Homepagetab1");
-                startActivity(new Intent(getActivity(),BitAssesActivity.class));
+                startActivity(new Intent(getActivity(),NumberCoinInvatieActivity.class));
+//                startActivity(new Intent(getActivity(),BitAssesActivity.class));
                 break;
             case R.id.hm_two :
                 MobclickAgent.onEvent(getActivity(), "Homepagetab2");
-//                startActivity(new Intent(getActivity(),CouponsActivity.class));
                 startActivity(new Intent(getActivity(),MyTest.class));
                 break;
             case R.id.hm_three :
@@ -132,7 +117,7 @@ public class FragmentOne extends BaseFragment {
                 break;
             case R.id.hm_four :
                 MobclickAgent.onEvent(getActivity(), "Homepagetab4");
-                startActivity(new Intent(getActivity(),FriendActivity.class));
+                startActivity(new Intent(getActivity(),NewFriendInvatieActivity.class));
                 break;
             case R.id.text_switch :
                 MobclickAgent.onEvent(getActivity(), "Message");
@@ -224,42 +209,8 @@ public class FragmentOne extends BaseFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                int num = 0;
                 if(!bannerData.get(position).getSubTitle().contains("http://")){
-                    switch (bannerData.get(position).getSubTitle()){
-                        case "BET":
-                            num = 0;
-                            break;
-                        case "DIG":
-                            num = 1;
-                            break;
-                        case "AI":
-                            num = 2;
-                            break;
-                        case "ETF":
-                            num = 3;
-                            break;
-                        case "OTC":
-                            num = 4;
-                            break;
-                        case "BTC":
-                            num = 5;
-                            break;
-                        case "ICO":
-                            num = 6;
-                            break;
-                        case "TETF":
-                            num = 7;
-                            break;
-                        case "TBTC":
-                            num = 8;
-                            break;
-                    }
                     toFragment(1);
-                    Message message = new Message();
-                    message.what= num;
-                    FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(getActivity());
-                    myHandler.sendMessage(message);
                 }else {
                     Intent intent = new Intent(getActivity(), BannerDeatilActivity.class);
                     intent.putExtra("url", bannerData.get(position).getSubTitle());
@@ -350,42 +301,6 @@ public class FragmentOne extends BaseFragment {
                 });
     }
 
-    private void  toTwo(List<HomeBean.BodyBean.PushBean>PUSHData,int position){
-        MobclickAgent.onEvent(getActivity(), "Recommend");
-        int num = 0;
-        switch (PUSHData.get(position).getKey()){
-            case "DIG":
-                num = 0;
-                break;
-            case "AI":
-                num = 1;
-                break;
-            case "ETF":
-                num = 2;
-                break;
-            case "OTC":
-                num = 3;
-                break;
-            case "BTC":
-                num = 4;
-                break;
-            case "ICO":
-                num = 5;
-                break;
-            case "TETF":
-                num = 6;
-                break;
-            case "TBTC":
-                num = 7;
-                break;
-        }
-        toFragment(1);
-        Message message = new Message();
-        message.what= num;
-        FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(getActivity());
-        myHandler.sendMessage(message);
-    }
-
     /**
      * 底部list
      * @param hotData
@@ -397,38 +312,7 @@ public class FragmentOne extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MobclickAgent.onEvent(getActivity(), "Hot");
-                int num = 0;
-                switch (hotData.get(position).getKey()){
-                    case "DIG":
-                        num = 0;
-                        break;
-                    case "AI":
-                        num = 1;
-                        break;
-                    case "ETF":
-                        num = 2;
-                        break;
-                    case "OTC":
-                        num = 3;
-                        break;
-                    case "BTC":
-                        num = 4;
-                        break;
-                    case "ICO":
-                        num = 5;
-                        break;
-                    case "TETF":
-                        num = 6;
-                        break;
-                    case "TBTC":
-                        num = 7;
-                        break;
-                }
                 toFragment(1);
-                Message message = new Message();
-                message.what= num;
-                FragmentTwo.MyHandler myHandler = new FragmentTwo.MyHandler(getActivity());
-                myHandler.sendMessage(message);
             }
         });
     }
@@ -478,7 +362,8 @@ public class FragmentOne extends BaseFragment {
             view_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    toTwo(pushBeans,i);
+                    MobclickAgent.onEvent(getActivity(), "Recommend");
+                    toFragment(1);
                 }
             });
             textView.setText(pushBeans.get(i).getName());

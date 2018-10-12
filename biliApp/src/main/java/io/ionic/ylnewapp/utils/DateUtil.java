@@ -21,6 +21,10 @@ public  class DateUtil {
     }
 
 
+    public static String getYmdHMSforJson(String time){
+        return time.substring(0,19);
+    }
+
 
     //不知道了
     public static String getDTofSystem(String json){

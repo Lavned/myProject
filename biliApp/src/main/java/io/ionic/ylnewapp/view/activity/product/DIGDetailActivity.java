@@ -22,7 +22,6 @@ import io.ionic.ylnewapp.constants.Constants;
 import io.ionic.ylnewapp.utils.ActivityUtils;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.T;
-import io.ionic.ylnewapp.view.activity.custompwd.PayFragment;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class DIGDetailActivity extends BaseActivity {

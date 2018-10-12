@@ -1,4 +1,4 @@
-package io.ionic.ylnewapp.view.twofragment;
+package io.ionic.ylnewapp.view.productfragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,7 +38,6 @@ import io.ionic.ylnewapp.utils.PreferenceUtils;
 import io.ionic.ylnewapp.utils.StringUtils;
 import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.activity.product.OtherDetailActivity;
-import io.ionic.ylnewapp.view.activity.product.ProductAIActivity;
 
 /**
  * Created by cmo on 16-7-21.

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -17,16 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
-import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.view.annotation.ViewInject;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.utils.PreferenceUtils;
-import io.ionic.ylnewapp.view.activity.mine.HelpActivity;
 import io.ionic.ylnewapp.view.base.BaseActivity;
-
-import static io.ionic.ylnewapp.constants.Constants.WbUrl.webeHelp;
 
 public class BannerDeatilActivity extends BaseActivity {
 

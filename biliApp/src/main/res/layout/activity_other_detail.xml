@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/bz"
                     android:padding="10dp"
-                    android:text="BTC"
+                    android:text="OTC"
                     android:textColor="@color/black_6"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -87,7 +87,6 @@
 
         </RelativeLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,37 +109,43 @@
                 android:layout_height="0.5dp"
                 android:background="@mipmap/me_line_2x" />
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="5dp"
                 android:background="@color/white"
                 android:paddingHorizontal="10dp">
 
                 <TextView
-                    android:id="@+id/yezf"
+                    android:id="@+id/btc"
                     style="@style/two_toggle_text_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/other_icon"
+                    android:drawableLeft="@mipmap/zf_btc2x"
                     android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:text="余额支付" />
+                    android:text="" />
 
-                <TextView
-                    android:id="@+id/balance"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/payBTCEd"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/btc"
+                    android:background="@drawable/gray10"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/yezf"
-                    android:text="(您的余额为0元)"
-                    android:textColor="@color/red"
-                    android:textSize="10sp" />
+                    android:textColor="@color/black_6"
+                    android:textSize="11sp" />
 
                 <CheckBox
-                    android:id="@+id/cb_money"
+                    android:checked="true"
+                    android:id="@+id/payBTC"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
@@ -150,34 +155,49 @@
                     android:layout_marginVertical="5dp"
                     android:background="@drawable/choosepay"
                     android:button="@null"
-                    android:checked="true"
                     android:padding="10dp" />
             </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@mipmap/me_line_2x" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:background="@color/white"
                 android:paddingHorizontal="10dp">
 
                 <TextView
+                    android:id="@+id/etf"
                     style="@style/two_toggle_text_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/icon_card"
+                    android:drawableLeft="@mipmap/zf_eth2x"
                     android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:text="银行卡支付" />
+                    android:text="" />
+
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/payETHEd"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/etf"
+                    android:background="@drawable/gray10"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black_6"
+                    android:textSize="11sp" />
 
                 <CheckBox
-                    android:id="@+id/cb_card"
+                    android:id="@+id/payETH"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
@@ -189,6 +209,60 @@
                     android:button="@null"
                     android:padding="10dp" />
             </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@mipmap/me_line_2x" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/RMB"
+                    style="@style/two_toggle_text_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/zf_fb2x"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="" />
+
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/payRMBEd"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/RMB"
+                    android:background="@drawable/gray10"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black_6"
+                    android:textSize="11sp" />
+
+                <CheckBox
+                    android:id="@+id/payRMB"
+                    android:layout_width="20dp"
+                    android:layout_height="12dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@drawable/showpay"
+                    android:button="@null"
+                    android:padding="10dp" />
+            </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -196,7 +270,102 @@
                 android:background="@mipmap/me_line_2x" />
 
             <LinearLayout
+                android:id="@+id/showFB"
                 android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="25dp"
+                    android:background="@color/white"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/yezf"
+                        style="@style/two_toggle_text_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/other_icon"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:text="余额支付" />
+
+                    <TextView
+                        android:id="@+id/balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/yezf"
+                        android:text="(您的余额为0元)"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_money"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@drawable/choosepay"
+                        android:button="@null"
+                        android:checked="true"
+                        android:padding="10dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@mipmap/me_line_2x" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="25dp"
+                    android:background="@color/white"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        style="@style/two_toggle_text_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/icon_card"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:text="银行卡支付" />
+
+                    <CheckBox
+                        android:id="@+id/cb_card"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@drawable/choosepay"
+                        android:button="@null"
+                        android:padding="10dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@mipmap/me_line_2x" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
                 android:id="@+id/coupons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -322,7 +491,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:text="《智能投顾招募说明》"
             android:textColor="@color/red"
             android:textSize="11sp" />

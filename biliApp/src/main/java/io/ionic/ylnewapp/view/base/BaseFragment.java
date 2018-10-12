@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jiangyy.easydialog.LoadingDialog;
-
 import io.ionic.ylnewapp.R;
 
 

@@ -1,10 +1,8 @@
 package io.ionic.ylnewapp.view.activity.wallet;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,8 +16,6 @@ import java.util.List;
 
 import io.ionic.ylnewapp.R;
 import io.ionic.ylnewapp.adpater.WalletDetailAdapater;
-import io.ionic.ylnewapp.utils.ActivityUtils;
-import io.ionic.ylnewapp.utils.T;
 import io.ionic.ylnewapp.view.base.BaseActivity;
 
 public class WalletDetailActivity extends BaseActivity {

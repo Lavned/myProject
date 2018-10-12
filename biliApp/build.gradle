@@ -6,8 +6,8 @@ android {
         applicationId "io.ionic.ylnewapp"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 20003
-        versionName "2.0.3"
+        versionCode 30000
+        versionName "3.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
