@@ -22,9 +22,9 @@
 //public class OSSUtils {
 //
 ////    //
-//    private static String OSS_ENDPOINT ="http://oss-cn-beijing.aliyuncs.com";
-//    private static String ACCESS_ID = "LTAIjkWsKwye8bkW";
-//    private static String ACCESS_KEY ="daIB1XYRSDIwaEB2baF99BhOjt1NPE";
+//    private static String OSS_ENDPOINT ="";
+//    private static String ACCESS_ID = "";
+//    private static String ACCESS_KEY ="";
 //    static OSSClient oss ;
 //    static OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(ACCESS_ID, ACCESS_KEY);
 //
